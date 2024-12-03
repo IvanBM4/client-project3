@@ -1,10 +1,9 @@
-.Navigation {
+/* .Navigation {
     padding: 0;
     margin: 0;
     color: white;
-    padding: 20px;
     font-size: 25px;
-    filter: drop-shadow(0 0 5px rgb(47, 19, 116)) drop-shadow(0 0 10px rgb(44, 18, 87)) drop-shadow(0 0 20px rgb(87, 18, 18));
+    filter: drop-shadow(0 0 5px rgb(2, 1, 1)) drop-shadow(0 0 10px rgb(251, 250, 253)) drop-shadow(0 0 20px rgb(87, 18, 18));
 }
 
 .Navbar {
@@ -21,5 +20,33 @@
 }
 
 .Navbar .navbar-brand {
-    margin-right: 20px;
+    margin-right: 0px;
 }
+
+.nav-links-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 16px;
+}
+
+.nav-links-group a {
+    color: black;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.nav-links-group a:hover {
+    color: rgb(114, 106, 106);
+}
+
+@media (max-width: 480px) {
+    .nav-links-group {
+        gap: 5px;
+    }
+
+    .nav-links-group a {
+        font-size: 14px;
+    }
+} */
