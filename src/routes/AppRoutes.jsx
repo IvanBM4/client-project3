@@ -1,6 +1,15 @@
+import { Route, Routes } from "react-router-dom"
+import HomePage from "../pages/HomePage/HomePage"
+import ActivitiesPage from "../pages/ActivitiesPage/ActivitiesPage"
+
+
 const AppRoutes = () => {
+
     return (
-        <h1>Rutas</h1>
+        <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/planes" element={<ActivitiesPage />} />
+        </Routes>
     )
 }
 
