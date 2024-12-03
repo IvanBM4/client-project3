@@ -1,0 +1,16 @@
+.footer {
+    background-color: black;
+    margin-top: auto;
+}
+
+.footer p {
+    color: white;
+}
+
+.social-buttons button {
+    width: 50px;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
