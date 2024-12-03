@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="footer">
             <footer className="footer bg-dark text-center py-4">
                 <Container>
-                    <p>Bienvenido a la plataforma definitiva para los amantes de la fiesta. Aquí puedes comprar entradas para los mejores eventos de Techno y Reguetón, y además, si eres organizador, publicar tus propias fiestas para que la comunidad las descubra y adquiera entradas. ¡Conéctate con la mejor música, las mejores fiestas, y lleva tu evento al siguiente nivel!</p>
+                    <p>Bienvenido a una plataforma que te permite descubrir y unirte a planes deportivos en toda España. Encuentra actividades como senderismo, ciclismo o fútbol, y conéctate con personas que comparten tus intereses. A través de un mapa interactivo, podrás localizar eventos cercanos, apuntarte y conocer nuevos compañeros de equipo o entrenamiento. Ideal para todos los niveles, desde principiantes hasta expertos, la plataforma fomenta la actividad física y la socialización. Organiza tus propios eventos o participa en los existentes, todo desde una misma herramienta. ¡Mantente activo, explora nuevas actividades y amplía tu red deportiva en SportPlan Connect!</p>
                     <div className="social-buttons">
                         <Button
                             className="rounded-circle mx-2 p-3"
@@ -28,6 +28,20 @@ const Footer = () => {
                         >
                             <FontAwesomeIcon icon={faTwitter} color="white" />
                         </Button>
+                        <h4>Explora</h4>
+                    </div>
+
+                    <div className="footer-info">
+
+                        <div class="col-xs-6 col-md-6 col-sm-6" >
+                            <ul style={{ padding: '0', listStyleType: 'none' }}>
+                                <li><a rel="#" href="#" style={{ color: 'white', textDecoration: 'none' }}>Mapa de España </a></li>
+                                <li><a rel="#" href="#" style={{ color: 'white', textDecoration: 'none' }}>Explora por Fotos</a></li>
+                                <li><a rel="#" href="#" style={{ color: 'white', textDecoration: 'none' }}>Encuentra el plan que mas se adate a ti</a></li>
+                                <li><a rel="#" href="#" style={{ color: 'white', textDecoration: 'none' }}>Quienes somos </a></li>
+
+                            </ul>
+                        </div>
                     </div>
                 </Container>
             </footer>
