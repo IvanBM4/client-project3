@@ -1,11 +1,12 @@
 import ActivityCard from "../ActivityCard/ActivityCard"
 
+const ActivitiesList = ({ activities }) => {
 
-const ActivitiesList = () => {
+
     return (
         <div className="ActivitiesList">
-            <h2>Lista de planes</h2>
-            <ActivityCard />
+            <h2>Lista de planes y hay ahora {activities.length} planes</h2>
+            <ActivityCard activities={activities} />
         </div>
     )
 }
