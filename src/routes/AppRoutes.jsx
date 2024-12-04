@@ -11,6 +11,7 @@ import ReviewsList from "../components/ReviewsList/ReviewsList"
 import PrivateRoute from "./PrivateRoute"
 import NewActivityPage from "../pages/NewActivityPage/NewActivityPage"
 import ProfilePage from "../pages/ProfilePage/ProfilePage"
+import EditActivityPage from "../pages/EditActivityPage/EditActivityPage"
 
 
 
@@ -33,6 +34,7 @@ const AppRoutes = () => {
             <Route element={<PrivateRoute />}>
                 <Route path={'/crear'} element={<NewActivityPage />} />
                 <Route path={'/perfil'} element={<ProfilePage />} />
+                <Route path={'/editar-plan/:id'} element={<EditActivityPage />} />
             </Route>
         </Routes>
     )

@@ -35,9 +35,7 @@ const AuthProviderWrapper = (props) => {
         }
     }
 
-    useEffect(() => {
-        authenticateUser
-    }, [])
+    useEffect(() => authenticateUser, [])
 
     return (
         <AuthContext.Provider value={{

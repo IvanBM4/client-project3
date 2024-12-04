@@ -6,10 +6,8 @@ const PrivateRoute = () => {
     const { isLoggedIn } = useContext(AuthContext);
 
     if (!isLoggedIn) {
-        return <Navigate to="/inicio-sesion" />
+        return <Navigate to="/iniciar-sesion" />
     }
-
-
 
     return <Outlet />
 }
