@@ -6,7 +6,7 @@ const ReviewForm = () => {
 
     return (
 
-        <div className="reviewform">
+        <div className="ReviewForm">
 
             <Container>
                 <Form className="mb-5">

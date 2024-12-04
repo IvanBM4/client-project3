@@ -14,7 +14,6 @@ class AuthServicies {
             if (storedToken) {
                 config.headers = { Authorization: `Bearer ${storedToken}` }
             }
-
             return config
         })
     }

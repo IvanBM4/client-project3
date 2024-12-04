@@ -1,14 +1,15 @@
-import { Container } from "react-bootstrap"
 import "./NewActivityPage.css"
+import CreateActivityForm from "../../components/CreateActivityForm/CreateActivityForm"
 
 const NewActivityPage = () => {
 
     return (
         <div className="NewActivityPage">
-            <Container>
-                <h1>TITULO PARA VER SI FUNCIONA</h1>
-            </Container>
+
+            <CreateActivityForm />
+
         </div>
     )
 }
+
 export default NewActivityPage
