@@ -2,9 +2,12 @@ import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-function ReviewForm() {
+const ReviewForm = () => {
+
     return (
+
         <div className="reviewform">
+
             <Container>
                 <Form className="mb-5">
 
@@ -42,8 +45,11 @@ function ReviewForm() {
                     </Button>
                 </Form>
             </Container>
+
         </div>
-    );
+
+    )
+
 }
 
 export default ReviewForm;

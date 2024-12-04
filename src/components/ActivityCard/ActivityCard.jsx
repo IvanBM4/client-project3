@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 const ActivityCard = ({ name, description, cover, _id }) => {
 
     return (
+
         <div className='ActivityCard'>
             <Card >
                 <Card.Img variant="top" src={cover} />
@@ -14,7 +15,8 @@ const ActivityCard = ({ name, description, cover, _id }) => {
                 </Card.Body>
             </Card>
         </div>
-    );
+
+    )
 }
 
 export default ActivityCard;

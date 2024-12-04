@@ -10,7 +10,9 @@ const ReviewsCard = ({ _id, title, content, author }) => {
     const { loggedUser } = useContext(AuthContext)
 
     return (
+
         <article className='ReviewsCard mb-3'>
+
             <Card>
                 <Card.Body>
                     <Card.Title>{title}</Card.Title>
@@ -19,23 +21,48 @@ const ReviewsCard = ({ _id, title, content, author }) => {
                     <div className="d-grid">
                         {
                             author._id === loggedUser?._id ?
-                                <>
+                                <div className="review-buttons">
                                     <ButtonGroup aria-label="Basic example">
-                                        <Button variant='dark' size='sm' as={Link} to={`/review/${_id}`}>View Details</Button>
-                                        <Button variant='warning' size='sm' as={Link} to={`/review/edit/${_id}`}>Edit</Button>
-                                        <Button variant='danger' size='sm' onClick={() => alert('Delete functionality to be implemented')}>Delete</Button>
+                                        <Button
+                                            variant='dark'
+                                            size='sm'
+                                            as={Link}
+                                            to={`/review/${_id}`}>
+                                            View Details
+                                        </Button>
+                                        <Button
+                                            variant='warning'
+                                            size='sm'
+                                            as={Link}
+                                            to={`/review/edit/${_id}`}>
+                                            Edit
+                                        </Button>
+                                        <Button
+                                            variant='danger'
+                                            size='sm'
+                                            onClick={() => alert('Delete functionality to be implemented')}>
+                                            Delete
+                                        </Button>
                                     </ButtonGroup>
-                                </>
+                                </div>
                                 :
-                                <>
-                                    <Button variant='dark' size='sm' as={Link} to={`/review/${_id}`}>View Details</Button>
-                                </>
+                                <div className="review-button-details">
+                                    <Button
+                                        variant='dark'
+                                        size='sm'
+                                        as={Link} to={`/review/${_id}`}>
+                                        View Details
+                                    </Button>
+                                </div>
                         }
                     </div>
                 </Card.Body>
             </Card>
+
         </article>
+
     )
+
 }
 
 export default ReviewsCard

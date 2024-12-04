@@ -2,9 +2,14 @@ import { Container, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import './Footer.css'
+
+
 const Footer = () => {
+
     return (
+
         <div className="footer">
+
             <footer className="footer bg-dark text-center py-4">
                 <Container>
                     <p>Bienvenido a una plataforma que te permite descubrir y unirte a planes deportivos en toda España. Encuentra actividades como senderismo, ciclismo o fútbol, y conéctate con personas que comparten tus intereses. A través de un mapa interactivo, podrás localizar eventos cercanos, apuntarte y conocer nuevos compañeros de equipo o entrenamiento. Ideal para todos los niveles, desde principiantes hasta expertos, la plataforma fomenta la actividad física y la socialización. Organiza tus propios eventos o participa en los existentes, todo desde una misma herramienta. ¡Mantente activo, explora nuevas actividades y amplía tu red deportiva en SportPlan Connect!</p>
@@ -45,10 +50,10 @@ const Footer = () => {
                     </div>
                 </Container>
             </footer>
+
         </div>
+
     )
-
-
 
 }
 export default Footer

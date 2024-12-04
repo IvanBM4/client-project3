@@ -3,8 +3,8 @@ import ActivityCard from "../ActivityCard/ActivityCard"
 
 const ActivitiesList = ({ activities }) => {
 
-
     return (
+
         <div className="ActivitiesList">
             <Row>
                 {
@@ -18,6 +18,7 @@ const ActivitiesList = ({ activities }) => {
                 }
             </Row>
         </div>
+
     )
 }
 

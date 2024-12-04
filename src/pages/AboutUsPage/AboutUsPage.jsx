@@ -4,7 +4,9 @@ import './AboutUsPage.css';
 
 
 const AboutUsPage = () => {
+
     return (
+
         <Container className="mt-5">
             <header className="about-us-header text-center mb-4">
                 <h1>Sobre Nosotros</h1>
@@ -37,7 +39,9 @@ const AboutUsPage = () => {
                 </ul>
             </section>
         </Container>
-    );
+
+    )
+
 }
 
 export default AboutUsPage;
