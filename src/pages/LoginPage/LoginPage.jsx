@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../LoginPage/LoginPage.css"
+import LoginForm from '../../components/LoginForm/LoginForm';
 
 const LoginPage = () => {
+
+
+
     return (
         <div>
-
             <h1>Login Page </h1>
-            {/*aqui puede ir el formulario de inicio de sesion soy genial jeje*/}
-
+            <LoginForm />
         </div>
     );
 };
