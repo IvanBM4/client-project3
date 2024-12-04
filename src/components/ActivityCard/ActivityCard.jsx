@@ -1,13 +1,20 @@
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
-
-const ActivityCard = ({ activities }) => {
+const ActivityCard = ({ name, description, cover, _id }) => {
 
     return (
-        <div className="ActivityCard">
-            <h3>Soy la primera actividad que se llama {activities[0].name} </h3>
+        <div className='ActivityCard'>
+            <Card >
+                <Card.Img variant="top" src={cover} />
+                <Card.Body>
+                    <Card.Title>{name}</Card.Title>
+                    <Card.Text>{description}</Card.Text>
+                    <Button variant='dark'>Descubre más sobre este plan</Button>
+                </Card.Body>
+            </Card>
         </div>
-    )
-
+    );
 }
 
-export default ActivityCard
+export default ActivityCard;
