@@ -8,6 +8,9 @@ import SignUpPage from "../pages/SignUpPage/SignUpPage"
 import NotFound from "../pages/NotFoundPage/NotFoundPage"
 import ReviewsCard from "../components/ReviewsCard/ReviewsCard"
 import ReviewsList from "../components/ReviewsList/ReviewsList"
+import PrivateRoute from "./PrivateRoute"
+import NewActivityPage from "../pages/NewActivityPage/NewActivityPage"
+import ProfilePage from "../pages/ProfilePage/ProfilePage"
 
 
 
@@ -20,11 +23,17 @@ const AppRoutes = () => {
             <Route path="/planes" element={<ActivitiesPage />} />
             <Route path="/sobre-nosotros" element={<AboutUsPage />} />
             <Route path="/planes/detalles/:id" element={<ActivityDetailsPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/sign-up" element={<SignUpPage />} />
+            <Route path="/iniciar-sesion" element={<LoginPage />} />
+            <Route path="/registro" element={<SignUpPage />} />
             <Route path="/reviews" element={<ReviewsCard />} />
-            <Route path="/reviewslist" element={<ReviewsList />} />
+            <Route path="/opiniones" element={<ReviewsList />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/añade-un-plan" element={<NewActivityPage />} />
+            <Route path="/perfil" element={<ProfilePage />} />
+            <Route element={<PrivateRoute />}>
+                <Route path={'/crear'} element={<NewActivityPage />} />
+                <Route path={'/perfil'} element={<ProfilePage />} />
+            </Route>
         </Routes>
     )
 }
