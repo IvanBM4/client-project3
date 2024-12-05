@@ -1,0 +1,33 @@
+.ActivityDetailsPage {
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-right: 50px;
+}
+
+.header h1 {
+    flex: 1;
+    margin: 0;
+    font-size: 2rem;
+}
+
+.image-container {
+    flex-shrink: 0;
+    margin-left: 20px;
+}
+
+.image-container img {
+    width: 500px;
+    height: auto;
+}
+
+.buttons-container {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}

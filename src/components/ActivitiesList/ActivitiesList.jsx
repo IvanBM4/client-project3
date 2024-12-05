@@ -12,11 +12,6 @@ const ActivitiesList = ({ activities, fetchActivities }) => {
             .catch((err) => console.log(err))
     }
 
-    const editActivity = () => {
-        activitiesServices
-
-    }
-
     return (
 
 
@@ -28,6 +23,7 @@ const ActivitiesList = ({ activities, fetchActivities }) => {
                             <Col xs={12} md={4} key={elm._id} className="mb-4">
                                 <ActivityCard {...elm}
                                     deleteActivity={deleteActivity}
+                                    fetchActivities={fetchActivities}
                                 />
 
                             </Col>

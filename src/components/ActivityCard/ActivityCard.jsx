@@ -1,10 +1,11 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { ButtonGroup, Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import EditActivityForm from '../EditActivityForm/EditActivityForm';
+import './ActivityCard.css'
 
-const ActivityCard = ({ name, description, cover, host, _id, deleteActivity }) => {
+const ActivityCard = ({ name, description, cover, host, _id, deleteActivity, fetchActivities }) => {
 
     const [showModal, setShowModal] = useState(false)
     const [showEditModal, setEditShowModal] = useState(false)
@@ -67,7 +68,7 @@ const ActivityCard = ({ name, description, cover, host, _id, deleteActivity }) =
                     <Modal.Title>Editar Actividad</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <EditActivityForm id={_id} />
+                    <EditActivityForm id={_id} closeModal={handleCloseEditModal} fetchActivities={fetchActivities} />
                 </Modal.Body>
             </Modal>
         </div>
