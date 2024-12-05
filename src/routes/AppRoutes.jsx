@@ -29,12 +29,12 @@ const AppRoutes = () => {
             <Route path="/reviews" element={<ReviewsCard />} />
             <Route path="/opiniones" element={<ReviewsList />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/añade-un-plan" element={<NewActivityPage />} />
             <Route path="/perfil" element={<ProfilePage />} />
             <Route element={<PrivateRoute />}>
-                <Route path={'/crear'} element={<NewActivityPage />} />
-                <Route path={'/perfil'} element={<ProfilePage />} />
-                <Route path={'/editar-plan/:id'} element={<EditActivityPage />} />
+                <Route path='/crear' element={<NewActivityPage />} />
+                <Route path='/perfil' element={<ProfilePage />} />
+                <Route path="/añade-un-plan" element={<NewActivityPage />} />
+                <Route path='/editar-plan/:id' element={<EditActivityPage />} />
             </Route>
         </Routes>
     )

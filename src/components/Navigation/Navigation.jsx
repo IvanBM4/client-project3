@@ -1,15 +1,22 @@
+import { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/auth.context';
 
-function Navigation() {
+const Navigation = () => {
+
+    const { loggedUser } = useContext(AuthContext)
+
     return (
+
         <div className="Navigation">
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container fluid>
-                    <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+                    <Navbar.Brand >Navbar scroll</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Form className="d-flex me-auto">
@@ -26,10 +33,11 @@ function Navigation() {
                             style={{ maxHeight: '100px' }}
                             navbarScroll
                         >
-                            <Nav.Link href="#action1">Planes</Nav.Link>
-                            <Nav.Link href="#action2">Crea tu plan</Nav.Link>
-                            <Nav.Link href="#action3" disabled>Iniciar Sesión</Nav.Link>
-                            <Nav.Link href="#action4" disabled>Regístrate</Nav.Link>
+                            <Nav.Link as={Link} to='/planes' >Planes</Nav.Link>
+                            {loggedUser && <Nav.Link as={Link} to='/añade-un-plan'>Crea tu plan</Nav.Link>}
+                            {loggedUser && <Nav.Link as={Link} to='/perfil'>Perfil</Nav.Link>}
+                            {!loggedUser && <Nav.Link as={Link} to='/iniciar-sesion'>Iniciar Sesión</Nav.Link>}
+                            {!loggedUser && <Nav.Link as={Link} to='/registro'>Regístrate</Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

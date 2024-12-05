@@ -31,7 +31,6 @@ const ActivitiesPage = () => {
                     <h1>Encuentra el plan que mejor se adate a ti</h1>
                     <h2>Lista de planes y hay ahora {activities.length} planes</h2>
                     <ActivitiesList activities={activities} fetchActivities={fetchActivities} />
-
                 </div>
             </Container>
 

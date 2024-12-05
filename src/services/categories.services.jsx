@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from "axios"
 
-class AuthServicies {
+class CategoriesServicies {
 
     constructor() {
 
@@ -21,22 +21,14 @@ class AuthServicies {
 
     }
 
-    signupUser(userData) {
-        return this.axiosApp.post('/signup', userData)
+    fetchExistentCategories() {
+        return this.axiosApp.get(`/activities/categories`)
     }
 
-    loginUser(userData) {
-        return this.axiosApp.post('/login', userData)
-    }
-
-    verifyUser(token) {
-        return this.axiosApp.get('/verify', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
+    fetchAllowedCategories() {
+        return this.axiosApp.get(`/categories-allowed`)
     }
 
 }
 
-export default new AuthServicies
+export default new CategoriesServicies

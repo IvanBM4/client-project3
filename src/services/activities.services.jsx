@@ -18,6 +18,7 @@ class ActivitiesServicies {
 
             return config
         })
+
     }
 
     fetchActivities() {
