@@ -37,6 +37,9 @@ class AuthServicies {
         })
     }
 
+    getOneUser(id) {
+        return this.axiosApp.get(`/user/${id}`)
+    }
 }
 
 export default new AuthServicies
