@@ -21,11 +21,11 @@ class AccesibilitiesServicies {
 
     }
 
-    fetchExistentTargets() {
+    fetchExistentAccesibilities() {
         return this.axiosApp.get(`/activities/accesibilities`)
     }
 
-    fetchAllowedTargets() {
+    fetchAllowedAccesibilities() {
         return this.axiosApp.get(`/accesibilities-allowed`)
     }
 

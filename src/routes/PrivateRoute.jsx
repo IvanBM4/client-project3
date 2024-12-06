@@ -3,10 +3,12 @@ import { Navigate, Outlet } from "react-router-dom";
 import { AuthContext } from "../contexts/auth.context";
 
 const PrivateRoute = () => {
-    const { loggedUser, isFetchingUser } = useContext(AuthContext);
+
+    const { loggedUser, isFetchingUser } = useContext(AuthContext)
+
     if (isFetchingUser) {
 
-        if (!isLoggedIn) {
+        if (!loggedUser) {
             return <Navigate to="/iniciar-sesion" />
         }
     }

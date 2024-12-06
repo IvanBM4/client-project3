@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { ButtonGroup, Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import EditActivityForm from '../EditActivityForm/EditActivityForm';
 import './ActivityCard.css'
+import { AuthContext } from '../../contexts/auth.context'
 
 const ActivityCard = ({ name, description, cover, host, _id, deleteActivity, fetchActivities }) => {
+
+    const { loggedUser } = useContext(AuthContext)
 
     const [showModal, setShowModal] = useState(false)
     const [showEditModal, setEditShowModal] = useState(false)
@@ -38,14 +41,18 @@ const ActivityCard = ({ name, description, cover, host, _id, deleteActivity, fet
                     <Card.Title>{name}</Card.Title>
                     <Card.Text>{description}</Card.Text>
 
-                    <ButtonGroup>
+                    {host && host === loggedUser?._id ? <ButtonGroup>
                         <Button variant='dark' size='sm'>Descubre más sobre este plan</Button>
 
                         <Button variant='danger' size='sm' onClick={handleShowModal}>Eliminar este plan</Button>
 
                         <Button variant='dark' size='sm' onClick={handleShowEditModal}>Editar este plan</Button>
 
-                    </ButtonGroup>
+                    </ButtonGroup> :
+                        <ButtonGroup>
+                            <Button variant='dark' size='sm'>Descubre más sobre este plan</Button>
+
+                        </ButtonGroup>}
 
                 </Card.Body>
             </Card>

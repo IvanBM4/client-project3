@@ -3,9 +3,12 @@ import Form from 'react-bootstrap/Form';
 import '../../services/activities.services'
 import activitiesServices from '../../services/activities.services';
 import { useEffect, useState } from 'react';
+import categoriesServices from "../../services/categories.services";
+import targetsServices from "../../services/targets.services";
+import accesibilitiesServices from "../../services/accesibilities.services";
 
 const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
-    console.log(id);
+
 
     const [activityData, setActivityData] = useState({
         name: '',
@@ -33,9 +36,44 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
 
     useEffect(() => {
         fetchOneActivity()
+        fetchAllowedCategories()
+        fetchAllowedTargets()
+        fetchAllowedAccesibilities()
     }, [])
 
+    const [categoriesSelection, setCategoriesSelection] = useState([])
+    const [targetsSelection, setTargetsSelection] = useState([])
+    const [accesibilitiesSelection, setAccesibilitiesSelection] = useState([])
+
+    const fetchAllowedCategories = () => {
+
+        categoriesServices
+            .fetchAllowedCategories()
+            .then(({ data }) => {
+                setCategoriesSelection(data)
+            })
+    }
+
+    const fetchAllowedTargets = () => {
+
+        targetsServices
+            .fetchAllowedTargets()
+            .then(({ data }) => {
+                setTargetsSelection(data)
+            })
+    }
+
+    const fetchAllowedAccesibilities = () => {
+
+        accesibilitiesServices
+            .fetchAllowedAccesibilities()
+            .then(({ data }) => {
+                setAccesibilitiesSelection(data)
+            })
+    }
+
     const editActivity = (id, updatedData) => {
+
         activitiesServices
             .editActivity(id, updatedData)
             .then(() => {
@@ -43,9 +81,10 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
             })
             .catch((err) => {
                 console.error(err)
-                alert(' error al actualizar la actividad')
-            });
-    };
+                alert('error al actualizar la actividad')
+            })
+    }
+
     const handleActivityChange = e => {
         const { name, value, checked, type } = e.target
         const result = type === 'checkbox' ? checked : value
@@ -62,8 +101,50 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
         const { name, value } = e.target
         setLocationData({ ...locationData, [name]: value })
     }
-    const handleSubmit = (e) => {
-        e.preventDefault();
+
+    const handleCategoriesChange = (e, idx) => {
+        const { value } = e.target
+        const categoriesCopy = [...activityData.categories]
+        categoriesCopy[idx] = value
+        setActivityData({ ...activityData, categories: categoriesCopy })
+    }
+
+    const addNewCategory = () => {
+        const categoriesCopy = [...activityData.categories]
+        categoriesCopy.push('')
+        setActivityData({ ...activityData, categories: categoriesCopy })
+    }
+
+    const handleTargetChange = (e, idx) => {
+        const { value } = e.target
+        const targetCopy = [...activityData.target]
+        targetCopy[idx] = value
+        setActivityData({ ...activityData, target: targetCopy })
+
+    }
+
+    const addNewTarget = () => {
+        const targetCopy = [...activityData.target]
+        targetCopy.push('')
+        setActivityData({ ...activityData, target: targetCopy })
+    }
+
+    const handleAccesibilityChange = (e, idx) => {
+        const { value } = e.target
+        const accesibilityCopy = [...activityData.accesibility]
+        accesibilityCopy[idx] = value
+        setActivityData({ ...activityData, accesibility: accesibilityCopy })
+    }
+
+    const addNewAccesibility = () => {
+        const accesibilityCopy = [...activityData.accesibility]
+        accesibilityCopy.push('')
+        setActivityData({ ...activityData, accesibility: accesibilityCopy })
+    }
+
+
+    const handleSubmit = e => {
+        e.preventDefault()
 
         const updatedData = {
             ...activityData,
@@ -78,7 +159,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
             },
         };
 
-        editActivity(id, updatedData);
+        editActivity(id, updatedData)
         fetchActivities()
         closeModal()
 
@@ -218,65 +299,107 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                         />
                     </Form.Group>
                 </Row>
-                <Row>
-                    <Form.Group as={Col} xs={4} controlId='formActivityTarget'>
-                        <Form.Label>Orientado a</Form.Label>
-                        <Form.Select
-                            name="target"
-                            value={activityData.target}
 
-                            aria-label="Seleccione una opción">
-                            <option>Selecciona a quién está orientado el plan:</option>
-                            <option value="1">Familiar</option>
-                            <option value="2">Con amigos</option>
-                            <option value="3">Con tu pareja</option>
-                            <option value="4">Con tus hijos</option>
-                            <option value="5">Tu solo</option>
-                        </Form.Select>
+                <Row>
+
+                    <Form.Group as={Col} xs={4} controlId='formActivityDuration'>
+                        <Form.Label>Duración</Form.Label>
+                        <Form.Control placeholder="Añada la duración" type='number' />
                     </Form.Group>
+
                     <Form.Group as={Col} xs={4} controlId='formActivityDate'>
                         <Form.Label>Fecha</Form.Label>
                         <Form.Control
                             type="date" />
                     </Form.Group>
+
                     <Form.Group as={Col} xs={4} controlId='formActivityPrice'>
                         <Form.Label>Precio</Form.Label>
                         <Form.Control placeholder="Añada el nuevo precio" type='number' />
                     </Form.Group>
+
                 </Row>
                 <Row>
-                    <Form.Group as={Col} xs={6} controlId='formActivityTarget'>
+
+                    <Form.Group as={Col} xs={6} controlId='formActivityCategories'>
+
+                        <Form.Label>Categorías</Form.Label>
+
+                        {activityData.categories.map((elm, idx) => {
+                            return (<Form.Select
+                                key={idx}
+                                name="categories"
+                                aria-label="Seleccione una categoría"
+                                value={elm}
+                                onChange={e => handleCategoriesChange(e, idx)}
+                            >
+                                <option>Selecciona una categoría</option>
+                                {categoriesSelection.map((elm, idx) => {
+                                    return (
+                                        <option value={elm} key={idx}>{elm}</option>
+                                    )
+                                })}
+                            </Form.Select>)
+                        })}
+                        <Button variant='dark' onClick={addNewCategory}>Añadir nueva categoría</Button>
+
+                    </Form.Group>
+
+                    <Form.Group as={Col} xs={6} controlId='formActivityAccesibilities'>
+
+                        <Form.Label>Accesibilidad</Form.Label>
+                        {activityData.accesibility.map((elm, idx) => {
+                            return (<Form.Select
+                                key={idx}
+                                name="accesibility"
+                                aria-label="Seleccione tipos de accesibilidad"
+                                value={elm}
+                                onChange={e => handleAccesibilityChange(e, idx)}
+                            >
+                                {accesibilitiesSelection.map((elm, idx) => {
+                                    return (
+                                        <option value={elm} key={idx}>{elm}</option>
+                                    )
+                                })}
+                            </Form.Select>)
+                        })}
+                        <Button variant='dark' onClick={addNewAccesibility}>Añadir nueva accesibilidad</Button>
+
+                    </Form.Group>
+
+                </Row>
+
+                <Row>
+
+                    <Form.Group as={Col} xs={4} controlId='formActivityTarget'>
+
                         <Form.Label>Orientado a</Form.Label>
-                        <Form.Select aria-label="Seleccione una opción">
-                            <option>Selecciona a quién está orientado el plan:</option>
-                            <option value="1">Para discapacitados</option>
-                            <option value="2">Para niños 7-10 años</option>
-                            <option value="3">Para ancianos</option>
-                            <option value="4">Para embarazadas</option>
-                            <option value="5">Para bebés</option>
-                        </Form.Select>
+
+                        {activityData.target.map((elm, idx) => {
+                            return (<Form.Select
+                                key={idx}
+                                name="target"
+                                onChange={handleTargetChange}
+                                value={elm}
+                                aria-label="Seleccione una opción">
+                                {targetsSelection.map((elm, idx) => {
+                                    return (
+                                        <option value={elm} key={idx}>{elm}</option>
+                                    )
+                                })}
+                            </Form.Select>)
+                        })}
+
+                        <Button variant='dark' onClick={addNewTarget}>Añadir nuevo target</Button>
+
                     </Form.Group>
-                    <Form.Group as={Col} xs={6} controlId='formActivityTarget'>
-                        <Form.Label>Categorias</Form.Label>
-                        <Form.Select aria-label="Seleccione una opción">
-                            <option>Selecciona a quién está orientado el plan:</option>
-                            <option value="1">Para discapacitados</option>
-                            <option value="2">Para niños 7-10 años</option>
-                            <option value="3">Para ancianos</option>
-                            <option value="4">Para embarazadas</option>
-                            <option value="5">Para bebés</option>
-                        </Form.Select>
-                    </Form.Group>
+
                 </Row>
-                <Row>
-                    <Form.Group as={Col} xs={4} controlId='formActivityDuration'>
-                        <Form.Label>Duración</Form.Label>
-                        <Form.Control placeholder="Añada la duración" type='number' />
-                    </Form.Group>
-                </Row>
+
                 <Button variant="dark" type="submit" >
                     Actualizar Evento
                 </Button>
+
             </Form>
         </div>
     );

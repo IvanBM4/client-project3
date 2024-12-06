@@ -1,8 +1,11 @@
-import { useState } from "react"
-import { Container, Form } from "react-bootstrap"
+import { useEffect, useState } from "react"
+import { Container, Dropdown, Form } from "react-bootstrap"
 import { Col, Row, Button } from 'react-bootstrap';
 import activitiesServices from "../../services/activities.services";
 import { useNavigate } from "react-router-dom";
+import categoriesServices from "../../services/categories.services";
+import targetsServices from "../../services/targets.services";
+import accesibilitiesServices from "../../services/accesibilities.services";
 
 const CreateActivityForm = () => {
 
@@ -31,6 +34,44 @@ const CreateActivityForm = () => {
         longitude: 0,
         latitude: 0
     })
+
+    const [categoriesSelection, setCategoriesSelection] = useState([])
+    const [targetsSelection, setTargetsSelection] = useState([])
+    const [accesibilitiesSelection, setAccesibilitiesSelection] = useState([])
+
+    useEffect(() => {
+        fetchAllowedCategories()
+        fetchAllowedTargets()
+        fetchAllowedAccesibilities()
+    }, [])
+
+    const fetchAllowedCategories = () => {
+
+        categoriesServices
+            .fetchAllowedCategories()
+            .then(({ data }) => {
+                setCategoriesSelection(data)
+            })
+    }
+
+    const fetchAllowedTargets = () => {
+
+        targetsServices
+            .fetchAllowedTargets()
+            .then(({ data }) => {
+                setTargetsSelection(data)
+            })
+    }
+
+    const fetchAllowedAccesibilities = () => {
+
+        accesibilitiesServices
+            .fetchAllowedAccesibilities()
+            .then(({ data }) => {
+                setAccesibilitiesSelection(data)
+            })
+    }
+
     const handleActivityChange = e => {
         const { name, value, checked, type } = e.target
         const result = type === 'checkbox' ? checked : value
@@ -47,7 +88,6 @@ const CreateActivityForm = () => {
         setLocationData({ ...locationData, [name]: value })
     }
 
-
     const handleCategoriesChange = (e, idx) => {
         const { value } = e.target
         const categoriesCopy = [...activityData.categories]
@@ -55,22 +95,50 @@ const CreateActivityForm = () => {
         setActivityData({ ...activityData, categories: categoriesCopy })
     }
 
-    const handleTarget = (e, idx) => {
+    const addNewCategory = () => {
+        const categoriesCopy = [...activityData.categories]
+        categoriesCopy.push('')
+        setActivityData({ ...activityData, categories: categoriesCopy })
+    }
+
+    const deleteCategoryField = (idx) => {
+        const newCategories = [...activityData.categories]
+        if (newCategories.length > 1) {
+            newCategories.splice(idx, 1)
+            setGameData({ ...activityData, categories: newCategories })
+        }
+    }
+
+    const handleTargetChange = (e, idx) => {
         const { value } = e.target
         const targetCopy = [...activityData.target]
         targetCopy[idx] = value
         setActivityData({ ...activityData, target: targetCopy })
+
     }
 
-    const handleAccesibility = (e, idx) => {
+    const addNewTarget = () => {
+        const targetCopy = [...activityData.target]
+        targetCopy.push('')
+        setActivityData({ ...activityData, target: targetCopy })
+    }
+
+    const handleAccesibilityChange = (e, idx) => {
         const { value } = e.target
         const accesibilityCopy = [...activityData.accesibility]
         accesibilityCopy[idx] = value
         setActivityData({ ...activityData, accesibility: accesibilityCopy })
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const addNewAccesibility = () => {
+        const accesibilityCopy = [...activityData.accesibility]
+        accesibilityCopy.push('')
+        setActivityData({ ...activityData, accesibility: accesibilityCopy })
+    }
+
+    const handleSubmit = e => {
+
+        e.preventDefault()
 
         const reqPayLoadAddress = {
             ...addressData,
@@ -85,18 +153,20 @@ const CreateActivityForm = () => {
         activitiesServices
             .saveActivity(reqPayLoad)
             .then(() => {
-                alert('nooooooo');
+                alert('Got it');
             })
             .catch(err => {
-                console.error("Error al guardar la actividad:", err);
-            });
+                console.log(err)
+            })
     }
+
 
     return (
         <div className="CreateActivityForm">
             <Container>
                 <Form onSubmit={handleSubmit}>
                     <Row className='mb-3'>
+
                         <Form.Group as={Col} xs={6} controlId='formActivityName'>
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control
@@ -106,6 +176,7 @@ const CreateActivityForm = () => {
                                 onChange={handleActivityChange}
                             />
                         </Form.Group>
+
                         <Form.Group as={Col} xs={6} controlId='formActivityDescription'>
                             <Form.Label>Descripción</Form.Label>
                             <Form.Control
@@ -115,8 +186,11 @@ const CreateActivityForm = () => {
                                 placeholder="Añada la nueva descripción"
                             />
                         </Form.Group>
+
                     </Row>
+
                     <Row>
+
                         <Form.Group as={Col} xs={6} controlId='formActivityImage'>
                             <Form.Label>Imagen</Form.Label>
                             <Form.Control
@@ -127,6 +201,7 @@ const CreateActivityForm = () => {
                                 placeholder="URL de la imagen"
                             />
                         </Form.Group>
+
                         <Form.Group as={Col} xs={6} controlId='formActivityCity'>
                             <Form.Label>Ciudad</Form.Label>
                             <Form.Control
@@ -137,8 +212,11 @@ const CreateActivityForm = () => {
                                 type='text'
                             />
                         </Form.Group>
+
                     </Row>
+
                     <Row>
+
                         <Form.Group as={Col} xs={6} controlId='formActivityStreet'>
                             <Form.Label>Calle</Form.Label>
                             <Form.Control
@@ -149,6 +227,7 @@ const CreateActivityForm = () => {
                                 type='text'
                             />
                         </Form.Group>
+
                         <Form.Group as={Col} xs={6} controlId='formActivityZipcode'>
                             <Form.Label>Código postal</Form.Label>
                             <Form.Control
@@ -159,8 +238,11 @@ const CreateActivityForm = () => {
                                 type='number'
                             />
                         </Form.Group>
+
                     </Row>
+
                     <Row>
+
                         <Form.Group as={Col} xs={6} controlId='formActivityLongitude'>
                             <Form.Label>Longitud</Form.Label>
                             <Form.Control
@@ -171,66 +253,20 @@ const CreateActivityForm = () => {
                                 type='number'
                             />
                         </Form.Group>
+
                         <Form.Group as={Col} xs={6} controlId='formActivityLatitude'>
                             <Form.Label>Latitud</Form.Label>
                             <Form.Control
                                 name='latitude'
-                                value={locationData.latitude} handleLocationsChange
+                                value={locationData.latitude}
                                 onChange={handleLocationsChange}
                                 placeholder="Añada la nueva latitud"
                                 type='number'
                             />
                         </Form.Group>
+
                     </Row>
-                    <Row>
-                        <Form.Group as={Col} xs={4} controlId='formActivityTarget'>
-                            <Form.Label>Orientado a</Form.Label>
-                            <Form.Select
-                                name="target"
-                                value={activityData.target[0]}
-                                onChange={e => handleTarget(e, 0)}
-                                aria-label="Seleccione una opción">
-                                <option>Selecciona a quién está orientado el plan:</option>
-                                <option value='Familiar'>Familiar</option>
-                                <option value='Con amigos'>Con amigos</option>
-                                <option value='Con tu pareja'>Con tu pareja</option>
-                                <option value='Con tus hijos'>Con tus hijos</option>
-                                <option value='Tu solo'>Tu solo</option>
-                            </Form.Select>
-                        </Form.Group>
-                        <Form.Group as={Col} xs={4} controlId='formActivityDate'>
-                            <Form.Label>Fecha</Form.Label>
-                            <Form.Control
-                                type="date"
-                                name="date"
-                                value={activityData.date}
-                                onChange={handleActivityChange}
-                            />
-                        </Form.Group>
-                        <Form.Group as={Col} xs={4} controlId='formActivityPrice'>
-                            <Form.Label>Precio</Form.Label>
-                            <Form.Control placeholder="Añada el nuevo precio" type='number' />
-                        </Form.Group>
-                    </Row>
-                    <Row>
-                        <Form.Group as={Col} xs={6} controlId='formActivityCategories'>
-                            <Form.Label>Categorías</Form.Label>
-                            {activityData.categories.map((elm, idx) => (
-                                <Form.Select
-                                    key={idx}
-                                    name="categories"
-                                    value={elm}
-                                    onChange={e => handleCategoriesChange(e, idx)}
-                                    aria-label="Seleccione una categoría"
-                                >
-                                    <option>Selecciona una categoría:</option>
-                                    <option value="Deportes">Deportes</option>
-                                    <option value="Cultura">Cultura</option>
-                                    <option value="Gastronomía">Gastronomía</option>
-                                </Form.Select>
-                            ))}
-                        </Form.Group>
-                    </Row>
+
                     <Row>
                         <Form.Group as={Col} xs={4} controlId='formActivityDuration'>
                             <Form.Label>Duración</Form.Label>
@@ -242,9 +278,101 @@ const CreateActivityForm = () => {
                                 onChange={handleActivityChange}
                             />
                         </Form.Group>
+
+                        <Form.Group as={Col} xs={4} controlId='formActivityDate'>
+                            <Form.Label>Fecha</Form.Label>
+                            <Form.Control
+                                type="date"
+                                name="date"
+                                onChange={handleActivityChange}
+                            />
+                        </Form.Group>
+
+                        <Form.Group as={Col} xs={4} controlId='formActivityPrice'>
+                            <Form.Label>Precio</Form.Label>
+                            <Form.Control placeholder="Añada el nuevo precio" type='number' />
+                        </Form.Group>
+
+                    </Row>
+
+                    <Row>
+
+                        <Form.Group as={Col} xs={6} controlId='formActivityCategories'>
+
+                            <Form.Label>Categorías</Form.Label>
+
+                            {activityData.categories.map((elm, idx) => {
+                                return (<Form.Select
+                                    key={idx}
+                                    name="categories"
+                                    aria-label="Seleccione una categoría"
+                                    value={elm}
+                                    onChange={e => handleCategoriesChange(e, idx)}
+                                >
+                                    <option>Selecciona una categoría</option>
+                                    {categoriesSelection.map((elm, idx) => {
+                                        return (
+                                            <option value={elm} key={idx}>{elm}</option>
+                                        )
+                                    })}
+
+                                </Form.Select>
+                                )
+                            })}
+                            <Button variant='dark' onClick={addNewCategory}>Añadir nueva categoría</Button>
+
+                        </Form.Group>
+
+                        <Form.Group as={Col} xs={6} controlId='formActivityAccesibilities'>
+
+                            <Form.Label>Accesibilidad</Form.Label>
+                            {activityData.accesibility.map((elm, idx) => {
+                                return (<Form.Select
+                                    key={idx}
+                                    name="accesibility"
+                                    aria-label="Seleccione tipos de accesibilidad"
+                                    value={elm}
+                                    onChange={e => handleAccesibilityChange(e, idx)}
+                                >
+                                    {accesibilitiesSelection.map((elm, idx) => {
+                                        return (
+                                            <option value={elm} key={idx}>{elm}</option>
+                                        )
+                                    })}
+                                </Form.Select>)
+                            })}
+                            <Button variant='dark' onClick={addNewAccesibility}>Añadir nueva accesibilidad</Button>
+
+                        </Form.Group>
+
+                    </Row>
+
+                    <Row>
+                        <Form.Group as={Col} xs={4} controlId='formActivityTarget'>
+
+                            <Form.Label>Orientado a</Form.Label>
+
+                            {activityData.target.map((elm, idx) => {
+                                return (<Form.Select
+                                    key={idx}
+                                    name="target"
+                                    onChange={e => handleTargetChange(e, idx)}
+                                    value={elm}
+                                    aria-label="Seleccione una opción">
+                                    {targetsSelection.map((elm, idx) => {
+                                        return (
+                                            <option value={elm} key={idx}>{elm}</option>
+                                        )
+                                    })}
+                                </Form.Select>)
+                            })}
+
+                            <Button variant='dark' onClick={addNewTarget}>Añadir nuevo target</Button>
+
+                        </Form.Group>
                     </Row>
                     <Button variant="dark" type="submit" >
-                        crear evento
+                        Crear plan
                     </Button>
                 </Form>
             </Container>
