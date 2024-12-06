@@ -9,7 +9,6 @@ import accesibilitiesServices from "../../services/accesibilities.services";
 
 const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
 
-
     const [activityData, setActivityData] = useState({
         name: '',
         cover: '',
@@ -142,8 +141,8 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
         setActivityData({ ...activityData, accesibility: accesibilityCopy })
     }
 
-
     const handleSubmit = e => {
+
         e.preventDefault()
 
         const updatedData = {
@@ -157,13 +156,13 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                 longitude: locationData.longitude,
                 latitude: locationData.latitude,
             },
-        };
+        }
 
         editActivity(id, updatedData)
         fetchActivities()
         closeModal()
 
-    };
+    }
 
     const fetchOneActivity = () => {
         activitiesServices
@@ -211,9 +210,12 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
     }
 
     return (
+
         <div className="editActivityForm">
+
             <Form onSubmit={handleSubmit}>
                 <Row className='mb-3'>
+
                     <Form.Group as={Col} xs={6} controlId='formActivityName'>
                         <Form.Label>Nombre</Form.Label>
                         <Form.Control
@@ -223,6 +225,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                             onChange={handleActivityChange}
                         />
                     </Form.Group>
+
                     <Form.Group as={Col} xs={6} controlId='formActivityDescription'>
                         <Form.Label>Descripción</Form.Label>
                         <Form.Control
@@ -232,8 +235,11 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                             placeholder="Añada la nueva descripción"
                         />
                     </Form.Group>
+
                 </Row>
+
                 <Row>
+
                     <Form.Group as={Col} xs={6} controlId='formActivityImage'>
                         <Form.Label>Imagen</Form.Label>
                         <Form.Control
@@ -244,6 +250,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                             placeholder="URL de la imagen"
                         />
                     </Form.Group>
+
                     <Form.Group as={Col} xs={6} controlId='formActivityCity'>
                         <Form.Label>Ciudad</Form.Label>
                         <Form.Control
@@ -254,8 +261,11 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                             type='text'
                         />
                     </Form.Group>
+
                 </Row>
+
                 <Row>
+
                     <Form.Group as={Col} xs={6} controlId='formActivityStreet'>
                         <Form.Label>Calle</Form.Label>
                         <Form.Control
@@ -266,6 +276,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                             type='text'
                         />
                     </Form.Group>
+
                     <Form.Group as={Col} xs={6} controlId='formActivityZipcode'>
                         <Form.Label>Código postal</Form.Label>
                         <Form.Control
@@ -276,8 +287,11 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                             type='number'
                         />
                     </Form.Group>
+
                 </Row>
+
                 <Row>
+
                     <Form.Group as={Col} xs={6} controlId='formActivityLongitude'>
                         <Form.Label>Longitud</Form.Label>
                         <Form.Control
@@ -288,6 +302,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                             type='number'
                         />
                     </Form.Group>
+
                     <Form.Group as={Col} xs={6} controlId='formActivityLatitude'>
                         <Form.Label>Latitud</Form.Label>
                         <Form.Control
@@ -298,6 +313,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                             type='number'
                         />
                     </Form.Group>
+
                 </Row>
 
                 <Row>
@@ -319,6 +335,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                     </Form.Group>
 
                 </Row>
+
                 <Row>
 
                     <Form.Group as={Col} xs={6} controlId='formActivityCategories'>
@@ -401,8 +418,9 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                 </Button>
 
             </Form>
-        </div>
-    );
-};
 
-export default EditActivityForm;
+        </div>
+    )
+}
+
+export default EditActivityForm
