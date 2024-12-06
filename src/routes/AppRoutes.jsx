@@ -2,22 +2,19 @@ import { Route, Routes } from "react-router-dom"
 import HomePage from "../pages/HomePage/HomePage"
 import ActivitiesPage from "../pages/ActivitiesPage/ActivitiesPage"
 import AboutUsPage from "../pages/AboutUsPage/AboutUsPage"
-import ActivityDetailsPage from "../pages/ActivityDetailsPage/ActivityDetailsPage"
-import LoginPage from "../pages/LoginPage/LoginPage";
+import ActivityDetailsPage from "../pages/ActivityDetailsPage/ActivityDetailsPage.jsx"
+import LoginPage from "../pages/LoginPage/LoginPage"
 import SignUpPage from "../pages/SignUpPage/SignUpPage"
-import NotFound from "../pages/NotFoundPage/NotFoundPage"
-import ReviewsCard from "../components/ReviewsCard/ReviewsCard"
-import ReviewsList from "../components/ReviewsList/ReviewsList"
+import NotFound from "../pages/NotFoundPage/NotFoundPage.jsx"
+import ReviewsCard from "../components/ReviewsCard/ReviewsCard.jsx"
+import ReviewsList from "../components/ReviewsList/ReviewsList.jsx"
 import PrivateRoute from "./PrivateRoute"
 import NewActivityPage from "../pages/NewActivityPage/NewActivityPage"
-import ProfilePage from "../pages/ProfilePage/ProfilePage"
+import ProfilePage from "../pages/ProfilePage/ProfilePage.jsx"
 import EditActivityPage from "../pages/EditActivityPage/EditActivityPage"
 
 
-
-
 const AppRoutes = () => {
-
     return (
         <Routes>
             <Route path="/" element={<HomePage />} />
@@ -29,12 +26,10 @@ const AppRoutes = () => {
             <Route path="/reviews" element={<ReviewsCard />} />
             <Route path="/opiniones" element={<ReviewsList />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/perfil" element={<ProfilePage />} />
             <Route element={<PrivateRoute />}>
-                <Route path='/crear' element={<NewActivityPage />} />
-                <Route path='/perfil' element={<ProfilePage />} />
+                <Route path="/perfil" element={<ProfilePage />} />
                 <Route path="/añade-un-plan" element={<NewActivityPage />} />
-                <Route path='/editar-plan/:id' element={<EditActivityPage />} />
+                <Route path="/editar-plan/:id" element={<EditActivityPage />} />
             </Route>
         </Routes>
     )
