@@ -29,7 +29,7 @@ const AppRoutes = () => {
             <Route path="/reviews" element={<ReviewsCard />} />
             <Route path="/opiniones" element={<ReviewsList />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/perfil" element={<ProfilePage />} />
+            <Route path="/perfil/:id" element={<ProfilePage />} />
             <Route element={<PrivateRoute />}>
                 <Route path='/crear' element={<NewActivityPage />} />
                 <Route path='/perfil' element={<ProfilePage />} />

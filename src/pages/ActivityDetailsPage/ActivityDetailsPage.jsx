@@ -15,6 +15,7 @@ const ActivityDetailsPage = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [showModal, setShowModal] = useState(false)
     const [showReviewModal, setShowReviewModal] = useState(false)
+    const [isExpanded, setIsExpanded] = useState(false);
 
     useEffect(() => {
         fetchOneActivity()
@@ -70,6 +71,7 @@ const ActivityDetailsPage = () => {
     const handleCancelReviewButton = () => {
         setShowReviewModal(false)
     }
+
 
     return (
         isLoading ? <Loader /> :
@@ -127,7 +129,11 @@ const ActivityDetailsPage = () => {
                         <Col>
                             <div className="text-container">
                                 <h1>{activity.name}</h1>
-                                <p>{activity.description}</p>
+                                <div className="module">
+                                    <p className="line-clamp">
+                                        {activity.description}
+                                    </p>
+                                </div>
                                 <p>{activity.address?.city}</p>
                                 <p>{activity.address?.street}</p>
                                 <p>{activity.address?.zipcode}</p>
