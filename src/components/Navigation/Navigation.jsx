@@ -1,15 +1,56 @@
-import { useContext } from 'react';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../../contexts/auth.context';
+import { useContext, useState, useEffect } from 'react'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Form from 'react-bootstrap/Form'
+import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
+import { Link } from 'react-router-dom'
+import { AuthContext } from '../../contexts/auth.context'
 
 const Navigation = () => {
-
     const { loggedUser } = useContext(AuthContext)
+    const [inputValue, setInputValue] = useState('')
+    const [suggestions, setSuggestions] = useState([])
+    const [destinos, setDestinos] = useState([])
+
+    useEffect(() => {
+        const fetchDestinos = async () => {
+            try {
+                const response = await fetch(import.meta.env.VITE_APP_API_URL)
+                const data = await response.json()
+                setDestinos(data)
+            } catch (error) {
+                console.error('Error al cargar destinos:', error)
+            }
+        }
+
+        fetchDestinos()
+    }, [])
+
+    const autoComplete = (input) => {
+        return destinos.filter((valor) => {
+            const valorMinuscula = valor.toLowerCase()
+            const inputMinuscula = input.toLowerCase()
+            return valorMinuscula.includes(inputMinuscula)
+        })
+    }
+
+    const handleInputChange = (event) => {
+        const datosDelCampo = event.target.value
+        setInputValue(datosDelCampo)
+
+        if (datosDelCampo.length > 0) {
+            const autocompleteValores = autoComplete(datosDelCampo)
+            setSuggestions(autocompleteValores)
+        } else {
+            setSuggestions([])
+        }
+    }
+
+    const handleSuggestionClick = (value) => {
+        setInputValue(value)
+        setSuggestions([])
+    }
 
     return (
 
@@ -46,4 +87,4 @@ const Navigation = () => {
     );
 }
 
-export default Navigation;
+export default Navigation
