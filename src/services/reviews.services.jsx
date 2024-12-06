@@ -25,8 +25,12 @@ class ReviewsServices {
         return this.axiosApp.get(`/reviews`)
     }
 
-    fetchReviewsByActivity(id) {
+    fetchOneReview(id) {
         return this.axiosApp.get(`/reviews/${id}`)
+    }
+
+    fetchReviewsByActivity(id) {
+        return this.axiosApp.get(`/reviews/activities/${id}`)
     }
 
     saveReview(reviewData) {

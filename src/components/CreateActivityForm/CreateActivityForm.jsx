@@ -101,11 +101,11 @@ const CreateActivityForm = () => {
         setActivityData({ ...activityData, categories: categoriesCopy })
     }
 
-    const deleteCategoryField = (idx) => {
+    const deleteCategorySelect = (idx) => {
         const newCategories = [...activityData.categories]
         if (newCategories.length > 1) {
             newCategories.splice(idx, 1)
-            setGameData({ ...activityData, categories: newCategories })
+            setActivityData({ ...activityData, categories: newCategories })
         }
     }
 
@@ -123,6 +123,14 @@ const CreateActivityForm = () => {
         setActivityData({ ...activityData, target: targetCopy })
     }
 
+    const deleteTargetSelect = (idx) => {
+        const newTarget = [...activityData.target]
+        if (newTarget.length > 1) {
+            newTarget.splice(idx, 1)
+            setActivityData({ ...activityData, target: newTarget })
+        }
+    }
+
     const handleAccesibilityChange = (e, idx) => {
         const { value } = e.target
         const accesibilityCopy = [...activityData.accesibility]
@@ -134,6 +142,14 @@ const CreateActivityForm = () => {
         const accesibilityCopy = [...activityData.accesibility]
         accesibilityCopy.push('')
         setActivityData({ ...activityData, accesibility: accesibilityCopy })
+    }
+
+    const deleteAccesibilitySelect = (idx) => {
+        const newAccesibility = [...activityData.accesibility]
+        if (newAccesibility.length > 1) {
+            newAccesibility.splice(idx, 1)
+            setActivityData({ ...activityData, accesibility: newAccesibility })
+        }
     }
 
     const handleSubmit = e => {
@@ -167,7 +183,10 @@ const CreateActivityForm = () => {
                 <Form onSubmit={handleSubmit}>
                     <Row className='mb-3'>
 
-                        <Form.Group as={Col} xs={6} controlId='formActivityName'>
+                        <Form.Group
+                            as={Col}
+                            xs={6}
+                            controlId='formActivityName'>
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control
                                 name="name"
@@ -177,7 +196,10 @@ const CreateActivityForm = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group as={Col} xs={6} controlId='formActivityDescription'>
+                        <Form.Group
+                            as={Col}
+                            xs={6}
+                            controlId='formActivityDescription'>
                             <Form.Label>Descripción</Form.Label>
                             <Form.Control
                                 name="description"
@@ -191,7 +213,10 @@ const CreateActivityForm = () => {
 
                     <Row>
 
-                        <Form.Group as={Col} xs={6} controlId='formActivityImage'>
+                        <Form.Group
+                            as={Col}
+                            xs={6}
+                            controlId='formActivityImage'>
                             <Form.Label>Imagen</Form.Label>
                             <Form.Control
                                 name="cover"
@@ -202,7 +227,10 @@ const CreateActivityForm = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group as={Col} xs={6} controlId='formActivityCity'>
+                        <Form.Group
+                            as={Col}
+                            xs={6}
+                            controlId='formActivityCity'>
                             <Form.Label>Ciudad</Form.Label>
                             <Form.Control
                                 name="city"
@@ -217,7 +245,10 @@ const CreateActivityForm = () => {
 
                     <Row>
 
-                        <Form.Group as={Col} xs={6} controlId='formActivityStreet'>
+                        <Form.Group
+                            as={Col}
+                            xs={6}
+                            controlId='formActivityStreet'>
                             <Form.Label>Calle</Form.Label>
                             <Form.Control
                                 name='street'
@@ -243,7 +274,10 @@ const CreateActivityForm = () => {
 
                     <Row>
 
-                        <Form.Group as={Col} xs={6} controlId='formActivityLongitude'>
+                        <Form.Group
+                            as={Col}
+                            xs={6}
+                            controlId='formActivityLongitude'>
                             <Form.Label>Longitud</Form.Label>
                             <Form.Control
                                 name='longitude'
@@ -254,7 +288,10 @@ const CreateActivityForm = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group as={Col} xs={6} controlId='formActivityLatitude'>
+                        <Form.Group
+                            as={Col}
+                            xs={6}
+                            controlId='formActivityLatitude'>
                             <Form.Label>Latitud</Form.Label>
                             <Form.Control
                                 name='latitude'
@@ -268,7 +305,10 @@ const CreateActivityForm = () => {
                     </Row>
 
                     <Row>
-                        <Form.Group as={Col} xs={4} controlId='formActivityDuration'>
+                        <Form.Group
+                            as={Col}
+                            xs={4}
+                            controlId='formActivityDuration'>
                             <Form.Label>Duración</Form.Label>
                             <Form.Control
                                 name='duration'
@@ -279,7 +319,10 @@ const CreateActivityForm = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group as={Col} xs={4} controlId='formActivityDate'>
+                        <Form.Group
+                            as={Col}
+                            xs={4}
+                            controlId='formActivityDate'>
                             <Form.Label>Fecha</Form.Label>
                             <Form.Control
                                 type="date"
@@ -297,85 +340,156 @@ const CreateActivityForm = () => {
 
                     <Row>
 
-                        <Form.Group as={Col} xs={6} controlId='formActivityCategories'>
+                        <Form.Group
+                            as={Col}
+                            xs={4}
+                            controlId='formActivityCategories'>
 
                             <Form.Label>Categorías</Form.Label>
 
                             {activityData.categories.map((elm, idx) => {
-                                return (<Form.Select
-                                    key={idx}
-                                    name="categories"
-                                    aria-label="Seleccione una categoría"
-                                    value={elm}
-                                    onChange={e => handleCategoriesChange(e, idx)}
-                                >
-                                    <option>Selecciona una categoría</option>
-                                    {categoriesSelection.map((elm, idx) => {
-                                        return (
-                                            <option value={elm} key={idx}>{elm}</option>
-                                        )
-                                    })}
+                                return (
+                                    <Row key={idx}>
+                                        <Col  >
+                                            <Form.Select
+                                                className="mb-2"
+                                                id={`categoriesForm-${idx}`}
+                                                name="categories"
+                                                aria-label="Seleccione una categoría"
+                                                value={elm}
+                                                onChange={e => handleCategoriesChange(e, idx)}
+                                            >
+                                                <option>Selecciona una categoría</option>
+                                                {categoriesSelection.map((elm, idx) => {
+                                                    return (
+                                                        <option value={elm} key={idx}>{elm}</option>
+                                                    )
+                                                })}
 
-                                </Form.Select>
+                                            </Form.Select>
+                                        </Col>
+                                        <Col >
+                                            <Button
+                                                variant="dark"
+                                                size="sm"
+                                                onClick={() => deleteCategorySelect(idx)}
+                                                disabled={activityData.categories.length <= 1}>
+                                                Eliminar
+                                            </Button>
+                                        </Col>
+                                    </Row>
                                 )
                             })}
-                            <Button variant='dark' onClick={addNewCategory}>Añadir nueva categoría</Button>
+                            <Button
+                                variant='dark'
+                                onClick={addNewCategory}>
+                                Añadir nueva categoría
+                            </Button>
 
                         </Form.Group>
 
-                        <Form.Group as={Col} xs={6} controlId='formActivityAccesibilities'>
+                        <Form.Group
+                            as={Col}
+                            xs={4}
+                            controlId='formActivityAccesibilities'>
 
                             <Form.Label>Accesibilidad</Form.Label>
                             {activityData.accesibility.map((elm, idx) => {
-                                return (<Form.Select
-                                    key={idx}
-                                    name="accesibility"
-                                    aria-label="Seleccione tipos de accesibilidad"
-                                    value={elm}
-                                    onChange={e => handleAccesibilityChange(e, idx)}
-                                >
-                                    {accesibilitiesSelection.map((elm, idx) => {
-                                        return (
-                                            <option value={elm} key={idx}>{elm}</option>
-                                        )
-                                    })}
-                                </Form.Select>)
+                                return (
+                                    <Row key={idx}>
+                                        <Col >
+                                            <Form.Select
+                                                className="mb-2"
+                                                key={idx}
+                                                name="accesibility"
+                                                aria-label="Seleccione tipos de accesibilidad"
+                                                value={elm}
+                                                onChange={e => handleAccesibilityChange(e, idx)}
+                                            >
+                                                {accesibilitiesSelection.map((elm, idx) => {
+                                                    return (
+                                                        <option value={elm} key={idx}>{elm}</option>
+                                                    )
+                                                })}
+                                            </Form.Select>
+                                        </Col>
+
+                                        <Col >
+                                            <Button
+                                                variant="dark"
+                                                size="sm"
+                                                onClick={() => deleteAccesibilitySelect(idx)}
+                                                disabled={activityData.accesibility.length <= 1}>
+                                                Eliminar
+                                            </Button>
+                                        </Col>
+                                    </Row>)
                             })}
-                            <Button variant='dark' onClick={addNewAccesibility}>Añadir nueva accesibilidad</Button>
+                            <Button
+                                variant='dark'
+                                onClick={addNewAccesibility}>
+                                Añadir nueva accesibilidad
+                            </Button>
 
                         </Form.Group>
 
-                    </Row>
-
-                    <Row>
-                        <Form.Group as={Col} xs={4} controlId='formActivityTarget'>
+                        <Form.Group
+                            className="mb-2"
+                            as={Col}
+                            xs={4}
+                            controlId='formActivityTarget'>
 
                             <Form.Label>Orientado a</Form.Label>
 
                             {activityData.target.map((elm, idx) => {
-                                return (<Form.Select
-                                    key={idx}
-                                    name="target"
-                                    onChange={e => handleTargetChange(e, idx)}
-                                    value={elm}
-                                    aria-label="Seleccione una opción">
-                                    {targetsSelection.map((elm, idx) => {
-                                        return (
-                                            <option value={elm} key={idx}>{elm}</option>
-                                        )
-                                    })}
-                                </Form.Select>)
+                                return (
+                                    <Row>
+                                        <Col>
+                                            <Form.Select
+                                                className="mb-2"
+                                                key={idx}
+                                                name="target"
+                                                onChange={e => handleTargetChange(e, idx)}
+                                                value={elm}
+                                                aria-label="Seleccione una opción">
+                                                {targetsSelection.map((elm, idx) => {
+                                                    return (
+                                                        <option value={elm} key={idx}>{elm}</option>
+                                                    )
+                                                })}
+                                            </Form.Select>
+                                        </Col>
+                                        <Col>
+                                            <Button
+                                                variant="dark"
+                                                size="sm"
+                                                onClick={() => deleteTargetSelect(idx)}
+                                                disabled={activityData.target.length <= 1}>
+                                                Eliminar
+                                            </Button>
+                                        </Col>
+                                    </Row>
+
+                                )
                             })}
 
-                            <Button variant='dark' onClick={addNewTarget}>Añadir nuevo target</Button>
+                            <Button
+                                variant='dark'
+                                onClick={addNewTarget}>
+                                Añadir nuevo target
+                            </Button>
 
                         </Form.Group>
+
                     </Row>
-                    <Button variant="dark" type="submit" >
+
+                    <Button className="mb-2" variant="dark" type="submit" >
                         Crear plan
                     </Button>
+
                 </Form>
             </Container>
+
         </div>
     )
 }

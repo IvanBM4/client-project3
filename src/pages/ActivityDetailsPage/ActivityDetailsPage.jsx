@@ -5,7 +5,8 @@ import { useParams } from "react-router-dom"
 import './ActivityDetailsPage.css'
 import Card from 'react-bootstrap/Card'
 import Loader from "../../components/Loader/Loader"
-import ReviewForm from "../../components/ReviewForm/ReviewForm"
+import ReviewsList from "../../components/ReviewsList/ReviewsList";
+import CreateReviewForm from "../../components/CreateReviewForm/CreateReviewForm";
 
 const ActivityDetailsPage = () => {
 
@@ -37,10 +38,6 @@ const ActivityDetailsPage = () => {
         const month = date.toLocaleString('default', { month: 'long' })
         const year = date.getFullYear()
         return `${day} de ${month} de ${year}`
-    }
-
-    if (isLoading) {
-        return <p>Cargando...</p>
     }
 
     const formatDuration = (minutes) => {
@@ -108,20 +105,11 @@ const ActivityDetailsPage = () => {
                                         <Modal.Title>Editar Actividad</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-                                        <ReviewForm id={_id} closeModal={handleCloseReviewModal} />
+                                        <CreateReviewForm id={_id} closeModal={handleCloseReviewModal} />
                                     </Modal.Body>
                                 </Modal>
 
-                                <Card style={{ width: '100%', marginTop: '20px' }}>
-                                    <Card.Img variant="top" src="holder.js/100px180" />
-                                    <Card.Body>
-                                        <Card.Title>Popino</Card.Title>
-                                        <Card.Text>
-                                            Comentario review de prueba
-                                        </Card.Text>
-                                        <Button variant="primary">editar</Button>
-                                    </Card.Body>
-                                </Card>
+
                             </div>
                         </Col>
                         <Col>
@@ -139,6 +127,8 @@ const ActivityDetailsPage = () => {
                             </div>
                         </Col>
                     </Row>
+                    <ReviewsList />
+                    <CreateReviewForm />
                 </Container>
             </div >
     )

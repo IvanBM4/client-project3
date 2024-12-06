@@ -9,14 +9,14 @@ import { AuthContext } from '../../contexts/auth.context';
 
 const Navigation = () => {
 
-    const { loggedUser } = useContext(AuthContext)
+    const { loggedUser, logoutUser } = useContext(AuthContext)
 
     return (
 
         <div className="Navigation">
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container fluid>
-                    <Navbar.Brand >Navbar scroll</Navbar.Brand>
+                    <Navbar.Brand as={Link} to={'/'}>Logo o nombre</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Form className="d-flex me-auto">
@@ -36,6 +36,7 @@ const Navigation = () => {
                             <Nav.Link as={Link} to='/planes' >Planes</Nav.Link>
                             {loggedUser && <Nav.Link as={Link} to='/añade-un-plan'>Crea tu plan</Nav.Link>}
                             {loggedUser && <Nav.Link as={Link} to='/perfil'>Perfil</Nav.Link>}
+                            {loggedUser && <Nav.Link as={Link} onClick={logoutUser} to='/iniciar-sesion'>Cerrar sesión</Nav.Link>}
                             {!loggedUser && <Nav.Link as={Link} to='/iniciar-sesion'>Iniciar Sesión</Nav.Link>}
                             {!loggedUser && <Nav.Link as={Link} to='/registro'>Regístrate</Nav.Link>}
                         </Nav>

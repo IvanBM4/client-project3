@@ -344,6 +344,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
 
                         {activityData.categories.map((elm, idx) => {
                             return (<Form.Select
+                                className="mb-2"
                                 key={idx}
                                 name="categories"
                                 aria-label="Seleccione una categoría"
@@ -367,6 +368,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                         <Form.Label>Accesibilidad</Form.Label>
                         {activityData.accesibility.map((elm, idx) => {
                             return (<Form.Select
+                                className="mb-2"
                                 key={idx}
                                 name="accesibility"
                                 aria-label="Seleccione tipos de accesibilidad"
@@ -388,12 +390,13 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
 
                 <Row>
 
-                    <Form.Group as={Col} xs={4} controlId='formActivityTarget'>
+                    <Form.Group className="mb-2" as={Col} xs={4} controlId='formActivityTarget'>
 
                         <Form.Label>Orientado a</Form.Label>
 
                         {activityData.target.map((elm, idx) => {
                             return (<Form.Select
+                                className="mb-2"
                                 key={idx}
                                 name="target"
                                 onChange={handleTargetChange}
@@ -413,7 +416,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
 
                 </Row>
 
-                <Button variant="dark" type="submit" >
+                <Button className="mb-2" variant="dark" type="submit" >
                     Actualizar Evento
                 </Button>
 

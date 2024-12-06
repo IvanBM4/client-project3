@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card'
 import EditActivityForm from '../EditActivityForm/EditActivityForm';
 import './ActivityCard.css'
 import { AuthContext } from '../../contexts/auth.context'
+import { Link } from 'react-router-dom';
 
 const ActivityCard = ({ name, description, cover, host, _id, deleteActivity, fetchActivities }) => {
 
@@ -33,6 +34,7 @@ const ActivityCard = ({ name, description, cover, host, _id, deleteActivity, fet
     const handleCloseEditModal = () => {
         setEditShowModal(false)
     }
+
     return (
         <div className='ActivityCard'>
             <Card>
@@ -42,15 +44,31 @@ const ActivityCard = ({ name, description, cover, host, _id, deleteActivity, fet
                     <Card.Text>{description}</Card.Text>
 
                     {host && host === loggedUser?._id ? <ButtonGroup>
-                        <Button variant='dark' size='sm'>Descubre más sobre este plan</Button>
+                        <Button
+                            variant='dark'
+                            size='sm'
+                            as={Link}
+                            to={`/planes/detalles/${_id}`}>
+                            Descubre más sobre este plan
+                        </Button>
 
-                        <Button variant='danger' size='sm' onClick={handleShowModal}>Eliminar este plan</Button>
+                        <Button
+                            variant='danger'
+                            size='sm'
+                            onClick={handleShowModal}>
+                            Eliminar este plan
+                        </Button>
 
-                        <Button variant='dark' size='sm' onClick={handleShowEditModal}>Editar este plan</Button>
+                        <Button
+                            variant='dark'
+                            size='sm'
+                            onClick={handleShowEditModal}>
+                            Editar este plan
+                        </Button>
 
                     </ButtonGroup> :
                         <ButtonGroup>
-                            <Button variant='dark' size='sm'>Descubre más sobre este plan</Button>
+                            <Button variant='dark' size='sm' as={Link} to={`/planes/detalles/${_id}`} >Descubre más sobre este plan</Button>
 
                         </ButtonGroup>}
 
@@ -60,7 +78,7 @@ const ActivityCard = ({ name, description, cover, host, _id, deleteActivity, fet
                 <Modal.Header closeButton>
                     <Modal.Title>¡Cuidado!</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>¿Está seguro de que desea eliminar esta actividad?</Modal.Body>
+                <Modal.Body>¿Estás seguro de que deseas eliminar este plan?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleDelete}>
                         Sí
@@ -72,7 +90,7 @@ const ActivityCard = ({ name, description, cover, host, _id, deleteActivity, fet
             </Modal>
             <Modal show={showEditModal} onHide={handleCloseEditModal} size="lg">
                 <Modal.Header closeButton>
-                    <Modal.Title>Editar Actividad</Modal.Title>
+                    <Modal.Title>Editar plan</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <EditActivityForm id={_id} closeModal={handleCloseEditModal} fetchActivities={fetchActivities} />
