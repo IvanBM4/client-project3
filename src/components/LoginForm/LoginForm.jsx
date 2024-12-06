@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import authServices from '../../services/auth.services'
 import { AuthContext } from "../../contexts/auth.context"
-import { Button, Form } from "react-bootstrap"
+import { Button, Container, Form } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 
 const LoginForm = () => {
@@ -35,35 +35,35 @@ const LoginForm = () => {
 
     return (
         <div className="LoginForm">
+            <Container>
+                <Form onSubmit={handleSubmitForm}>
 
-            <Form onSubmit={handleSubmitForm}>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            required
+                            type="email"
+                            onChange={handleInputChange}
+                            value={loginData.email}
+                            name="email" />
+                    </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        required
-                        type="email"
-                        onChange={handleInputChange}
-                        value={loginData.email}
-                        name="email" />
-                </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Contraseña</Form.Label>
+                        <Form.Control
+                            required
+                            type="password"
+                            onChange={handleInputChange}
+                            value={loginData.password}
+                            name='password' />
+                    </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Contraseña</Form.Label>
-                    <Form.Control
-                        required
-                        type="password"
-                        onChange={handleInputChange}
-                        value={loginData.password}
-                        name='password' />
-                </Form.Group>
+                    <Button variant="dark" type="submit">
+                        Acceder
+                    </Button>
 
-                <Button variant="dark" type="submit">
-                    Acceder
-                </Button>
-
-            </Form>
-
+                </Form>
+            </Container>
         </div>
     )
 }
