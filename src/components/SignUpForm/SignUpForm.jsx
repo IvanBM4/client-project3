@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button, Form } from "react-bootstrap"
+import { Button, Container, Form } from "react-bootstrap"
 import authServices from "../../services/auth.services"
 import { useNavigate } from "react-router-dom"
 
@@ -30,41 +30,41 @@ const SignUpForm = () => {
     return (
 
         <div className="SignUpForm">
+            <Container>
+                <Form onSubmit={handleSubmitForm}>
+                    <Form.Group className="mb-3" controlId="formBasicUsername">
+                        <Form.Label>Usuario</Form.Label>
+                        <Form.Control
+                            required
+                            type="text"
+                            onChange={handleInputChange}
+                            value={signupData.username}
+                            name="username" />
+                    </Form.Group>
 
-            <Form onSubmit={handleSubmitForm}>
-                <Form.Group className="mb-3" controlId="formBasicUsername">
-                    <Form.Label>Usuario</Form.Label>
-                    <Form.Control
-                        required
-                        type="text"
-                        onChange={handleInputChange}
-                        value={signupData.username}
-                        name="username" />
-                </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            required
+                            type="email"
+                            onChange={handleInputChange}
+                            value={signupData.email}
+                            name="email" />
+                    </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        required
-                        type="email"
-                        onChange={handleInputChange}
-                        value={signupData.email}
-                        name="email" />
-                </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Contraseña</Form.Label>
+                        <Form.Control
+                            required
+                            type="password"
+                            onChange={handleInputChange}
+                            value={signupData.password}
+                            name='password' />
+                    </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Contraseña</Form.Label>
-                    <Form.Control
-                        required
-                        type="password"
-                        onChange={handleInputChange}
-                        value={signupData.password}
-                        name='password' />
-                </Form.Group>
-
-                <Button variant='dark' type="submit">Registrarse</Button>
-            </Form>
-
+                    <Button variant='dark' type="submit">Registrarse</Button>
+                </Form>
+            </Container>
         </div>
 
     )
