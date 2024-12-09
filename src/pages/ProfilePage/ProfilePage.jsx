@@ -30,18 +30,19 @@ const ProfilePage = () => {
         isLoading ? <Loader /> :
             <div className="ProfilePage">
                 <Row className="align-items-center">
+
+                    <Col xs={12} md={4} className="text-start">
+                        <div className="avatar-img">
+                            <img src={userData.avatar} alt="Avatar" />
+                        </div>
+                        <h1>¡Hola {userData.username}!</h1>
+                    </Col>
                     <Col xs={12} md={8} className="text-center ml-4" >
                         <div className="container-logged">
                             <h3>Usuario Logueado:</h3>
                             <p>Nombre de usuario: {loggedUser.username}</p>
                             <p>Email: {loggedUser.email}</p>
                         </div>
-                    </Col>
-                    <Col xs={12} md={4} className="text-start">
-                        <div className="avatar-img">
-                            <img src={userData.avatar} alt="Avatar" />
-                        </div>
-                        <h1>¡Hola {userData.username}!</h1>
                     </Col>
 
                 </Row>

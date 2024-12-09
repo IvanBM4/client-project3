@@ -7,6 +7,7 @@ import categoriesServices from "../../services/categories.services";
 import targetsServices from "../../services/targets.services";
 import accesibilitiesServices from "../../services/accesibilities.services";
 import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+import uploadServices from "../../services/upload.services";
 
 const CreateActivityForm = ({ handleClose, fetchActivities }) => {
 
@@ -35,6 +36,8 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
     })
 
     const [addressValue, setAddressValue] = useState({})
+
+    const [loadingImage, setLoadingImage] = useState(false)
 
     const handleAutocomplete = () => {
         if (addressValue?.label) {
@@ -122,15 +125,27 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
             })
     }
 
+    const handleInputFile = e => {
+
+        setLoadingImage(true)
+
+        const formData = new FormData()
+        formData.append('imageData', e.target.files[0])
+
+        uploadServices
+            .uploadimage(formData)
+            .then(({ data }) => {
+                setActivityData({ ...activityData, cover: data.cloudinary_url })
+                setLoadingImage(false)
+            })
+            .catch(err => console.log(err))
+
+    }
+
     const handleActivityChange = e => {
         const { name, value, checked, type } = e.target
         const result = type === 'checkbox' ? checked : value
         setActivityData({ ...activityData, [name]: result })
-    }
-
-    const handleAddressChange = e => {
-        const { name, value } = e.target
-        setAddressData({ ...addressData, [name]: value })
     }
 
     const handleCategoriesChange = (e, idx) => {
@@ -265,10 +280,8 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                             controlId='formActivityImage'>
                             <Form.Label>Imagen</Form.Label>
                             <Form.Control
-                                name="cover"
-                                value={activityData.cover}
-                                onChange={handleActivityChange}
-                                type="text"
+                                onChange={handleInputFile}
+                                type="file"
                                 placeholder="URL de la imagen"
                             />
                         </Form.Group>
@@ -469,8 +482,8 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
 
                     </Row>
 
-                    <Button className="mb-2" variant="dark" type="submit">
-                        Crear plan
+                    <Button className="mb-2" variant="dark" type="submit" disabled={loadingImage}>
+                        {loadingImage ? 'Cargando imagen...' : 'Crear plan'}
                     </Button>
 
                 </Form>

@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Button, Container, Form } from "react-bootstrap"
 import authServices from "../../services/auth.services"
 import { useNavigate } from "react-router-dom"
+import uploadServices from "../../services/upload.services"
 
 const SignUpForm = () => {
 
@@ -10,8 +11,11 @@ const SignUpForm = () => {
     const [signupData, setSignupData] = useState({
         email: '',
         username: '',
-        password: ''
+        password: '',
+        avatar: ''
     })
+
+    const [loadingImage, setLoadingImage] = useState(false)
 
     const handleInputChange = e => {
         const { name, value } = e.target
@@ -23,8 +27,26 @@ const SignUpForm = () => {
 
         authServices
             .signupUser(signupData)
-            .then(() => navigate('/login'))
+            .then(() => navigate('/iniciar-sesion'))
             .catch(err => console.log(err))
+    }
+
+    const handleInputFile = e => {
+
+        setLoadingImage(true)
+
+        const formData = new FormData()
+        formData.append('imageData', e.target.files[0])
+
+        uploadServices
+            .uploadimage(formData)
+            .then(({ data }) => {
+                setSignupData({ ...signupData, avatar: data.cloudinary_url })
+                setLoadingImage(false)
+
+            })
+            .catch(err => console.log(err))
+
     }
 
     return (
@@ -62,7 +84,19 @@ const SignUpForm = () => {
                             name='password' />
                     </Form.Group>
 
-                    <Button variant='dark' type="submit">Registrarse</Button>
+                    <Form.Group className="mb-3" controlId="formAvatar">
+                        <Form.Label>Imagen de usuario</Form.Label>
+                        <Form.Control
+                            required
+                            type="file"
+                            onChange={handleInputFile}>
+
+                        </Form.Control>
+                    </Form.Group>
+
+                    <Button variant='dark' type="submit" disabled={loadingImage}>
+                        {loadingImage ? 'Cargando imagen...' : 'Registrarse'}
+                    </Button>
                 </Form>
             </Container>
         </div>
