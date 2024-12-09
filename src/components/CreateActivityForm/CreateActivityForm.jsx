@@ -273,10 +273,11 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
 
                     </Row>
 
-                    <Row className='mb-3'>
+                    <Row>
 
                         <Form.Group
-
+                            as={Col}
+                            xs={6}
                             controlId='formActivityImage'>
                             <Form.Label>Imagen</Form.Label>
                             <Form.Control
@@ -286,24 +287,84 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                             />
                         </Form.Group>
 
-                    </Row>
-
-                    <Row >
-                        <Form.Group controlId="autocompleteAddress" className="mb-3 places-input">
-                            <Form.Label>Añade la dirección</Form.Label>
-                            <GooglePlacesAutocomplete
-                                selectProps={{
-                                    addressValue,
-                                    onChange: setAddressValue
-                                }}
-                                apiKey="AIzaSyBZ2QgeOdlau8hshB4nIF47iw2lXyjViJs"
+                        <Form.Group
+                            as={Col}
+                            xs={6}
+                            controlId='formActivityCity'>
+                            <Form.Label>Ciudad</Form.Label>
+                            <Form.Control
+                                name="city"
+                                value={addressData.city}
+                                onChange={handleAddressChange}
+                                placeholder="Añada la nueva ciudad"
+                                type='text'
                             />
                         </Form.Group>
 
+                    </Row>
+
+                    <Row>
+
+                        <Form.Group
+                            as={Col}
+                            xs={6}
+                            controlId='formActivityStreet'>
+                            <Form.Label>Calle</Form.Label>
+                            <Form.Control
+                                name='street'
+                                value={addressData.street}
+                                onChange={handleAddressChange}
+                                placeholder="Añada la nueva calle"
+                                type='text'
+                            />
+                        </Form.Group>
+
+                        <Form.Group as={Col} xs={6} controlId='formActivityZipcode'>
+                            <Form.Label>Código postal</Form.Label>
+                            <Form.Control
+                                name='zipcode'
+                                value={addressData.zipcode}
+                                onChange={handleAddressChange}
+                                placeholder="Añada el nuevo código postal"
+                                type='number'
+                            />
+                        </Form.Group>
 
                     </Row>
 
-                    <Row className='mb-3'>
+                    <Row>
+
+                        <Form.Group
+                            as={Col}
+                            xs={6}
+                            controlId='formActivityLongitude'>
+                            <Form.Label>Longitud</Form.Label>
+                            <Form.Control
+                                name='longitude'
+                                value={locationData.longitude}
+                                onChange={handleLocationsChange}
+                                placeholder="Añada la nueva longitud"
+                                type='number'
+                            />
+                        </Form.Group>
+
+                        <Form.Group
+                            as={Col}
+                            xs={6}
+                            controlId='formActivityLatitude'>
+                            <Form.Label>Latitud</Form.Label>
+                            <Form.Control
+                                name='latitude'
+                                value={locationData.latitude}
+                                onChange={handleLocationsChange}
+                                placeholder="Añada la nueva latitud"
+                                type='number'
+                            />
+                        </Form.Group>
+
+                    </Row>
+
+                    <Row>
                         <Form.Group
                             as={Col}
                             xs={4}
@@ -337,7 +398,7 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
 
                     </Row>
 
-                    <Row className='mb-3'>
+                    <Row>
 
                         <Form.Group
                             as={Col}

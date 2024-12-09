@@ -44,6 +44,7 @@ const ActivitiesPage = () => {
                     </div>
                     <h2>Lista de planes y hay ahora {activities.length} planes</h2>
                     <ReactGoogleMap />
+                    <br />
                     <ActivitiesList activities={activities} fetchActivities={fetchActivities} />
 
                     <Modal show={show} onHide={handleClose}>
