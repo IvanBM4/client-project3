@@ -12,7 +12,7 @@ import PrivateRoute from "./PrivateRoute"
 import NewActivityPage from "../pages/NewActivityPage/NewActivityPage"
 import ProfilePage from "../pages/ProfilePage/ProfilePage.jsx"
 import EditActivityPage from "../pages/EditActivityPage/EditActivityPage"
-import GlobalActivitiesFilter from "../components/GlobalActivitiesFilter/GlobalActivitiesFilter.jsx"
+
 
 
 const AppRoutes = () => {
@@ -27,7 +27,6 @@ const AppRoutes = () => {
             <Route path="/reviews" element={<ReviewsCard />} />
             <Route path="/opiniones" element={<ReviewsList />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/busqueda-rutas" element={<GlobalActivitiesFilter />} />
             <Route element={<PrivateRoute />}>
                 <Route path="/perfil/:id" element={<ProfilePage />} />
                 <Route path="/añade-un-plan" element={<NewActivityPage />} />

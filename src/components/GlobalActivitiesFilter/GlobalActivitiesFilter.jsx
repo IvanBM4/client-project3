@@ -1,66 +1,97 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import activitiesServices from '../../services/activities.services.jsx';
 
-const API_URL = import.meta.env.VITE_APP_API_URL
 
-const GlobalActivitiesFilter = () => {
-    const [searchTerm, setSearchTerm] = useState('')
-    const [suggestions, setSuggestions] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
-
-    const fetchSuggestions = useCallback(async () => {
-        if (searchTerm.length < 3) {
-            setSuggestions([])
-            return
-        }
-
-        setIsLoading(true)
-        setError(null)
-
-        try {
-            const response = await axios.get(`${API_URL}/activities/search`, {
-                params: { q: searchTerm }
-            });
-            setSuggestions(response.data)
-        } catch (error) {
-            console.error('Error looking suggestions:', error)
-            setError('Failed to look up for suggestions. Please try again.')
-            setSuggestions([])
-        } finally {
-            setIsLoading(false)
-        }
-    }, [searchTerm])
+const NavbarActivitiesSearch = () => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [suggestions, setSuggestions] = useState([]);
+    const [allActivities, setAllActivities] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const searchRef = useRef(null);
 
     useEffect(() => {
-        const debounceTimer = setTimeout(fetchSuggestions, 300)
-        return () => clearTimeout(debounceTimer)
-    }, [fetchSuggestions])
+        const loadActivities = async () => {
+            setIsLoading(true);
+            try {
+                const response = await activitiesServices.getAllActivities();
+                setAllActivities(response.data);
+            } catch (error) {
+                console.error('Error al cargar actividades:', error);
+                setError('Error al cargar actividades.');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadActivities();
+    }, []);
+
+    const fetchSuggestions = useCallback(() => {
+        if (searchTerm.length < 1) {
+            setSuggestions([]);
+            return;
+        }
+
+        const filteredSuggestions = allActivities.filter(activity =>
+            activity.name.toLowerCase().startsWith(searchTerm.toLowerCase())
+        );
+
+        setSuggestions(filteredSuggestions);
+    }, [searchTerm, allActivities]);
+
+    useEffect(() => {
+        const debounceTimer = setTimeout(fetchSuggestions, 300);
+        return () => clearTimeout(debounceTimer);
+    }, [fetchSuggestions]);
 
     const handleInputChange = (e) => {
-        setSearchTerm(e.target.value)
-    }
+        setSearchTerm(e.target.value);
+        setIsOpen(true);
+    };
+
+    const handleClickOutside = (e) => {
+        if (searchRef.current && !searchRef.current.contains(e.target)) {
+            setIsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
-        <div className="GlobalActivitiesFilter">
-            <h1>Filtro de Actividades</h1>
+        <div className="NavbarActivitiesSearch" ref={searchRef}>
             <input
                 type="text"
                 value={searchTerm}
                 onChange={handleInputChange}
+                onFocus={() => setIsOpen(true)}
                 placeholder="Buscar actividades..."
+                disabled={isLoading}
             />
-            {isLoading && <p>Cargando sugerencias...</p>}
-            {error && <p className="error">{error}</p>}
-            {!isLoading && !error && suggestions.length > 0 && (
-                <ul>
-                    {suggestions.map((suggestion, index) => (
-                        <li key={index}>{suggestion.name}</li>
-                    ))}
-                </ul>
+            {isOpen && (
+                <div className="search-dropdown">
+                    {isLoading && <p>Cargando...</p>}
+                    {error && <p className="error">{error}</p>}
+                    {!isLoading && !error && suggestions.length > 0 && (
+                        <ul className="suggestion-list">
+                            {suggestions.map((suggestion, index) => (
+                                <li key={index} className="suggestion-item">{suggestion.name}</li>
+                            ))}
+                        </ul>
+                    )}
+                    {!isLoading && !error && searchTerm && suggestions.length === 0 && (
+                        <p>No se encontraron actividades</p>
+                    )}
+                </div>
             )}
         </div>
-    )
+    );
 }
 
-export default GlobalActivitiesFilter
+export default NavbarActivitiesSearch;
