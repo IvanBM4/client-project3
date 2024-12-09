@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Modal, Row } from "react-bootstrap"
 import activitiesServices from "../../services/activities.services"
 import { useParams } from "react-router-dom"
@@ -6,16 +6,20 @@ import './ActivityDetailsPage.css'
 import Loader from "../../components/Loader/Loader"
 import ReviewsList from "../../components/ReviewsList/ReviewsList";
 import CreateReviewForm from "../../components/CreateReviewForm/CreateReviewForm";
-import { EMPTYHEART, FULLHEART } from "../../consts/image-paths";
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 const ActivityDetailsPage = () => {
 
     const { id: _id } = useParams()
 
-    const [activity, setActivity] = useState({})
+    const [activity, setActivities] = useState({})
     const [isLoading, setIsLoading] = useState(true)
+    const [showModal, setShowModal] = useState(false)
     const [showReviewModal, setShowReviewModal] = useState(false)
     const [liked, setLiked] = useState(false);
+    const [showAssistantModal, setShowAssistantModal] = useState(false)
+
 
 
     useEffect(() => {
@@ -26,22 +30,14 @@ const ActivityDetailsPage = () => {
         activitiesServices
             .fetchOneActivity(_id)
             .then(({ data }) => {
-                setActivity(data)
+                setActivities(data)
                 setIsLoading(false)
             })
             .catch(err => console.log(err))
     }
 
-    const handleJoinActivity = () => {
-
-        activitiesServices
-            .joinActivity(_id)
-            .then(console.log(_id))
-            .catch(err => console.log(err))
-
-    }
-
     const formatDate = (dateString) => {
+        console.log("Fecha original:", dateString)
         const date = new Date(dateString)
         const day = date.getDate()
         const month = date.toLocaleString('default', { month: 'long' })
@@ -69,9 +65,28 @@ const ActivityDetailsPage = () => {
         setShowReviewModal(true)
     }
 
-    const handleLike = () => {
-        setLiked(!liked);
+    const handleCloseReviewModal = () => {
+        setShowReviewModal(false)
     }
+
+    const handleCancelReviewButton = () => {
+        setShowReviewModal(false)
+    }
+
+    const handleJoinActivity = () => {
+        activitiesServices
+            .joinActivity(_id)
+            .then(console.log(_id))
+            .catch(err => console.log(err))
+    }
+
+    const handleShowAssistantModal = () => {
+        setShowAssistantModal(true);
+    };
+
+    const handleCloseAssistantModal = () => {
+        setShowAssistantModal(false);
+    };
 
     return (
         isLoading ? <Loader /> :
@@ -79,53 +94,115 @@ const ActivityDetailsPage = () => {
                 <Container>
                     <Row>
                         <Col>
-                            <div className="image-container">
+                            <div className="div-container">
                                 <img src={activity.cover} alt={activity.title} />
-                                <img
-                                    className="Hearts"
-                                    onClick={handleLike}
-                                    src={liked ? FULLHEART : EMPTYHEART}
-                                    alt="heart"
-
-                                />
                                 <div className="container">
-                                    <p>Categorías: </p>
-                                    {activity.categories && activity.categories.map((categories, index) => (
-                                        <p key={index}>{categories}</p>
-                                    ))}
-                                    <p>Accesibilidad:</p>
-                                    {activity.accesibility && activity.accesibility.map((accesibility, index) => (
-                                        <p key={index}>{accesibility}</p>
-                                    ))}
-                                    <p> {activity.target} </p>
-                                    <p> {activity.accesibility} </p>
-                                    <Button variant="dark" onClick={handleShowReviewModal}>!Comparta su experiencia!</Button>
+                                    <Tabs
+                                        defaultActiveKey="profile"
+                                        id="justify-tab-example"
+                                        className="mb-3"
+                                        justify
+                                    >
+                                        <Tab eventKey="Categorías:" title="Categorías:">
+                                            {activity.categories.map((categories, index) => (
+                                                <p key={index}>{categories}</p>
+                                            ))}
+                                        </Tab>
+                                        <Tab eventKey="Accesibilidad:" title="Accesibilidad:">
+                                            {activity.accesibility.map((accesibility, index) => (
+                                                <p key={index}>{accesibility}</p>
+                                            ))}
+                                        </Tab>
+                                        <Tab eventKey="Orientado a: " title="Orientado a: ">
+                                            {activity.target.map((target, index) => (
+                                                <p key={index}>{target}</p>
+                                            ))}
+                                        </Tab>
+                                        <Tab eventKey="Asistentes: " title="Asistentes: ">
+                                            <div className="assistants-list">
+                                                <Row>
+
+                                                    {activity.assistants.map(elm => {
+                                                        return (
+                                                            <Col xs={12} md={4} key={elm._id} className="mb-4">
+                                                                <div key={elm._id} className="assistant-item">
+                                                                    <img src={elm.avatar} alt={elm.username} className="assistant-avatar" />
+                                                                    <span>{elm.username}</span>
+                                                                </div>
+                                                            </Col>
+                                                        );
+                                                    })}
+                                                </Row>
+                                            </div>
+                                        </Tab>
+                                    </Tabs>
+
                                 </div>
+
+
+                                <Modal show={showModal} onHide={() => setShowReviewModal(false)}>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title>¡Cuidado!</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>¿Está seguro de que desea eliminar esta actividad?</Modal.Body>
+                                    <Modal.Footer>
+                                        <Button variant="secondary" >
+                                            Sí
+                                        </Button>
+                                        <Button variant="dark" onClick={handleCancelReviewButton}>
+                                            No
+                                        </Button>
+                                    </Modal.Footer>
+                                </Modal>
+
+
+                                <Modal show={showReviewModal} onHide={handleCloseReviewModal} size="lg">
+                                    <Modal.Header closeButton>
+                                        <Modal.Title>Editar Actividad</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <CreateReviewForm id={_id} closeModal={handleCloseReviewModal} />
+                                    </Modal.Body>
+                                </Modal>
+
 
                             </div>
                         </Col>
                         <Col>
                             <div className="text-container">
-                                <h1>{activity.name}</h1>
-                                <div className="module">
-                                    <p className="line-clamp">
-                                        {activity.description}
-                                    </p>
+                                <div className="header">
+                                    <h1>{activity.name}</h1>
+                                    <Button variant="dark" onClick={handleShowAssistantModal}>QUIERO ASISTIR</Button>
                                 </div>
-                                <p>{activity.address?.city}</p>
-                                <p>{activity.address?.street}</p>
-                                <p>{activity.address?.zipcode}</p>
-                                {activity.target.map(elm => {
-                                    return (<p>{elm}</p>)
-                                })}
-                                <p>{formatDate(activity.date)}</p>
-                                <p>{formatDuration(activity.duration)}</p>
+                                <div className="module">
+                                    <p>{activity.description}</p>
+                                </div>
+                                <p>Ciudad: {activity.address?.city}</p>
+                                <p>Calle: {activity.address?.street}</p>
+                                <p>Código postal: {activity.address?.zipcode}</p>
+                                <p>Orientado a:
+                                    <ul>
+                                        {activity.target.map((elm, idx) => {
+                                            return <li key={idx}>{elm}</li>
+                                        })}
+                                    </ul>
+                                </p>
+                                <p>Fecha: {formatDate(activity.date)}</p>
+                                <p>Duración del plan: {formatDuration(activity.duration)}</p>
                             </div>
                         </Col>
+                        <Modal show={showAssistantModal} onHide={handleCloseAssistantModal}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>¿Quiere asistir a este plan?</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={() => { handleJoinActivity(), handleCloseAssistantModal() }}>Sí</Button>
+                                <Button variant="primary" onClick={handleCloseAssistantModal}>No</Button>
+                            </Modal.Footer>
+                        </Modal>
                     </Row>
-                    <Button onClick={handleJoinActivity}>Unirme a la actividad</Button>
+                    <br />
                     <ReviewsList />
-
                 </Container>
             </div >
     )

@@ -45,11 +45,11 @@ const ActivityCard = ({ name, description, cover, host, _id, fetchActivities }) 
 
     return (
         <div className='ActivityCard'>
-            <Card className="rounded-card">
+            <Card>
                 <Card.Img variant="top" src={cover} />
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
-                    <Card.Text>{description}</Card.Text>
+                    <Card.Text className='line-clamp'>{description}</Card.Text>
 
                     {host && host === loggedUser?._id ? <ButtonGroup>
                         <Button
