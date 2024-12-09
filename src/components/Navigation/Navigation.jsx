@@ -4,11 +4,10 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
+import ProductGlobalFilter from '../GlobalActivitiesFilter/ProductGlobalFilter'
 
 const Navigation = () => {
-
     const { loggedUser, logoutUser } = useContext(AuthContext)
-
     return (
         <div className="Navigation">
             <Navbar expand="lg" className="bg-body-tertiary">
@@ -21,7 +20,6 @@ const Navigation = () => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-
                         <Nav.Link as={Link} to='/planes' >Planes</Nav.Link>
                         {loggedUser && <Nav.Link as={Link} to={`/perfil/${loggedUser._id}`}>Perfil</Nav.Link>}
                         {loggedUser && <Nav.Link as={Link} onClick={logoutUser} to='/iniciar-sesion'>Cerrar sesión</Nav.Link>}
@@ -33,5 +31,10 @@ const Navigation = () => {
         </div>
     )
 }
-
 export default Navigation
+
+
+
+
+
+

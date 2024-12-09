@@ -8,6 +8,7 @@ import ReviewsList from "../../components/ReviewsList/ReviewsList";
 import CreateReviewForm from "../../components/CreateReviewForm/CreateReviewForm";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { TIMEIMG, CALENDARIMG, EUROIMG } from "../../consts/image-paths";
 
 const ActivityDetailsPage = () => {
 
@@ -17,8 +18,8 @@ const ActivityDetailsPage = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [showModal, setShowModal] = useState(false)
     const [showReviewModal, setShowReviewModal] = useState(false)
-    const [liked, setLiked] = useState(false);
     const [showAssistantModal, setShowAssistantModal] = useState(false)
+
 
 
 
@@ -61,10 +62,6 @@ const ActivityDetailsPage = () => {
 
     }
 
-    const handleShowReviewModal = () => {
-        setShowReviewModal(true)
-    }
-
     const handleCloseReviewModal = () => {
         setShowReviewModal(false)
     }
@@ -76,7 +73,7 @@ const ActivityDetailsPage = () => {
     const handleJoinActivity = () => {
         activitiesServices
             .joinActivity(_id)
-            .then(console.log(_id))
+            .then(fetchOneActivity())
             .catch(err => console.log(err))
     }
 
@@ -98,7 +95,7 @@ const ActivityDetailsPage = () => {
                                 <img src={activity.cover} alt={activity.title} />
                                 <div className="container">
                                     <Tabs
-                                        defaultActiveKey="profile"
+                                        defaultActiveKey="Categorías:"
                                         id="justify-tab-example"
                                         className="mb-3"
                                         justify
@@ -172,7 +169,8 @@ const ActivityDetailsPage = () => {
                             <div className="text-container">
                                 <div className="header">
                                     <h1>{activity.name}</h1>
-                                    <Button variant="dark" onClick={handleShowAssistantModal}>QUIERO ASISTIR</Button>
+                                    <span className="subtext">Creado por: {activity.host.username}</span>
+                                    <hr className="col-md-12" />
                                 </div>
                                 <div className="module">
                                     <p>{activity.description}</p>
@@ -187,8 +185,23 @@ const ActivityDetailsPage = () => {
                                         })}
                                     </ul>
                                 </p>
-                                <p>Fecha: {formatDate(activity.date)}</p>
-                                <p>Duración del plan: {formatDuration(activity.duration)}</p>
+                                <div className="icons">
+                                    <div className="calendar">
+                                        <img src={CALENDARIMG} alt="calendar icon" className="icon" />
+                                        <p>{formatDate(activity.date)}</p>
+                                    </div>
+                                    <div className="time">
+                                        <img src={TIMEIMG} alt="time icon" className="icon" />
+                                        <p>{formatDuration(activity.duration)}</p>
+                                    </div>
+                                    <br />
+                                    <div className="euro">
+                                        <p>{activity.price}</p>
+                                        <img src={EUROIMG} alt="euro icon" className="icon" />
+                                    </div>
+                                    <br />
+                                    <Button variant="dark" className="assist-button" onClick={handleShowAssistantModal}>QUIERO ASISTIR</Button>
+                                </div>
                             </div>
                         </Col>
                         <Modal show={showAssistantModal} onHide={handleCloseAssistantModal}>

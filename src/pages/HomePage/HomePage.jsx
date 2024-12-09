@@ -3,7 +3,7 @@ import { Carousel, Row, Col } from 'react-bootstrap';
 import activitiesServices from '../../services/activities.services';
 import * as IMAGE_PATH from '../../consts/image-paths'
 import ActivityCard from '../../components/ActivityCard/ActivityCard';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const HomePage = () => {
 
@@ -32,8 +32,8 @@ const HomePage = () => {
     return (
         <div className="HomePage">
 
-            <h1 className="text-center mb-4">Título Principal</h1>
-
+            <h1 className="text-center mb-4">PLANNING TO GO</h1>
+            <hr className="col-md-12" />
             <Row className="text-center justify-content-center align-items-center mb-4">
                 <Col xs={12} sm={4} md={3} className="mb-3">
                     <img
