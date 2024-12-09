@@ -2,15 +2,22 @@ import { useState } from "react"
 import ActivitiesList from "../../components/ActivitiesList/ActivitiesList"
 import activitiesServices from "../../services/activities.services"
 import { useEffect } from "react"
-import { Container } from "react-bootstrap"
+import { Button, Container } from "react-bootstrap"
 import './ActivitiesPage.css'
 import ReactGoogleMap from "../../components/ReactGoogleMap/ReactGoogleMap"
 import Loader from "../../components/Loader/Loader"
+import Modal from 'react-bootstrap/Modal';
+import CreateActivityForm from "../../components/CreateActivityForm/CreateActivityForm"
 
 const ActivitiesPage = () => {
 
     const [activities, setActivities] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
 
     useEffect(() => {
         fetchActivities()
@@ -22,6 +29,7 @@ const ActivitiesPage = () => {
             .then(({ data }) => {
                 setActivities(data)
                 setIsLoading(false)
+                handleClose()
             })
             .catch(err => console.log(err))
     }
@@ -30,10 +38,23 @@ const ActivitiesPage = () => {
         isLoading ? <Loader /> :
             <Container>
                 <div className="ActivitiesPage">
-                    <h1>Encuentra el plan que mejor se adate a ti</h1>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <h1>Encuentra el plan que mejor se adapte a ti</h1>
+                        <Button variant="dark" onClick={handleShow}>Añade tu propio plan!</Button>
+                    </div>
                     <h2>Lista de planes y hay ahora {activities.length} planes</h2>
                     <ReactGoogleMap />
                     <ActivitiesList activities={activities} fetchActivities={fetchActivities} />
+
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Crea un Nuevo Plan</Modal.Title>
+                        </Modal.Header>
+
+                        <Modal.Body>
+                            <CreateActivityForm handleClose={handleClose} fetchActivities={fetchActivities} />
+                        </Modal.Body>
+                    </Modal>
                 </div>
             </Container>
 

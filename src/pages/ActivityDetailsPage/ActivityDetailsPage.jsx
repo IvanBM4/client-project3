@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom"
 import './ActivityDetailsPage.css'
 import Loader from "../../components/Loader/Loader"
 import ReviewsList from "../../components/ReviewsList/ReviewsList";
+import CreateReviewForm from "../../components/CreateReviewForm/CreateReviewForm";
+import { EMPTYHEART, FULLHEART } from "../../consts/image-paths";
 
 const ActivityDetailsPage = () => {
 
@@ -12,6 +14,9 @@ const ActivityDetailsPage = () => {
 
     const [activity, setActivity] = useState({})
     const [isLoading, setIsLoading] = useState(true)
+    const [showReviewModal, setShowReviewModal] = useState(false)
+    const [liked, setLiked] = useState(false);
+
 
     useEffect(() => {
         fetchOneActivity()
@@ -60,6 +65,14 @@ const ActivityDetailsPage = () => {
 
     }
 
+    const handleShowReviewModal = () => {
+        setShowReviewModal(true)
+    }
+
+    const handleLike = () => {
+        setLiked(!liked);
+    }
+
     return (
         isLoading ? <Loader /> :
             <div className="ActivityDetailsPage">
@@ -68,10 +81,25 @@ const ActivityDetailsPage = () => {
                         <Col>
                             <div className="image-container">
                                 <img src={activity.cover} alt={activity.title} />
-                                <div className="buttons-container">
-                                    <Button variant="dark">Categorías</Button>
-                                    <Button variant="dark">Accesibilidad</Button>
-                                    <Button variant="dark">Orientado a</Button>
+                                <img
+                                    className="Hearts"
+                                    onClick={handleLike}
+                                    src={liked ? FULLHEART : EMPTYHEART}
+                                    alt="heart"
+
+                                />
+                                <div className="container">
+                                    <p>Categorías: </p>
+                                    {activity.categories && activity.categories.map((categories, index) => (
+                                        <p key={index}>{categories}</p>
+                                    ))}
+                                    <p>Accesibilidad:</p>
+                                    {activity.accesibility && activity.accesibility.map((accesibility, index) => (
+                                        <p key={index}>{accesibility}</p>
+                                    ))}
+                                    <p> {activity.target} </p>
+                                    <p> {activity.accesibility} </p>
+                                    <Button variant="dark" onClick={handleShowReviewModal}>!Comparta su experiencia!</Button>
                                 </div>
 
                             </div>

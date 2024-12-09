@@ -8,9 +8,7 @@ import targetsServices from "../../services/targets.services";
 import accesibilitiesServices from "../../services/accesibilities.services";
 import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
-const CreateActivityForm = () => {
-
-    const navigate = useNavigate()
+const CreateActivityForm = ({ handleClose, fetchActivities }) => {
 
     const [activityData, setActivityData] = useState({
         name: '',
@@ -212,15 +210,17 @@ const CreateActivityForm = () => {
             ...activityData,
             address: reqPayLoadAddress
         };
-
         activitiesServices
             .saveActivity(reqPayLoad)
             .then(() => {
-                alert('Got it');
+                fetchActivities()
+                handleClose()
             })
             .catch(err => {
                 console.log(err)
             })
+        console.log("Datos enviados al backend:", reqPayLoad);
+
     }
 
 
@@ -469,7 +469,7 @@ const CreateActivityForm = () => {
 
                     </Row>
 
-                    <Button className="mb-2" variant="dark" type="submit" >
+                    <Button className="mb-2" variant="dark" type="submit">
                         Crear plan
                     </Button>
 
