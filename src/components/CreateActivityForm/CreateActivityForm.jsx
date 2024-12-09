@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { Container, Dropdown, Form } from "react-bootstrap"
 import { Col, Row, Button } from 'react-bootstrap';
 import activitiesServices from "../../services/activities.services";
-import { useNavigate } from "react-router-dom";
 import categoriesServices from "../../services/categories.services";
 import targetsServices from "../../services/targets.services";
 import accesibilitiesServices from "../../services/accesibilities.services";
@@ -243,11 +242,11 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
         <div className="CreateActivityForm">
             <Container>
                 <Form onSubmit={handleSubmit}>
+
                     <Row className='mb-3'>
 
                         <Form.Group
-                            as={Col}
-                            xs={6}
+
                             controlId='formActivityName'>
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control
@@ -257,13 +256,16 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                                 onChange={handleActivityChange}
                             />
                         </Form.Group>
+                    </Row>
 
+                    <Row className='mb-3'>
                         <Form.Group
-                            as={Col}
-                            xs={6}
+
                             controlId='formActivityDescription'>
                             <Form.Label>Descripción</Form.Label>
                             <Form.Control
+                                as="textarea"
+                                rows={3}
                                 name="description"
                                 value={activityData.description}
                                 onChange={handleActivityChange}
@@ -273,11 +275,9 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
 
                     </Row>
 
-                    <Row>
+                    <Row className='mb-3'>
 
                         <Form.Group
-                            as={Col}
-                            xs={6}
                             controlId='formActivityImage'>
                             <Form.Label>Imagen</Form.Label>
                             <Form.Control
@@ -287,84 +287,23 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                             />
                         </Form.Group>
 
-                        <Form.Group
-                            as={Col}
-                            xs={6}
-                            controlId='formActivityCity'>
-                            <Form.Label>Ciudad</Form.Label>
-                            <Form.Control
-                                name="city"
-                                value={addressData.city}
-                                onChange={handleAddressChange}
-                                placeholder="Añada la nueva ciudad"
-                                type='text'
-                            />
-                        </Form.Group>
-
                     </Row>
 
                     <Row>
 
-                        <Form.Group
-                            as={Col}
-                            xs={6}
-                            controlId='formActivityStreet'>
-                            <Form.Label>Calle</Form.Label>
-                            <Form.Control
-                                name='street'
-                                value={addressData.street}
-                                onChange={handleAddressChange}
-                                placeholder="Añada la nueva calle"
-                                type='text'
+                        <Form.Group controlId="autocompleteAddress" className="mb-3 places-input">
+                            <Form.Label>Añade la dirección</Form.Label>
+                            <GooglePlacesAutocomplete
+                                selectProps={{
+                                    addressValue,
+                                    onChange: setAddressValue
+                                }}
+                                apiKey="AIzaSyBZ2QgeOdlau8hshB4nIF47iw2lXyjViJs"
                             />
                         </Form.Group>
-
-                        <Form.Group as={Col} xs={6} controlId='formActivityZipcode'>
-                            <Form.Label>Código postal</Form.Label>
-                            <Form.Control
-                                name='zipcode'
-                                value={addressData.zipcode}
-                                onChange={handleAddressChange}
-                                placeholder="Añada el nuevo código postal"
-                                type='number'
-                            />
-                        </Form.Group>
-
                     </Row>
 
-                    <Row>
-
-                        <Form.Group
-                            as={Col}
-                            xs={6}
-                            controlId='formActivityLongitude'>
-                            <Form.Label>Longitud</Form.Label>
-                            <Form.Control
-                                name='longitude'
-                                value={locationData.longitude}
-                                onChange={handleLocationsChange}
-                                placeholder="Añada la nueva longitud"
-                                type='number'
-                            />
-                        </Form.Group>
-
-                        <Form.Group
-                            as={Col}
-                            xs={6}
-                            controlId='formActivityLatitude'>
-                            <Form.Label>Latitud</Form.Label>
-                            <Form.Control
-                                name='latitude'
-                                value={locationData.latitude}
-                                onChange={handleLocationsChange}
-                                placeholder="Añada la nueva latitud"
-                                type='number'
-                            />
-                        </Form.Group>
-
-                    </Row>
-
-                    <Row>
+                    <Row className='mb-3'>
                         <Form.Group
                             as={Col}
                             xs={4}
@@ -398,7 +337,7 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
 
                     </Row>
 
-                    <Row>
+                    <Row className='mb-3'>
 
                         <Form.Group
                             as={Col}
@@ -410,7 +349,7 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                             {activityData.categories.map((elm, idx) => {
                                 return (
                                     <Row key={idx}>
-                                        <Col  >
+                                        <Col className='mb-2' >
                                             <Form.Select
                                                 className="mb-2"
                                                 id={`categoriesForm-${idx}`}
@@ -428,7 +367,7 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
 
                                             </Form.Select>
                                         </Col>
-                                        <Col >
+                                        <Col className='mb-3'>
                                             <Button
                                                 variant="dark"
                                                 size="sm"
@@ -457,7 +396,7 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                             {activityData.accesibility.map((elm, idx) => {
                                 return (
                                     <Row key={idx}>
-                                        <Col >
+                                        <Col className='mb-2'>
                                             <Form.Select
                                                 className="mb-2"
                                                 key={idx}
@@ -474,7 +413,7 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                                             </Form.Select>
                                         </Col>
 
-                                        <Col >
+                                        <Col className='mb-3'>
                                             <Button
                                                 variant="dark"
                                                 size="sm"
@@ -504,7 +443,7 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                             {activityData.target.map((elm, idx) => {
                                 return (
                                     <Row>
-                                        <Col>
+                                        <Col className='mb-2'>
                                             <Form.Select
                                                 className="mb-2"
                                                 key={idx}
@@ -519,7 +458,7 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                                                 })}
                                             </Form.Select>
                                         </Col>
-                                        <Col>
+                                        <Col className='mb-3'>
                                             <Button
                                                 variant="dark"
                                                 size="sm"
