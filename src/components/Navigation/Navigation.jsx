@@ -34,8 +34,7 @@ const Navigation = () => {
                             navbarScroll
                         >
                             <Nav.Link as={Link} to='/planes' >Planes</Nav.Link>
-                            {loggedUser && <Nav.Link as={Link} to='/añade-un-plan'>Crea tu plan</Nav.Link>}
-                            {loggedUser && <Nav.Link as={Link} to='/perfil'>Perfil</Nav.Link>}
+                            {loggedUser && <Nav.Link as={Link} to={`/perfil/${loggedUser._id}`}>Perfil</Nav.Link>}
                             {loggedUser && <Nav.Link as={Link} onClick={logoutUser} to='/iniciar-sesion'>Cerrar sesión</Nav.Link>}
                             {!loggedUser && <Nav.Link as={Link} to='/iniciar-sesion'>Iniciar Sesión</Nav.Link>}
                             {!loggedUser && <Nav.Link as={Link} to='/registro'>Regístrate</Nav.Link>}

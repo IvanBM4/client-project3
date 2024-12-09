@@ -37,7 +37,7 @@ const ActivityCard = ({ name, description, cover, host, _id, deleteActivity, fet
 
     return (
         <div className='ActivityCard'>
-            <Card>
+            <Card className="rounded-card">
                 <Card.Img variant="top" src={cover} />
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>

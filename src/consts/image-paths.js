@@ -2,3 +2,6 @@ export const ICON1 = "https://res.cloudinary.com/du50mrzcj/image/upload/v1733481
 export const ICON3 = "https://res.cloudinary.com/du50mrzcj/image/upload/v1733480902/walking-man_jftvgv.png"
 export const ICON4 = "https://res.cloudinary.com/du50mrzcj/image/upload/v1733481687/eat_asjzre.png"
 export const ICON5 = "https://res.cloudinary.com/du50mrzcj/image/upload/v1733480903/friend_t1fpo0.png"
+
+export const FULLHEART = "https://raw.githubusercontent.com/bootcamp-webmad-1024/week4_day2/b6fd78748606a2c26dc50f27f964fa101fe3c509/react-state/src/assets/heart-on.svg"
+export const EMPTYHEART = "https://raw.githubusercontent.com/bootcamp-webmad-1024/week4_day2/b6fd78748606a2c26dc50f27f964fa101fe3c509/react-state/src/assets/heart-off.svg"

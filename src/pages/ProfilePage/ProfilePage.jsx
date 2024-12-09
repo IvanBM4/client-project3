@@ -40,15 +40,12 @@ const ProfilePage = () => {
                         <p>Email: {loggedUser.email}</p>
                     </div>
                 </Col>
-                {/* Columna Izquierda: Avatar y Saludo */}
                 <Col xs={12} md={4} className="text-start">
                     <div className="avatar-img">
                         <img src={userData.avatar} alt="Avatar" />
                     </div>
                     <h1>¡Hola {userData.username}!</h1>
                 </Col>
-
-                {/* Columna Derecha: Información */}
             </Row>
         </div>
     );
