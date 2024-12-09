@@ -4,6 +4,8 @@ import activitiesServices from "../../services/activities.services"
 import { useEffect } from "react"
 import { Container } from "react-bootstrap"
 import './ActivitiesPage.css'
+import ReactGoogleMap from "../../components/ReactGoogleMap/ReactGoogleMap"
+import Loader from "../../components/Loader/Loader"
 
 const ActivitiesPage = () => {
 
@@ -25,11 +27,12 @@ const ActivitiesPage = () => {
     }
 
     return (
-        isLoading ? <h1>Cargando</h1> :
+        isLoading ? <Loader /> :
             <Container>
                 <div className="ActivitiesPage">
                     <h1>Encuentra el plan que mejor se adate a ti</h1>
                     <h2>Lista de planes y hay ahora {activities.length} planes</h2>
+                    <ReactGoogleMap />
                     <ActivitiesList activities={activities} fetchActivities={fetchActivities} />
                 </div>
             </Container>

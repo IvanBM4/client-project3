@@ -3,8 +3,11 @@ import { Carousel, Row, Col } from 'react-bootstrap';
 import activitiesServices from '../../services/activities.services';
 import * as IMAGE_PATH from '../../consts/image-paths'
 import ActivityCard from '../../components/ActivityCard/ActivityCard';
+import { useParams } from 'react-router-dom';
 
 const HomePage = () => {
+
+    const { id: _id } = useParams()
 
     const [activity, setActivities] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -80,6 +83,7 @@ const HomePage = () => {
                         <ActivityCard
                             cover={elm.cover}
                             name={elm.name}
+                            _id={elm._id}
                         />
                     </Col>
                 ))}

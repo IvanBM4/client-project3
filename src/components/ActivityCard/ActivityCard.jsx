@@ -6,16 +6,24 @@ import EditActivityForm from '../EditActivityForm/EditActivityForm';
 import './ActivityCard.css'
 import { AuthContext } from '../../contexts/auth.context'
 import { Link } from 'react-router-dom';
+import activitiesServices from "../../services/activities.services"
 
-const ActivityCard = ({ name, description, cover, host, _id, deleteActivity, fetchActivities }) => {
+const ActivityCard = ({ name, description, cover, host, _id, fetchActivities }) => {
 
     const { loggedUser } = useContext(AuthContext)
 
     const [showModal, setShowModal] = useState(false)
     const [showEditModal, setEditShowModal] = useState(false)
 
+    const deleteActivity = () => {
+        activitiesServices
+            .deleteActivity(_id)
+            .then(() => fetchActivities())
+            .catch((err) => console.log(err))
+    }
+
     const handleDelete = () => {
-        deleteActivity(_id)
+        deleteActivity()
         setShowModal(false)
     }
 

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import categoriesServices from "../../services/categories.services";
 import targetsServices from "../../services/targets.services";
 import accesibilitiesServices from "../../services/accesibilities.services";
+import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 const CreateActivityForm = () => {
 
@@ -34,6 +35,57 @@ const CreateActivityForm = () => {
         longitude: 0,
         latitude: 0
     })
+
+    const [addressValue, setAddressValue] = useState({})
+
+    const handleAutocomplete = () => {
+        if (addressValue?.label) {
+            geocodeByAddress(addressValue.label)
+                .then((results) => {
+                    const addressComponents = results[0].address_components
+                    let city = ''
+                    let zipcode = ''
+                    let street = ''
+
+                    addressComponents.forEach((component) => {
+                        if (component.types.includes('locality')) {
+                            city = component.long_name
+                        }
+                        if (component.types.includes('postal_code')) {
+                            zipcode = component.long_name
+                        }
+                        if (component.types.includes('route')) {
+                            street = component.long_name
+                        }
+                    })
+
+                    return getLatLng(results[0]).then((coordinates) => ({
+                        coordinates,
+                        city,
+                        zipcode,
+                        street
+                    }))
+                })
+                .then(({ coordinates, city, zipcode, street }) => {
+                    setLocationData({
+                        ...locationData,
+                        label: addressValue.label,
+                        latitude: coordinates.lat,
+                        longitude: coordinates.lng
+                    })
+
+                    setAddressData({
+                        city,
+                        zipcode: zipcode ? parseInt(zipcode, 10) : 0,
+                        street
+                    })
+                })
+        }
+    }
+
+    useEffect(() => {
+        handleAutocomplete()
+    }, [addressValue])
 
     const [categoriesSelection, setCategoriesSelection] = useState([])
     const [targetsSelection, setTargetsSelection] = useState([])
@@ -81,11 +133,6 @@ const CreateActivityForm = () => {
     const handleAddressChange = e => {
         const { name, value } = e.target
         setAddressData({ ...addressData, [name]: value })
-    }
-
-    const handleLocationsChange = e => {
-        const { name, value } = e.target
-        setLocationData({ ...locationData, [name]: value })
     }
 
     const handleCategoriesChange = (e, idx) => {
@@ -211,11 +258,10 @@ const CreateActivityForm = () => {
 
                     </Row>
 
-                    <Row>
+                    <Row className='mb-3'>
 
                         <Form.Group
-                            as={Col}
-                            xs={6}
+
                             controlId='formActivityImage'>
                             <Form.Label>Imagen</Form.Label>
                             <Form.Control
@@ -227,84 +273,24 @@ const CreateActivityForm = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group
-                            as={Col}
-                            xs={6}
-                            controlId='formActivityCity'>
-                            <Form.Label>Ciudad</Form.Label>
-                            <Form.Control
-                                name="city"
-                                value={addressData.city}
-                                onChange={handleAddressChange}
-                                placeholder="Añada la nueva ciudad"
-                                type='text'
+                    </Row>
+
+                    <Row >
+                        <Form.Group controlId="autocompleteAddress" className="mb-3 places-input">
+                            <Form.Label>Añade la dirección</Form.Label>
+                            <GooglePlacesAutocomplete
+                                selectProps={{
+                                    addressValue,
+                                    onChange: setAddressValue
+                                }}
+                                apiKey="AIzaSyBZ2QgeOdlau8hshB4nIF47iw2lXyjViJs"
                             />
                         </Form.Group>
+
 
                     </Row>
 
-                    <Row>
-
-                        <Form.Group
-                            as={Col}
-                            xs={6}
-                            controlId='formActivityStreet'>
-                            <Form.Label>Calle</Form.Label>
-                            <Form.Control
-                                name='street'
-                                value={addressData.street}
-                                onChange={handleAddressChange}
-                                placeholder="Añada la nueva calle"
-                                type='text'
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} xs={6} controlId='formActivityZipcode'>
-                            <Form.Label>Código postal</Form.Label>
-                            <Form.Control
-                                name='zipcode'
-                                value={addressData.zipcode}
-                                onChange={handleAddressChange}
-                                placeholder="Añada el nuevo código postal"
-                                type='number'
-                            />
-                        </Form.Group>
-
-                    </Row>
-
-                    <Row>
-
-                        <Form.Group
-                            as={Col}
-                            xs={6}
-                            controlId='formActivityLongitude'>
-                            <Form.Label>Longitud</Form.Label>
-                            <Form.Control
-                                name='longitude'
-                                value={locationData.longitude}
-                                onChange={handleLocationsChange}
-                                placeholder="Añada la nueva longitud"
-                                type='number'
-                            />
-                        </Form.Group>
-
-                        <Form.Group
-                            as={Col}
-                            xs={6}
-                            controlId='formActivityLatitude'>
-                            <Form.Label>Latitud</Form.Label>
-                            <Form.Control
-                                name='latitude'
-                                value={locationData.latitude}
-                                onChange={handleLocationsChange}
-                                placeholder="Añada la nueva latitud"
-                                type='number'
-                            />
-                        </Form.Group>
-
-                    </Row>
-
-                    <Row>
+                    <Row className='mb-3'>
                         <Form.Group
                             as={Col}
                             xs={4}
@@ -338,7 +324,7 @@ const CreateActivityForm = () => {
 
                     </Row>
 
-                    <Row>
+                    <Row className='mb-3'>
 
                         <Form.Group
                             as={Col}

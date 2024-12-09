@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Col, Container, Modal, Row } from "react-bootstrap"
 import activitiesServices from "../../services/activities.services"
 import { useParams } from "react-router-dom"
 import './ActivityDetailsPage.css'
-import Card from 'react-bootstrap/Card'
 import Loader from "../../components/Loader/Loader"
 import ReviewsList from "../../components/ReviewsList/ReviewsList";
-import CreateReviewForm from "../../components/CreateReviewForm/CreateReviewForm";
 
 const ActivityDetailsPage = () => {
 
     const { id: _id } = useParams()
 
-    const [activity, setActivities] = useState({})
+    const [activity, setActivity] = useState({})
     const [isLoading, setIsLoading] = useState(true)
-    const [showModal, setShowModal] = useState(false)
-    const [showReviewModal, setShowReviewModal] = useState(false)
-    const [isExpanded, setIsExpanded] = useState(false);
 
     useEffect(() => {
         fetchOneActivity()
@@ -26,14 +21,22 @@ const ActivityDetailsPage = () => {
         activitiesServices
             .fetchOneActivity(_id)
             .then(({ data }) => {
-                setActivities(data)
+                setActivity(data)
                 setIsLoading(false)
             })
             .catch(err => console.log(err))
     }
 
+    const handleJoinActivity = () => {
+
+        activitiesServices
+            .joinActivity(_id)
+            .then(console.log(_id))
+            .catch(err => console.log(err))
+
+    }
+
     const formatDate = (dateString) => {
-        console.log("Fecha original:", dateString)
         const date = new Date(dateString)
         const day = date.getDate()
         const month = date.toLocaleString('default', { month: 'long' })
@@ -57,19 +60,6 @@ const ActivityDetailsPage = () => {
 
     }
 
-    const handleShowReviewModal = () => {
-        setShowReviewModal(true)
-    }
-
-    const handleCloseReviewModal = () => {
-        setShowReviewModal(false)
-    }
-
-    const handleCancelReviewButton = () => {
-        setShowReviewModal(false)
-    }
-
-
     return (
         isLoading ? <Loader /> :
             <div className="ActivityDetailsPage">
@@ -82,35 +72,7 @@ const ActivityDetailsPage = () => {
                                     <Button variant="dark">Categorías</Button>
                                     <Button variant="dark">Accesibilidad</Button>
                                     <Button variant="dark">Orientado a</Button>
-                                    <Button variant="dark" onClick={handleShowReviewModal}>!Comparta su experiencia!</Button>
                                 </div>
-
-
-                                <Modal show={showModal} onHide={() => setShowReviewModal(false)}>
-                                    <Modal.Header closeButton>
-                                        <Modal.Title>¡Cuidado!</Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>¿Está seguro de que desea eliminar esta actividad?</Modal.Body>
-                                    <Modal.Footer>
-                                        <Button variant="secondary" >
-                                            Sí
-                                        </Button>
-                                        <Button variant="dark" onClick={handleCancelReviewButton}>
-                                            No
-                                        </Button>
-                                    </Modal.Footer>
-                                </Modal>
-
-
-                                <Modal show={showReviewModal} onHide={handleCloseReviewModal} size="lg">
-                                    <Modal.Header closeButton>
-                                        <Modal.Title>Editar Actividad</Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <CreateReviewForm id={_id} closeModal={handleCloseReviewModal} />
-                                    </Modal.Body>
-                                </Modal>
-
 
                             </div>
                         </Col>
@@ -133,8 +95,9 @@ const ActivityDetailsPage = () => {
                             </div>
                         </Col>
                     </Row>
+                    <Button onClick={handleJoinActivity}>Unirme a la actividad</Button>
                     <ReviewsList />
-                    <CreateReviewForm />
+
                 </Container>
             </div >
     )

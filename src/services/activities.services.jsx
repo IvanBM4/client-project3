@@ -47,6 +47,10 @@ class ActivitiesServicies {
         })
     }
 
+    joinActivity(id) {
+        return this.axiosApp.post(`/activities/${id}/join`)
+    }
+
 }
 
 export default new ActivitiesServicies

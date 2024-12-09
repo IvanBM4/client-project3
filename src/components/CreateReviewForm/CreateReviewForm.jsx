@@ -3,17 +3,14 @@ import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import reviewsServices from '../../services/reviews.services';
-import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth.context'
 
-const CreateReviewForm = () => {
+const CreateReviewForm = ({ id, closeModal }) => {
 
     const { loggedUser } = useContext(AuthContext)
 
-    const { id: _id } = useParams()
-
     const [reviewData, setReviewsData] = useState({
-        rating: 0,
+        rating: 1,
         description: '',
     })
 
@@ -26,16 +23,18 @@ const CreateReviewForm = () => {
         e.preventDefault()
 
         const reqPayLoad = {
-            activity: _id,
+            activity: id,
             author: loggedUser,
             ...reviewData
         }
 
         reviewsServices
             .saveReview(reqPayLoad)
-            .then(alert('posteada'))
+            .then(() => closeModal())
             .catch(err => console.log(err))
     }
+
+    console.log(reviewData)
 
     return (
 

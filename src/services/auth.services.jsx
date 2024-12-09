@@ -38,7 +38,7 @@ class AuthServicies {
     }
 
     getOneUser(id) {
-        return this.axiosApp.get(`/user/${id}`)
+        return this.axiosApp.get(`/users/${id}`)
     }
 }
 
