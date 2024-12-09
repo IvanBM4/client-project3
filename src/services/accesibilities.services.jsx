@@ -1,6 +1,10 @@
 import axios from "axios"
 
+
+
+
 class AccesibilitiesServicies {
+
 
     constructor() {
 
