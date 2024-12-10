@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, act } from "react";
 import { Button, Col, Container, Modal, Row, Stack } from "react-bootstrap"
 import { useNavigate } from 'react-router-dom';
 import activitiesServices from "../../services/activities.services"
@@ -83,6 +83,17 @@ const ActivityDetailsPage = () => {
             .catch((err) => console.log(err))
     }
 
+    const handleLeaveActivity = () => {
+        activitiesServices
+            .leaveActivity(_id)
+            .then(() => {
+                fetchOneActivity()
+            })
+            .catch(err => {
+                console.log('Error al dejar la actividad:', err);
+            });
+    }
+
     return (
         isLoading ? <Loader /> :
             <div className="ActivityDetailsPage">
@@ -95,7 +106,25 @@ const ActivityDetailsPage = () => {
                             <div className="text-container">
                                 <h3>{activity.name}</h3>
                                 <Stack direction="horizontal" gap={2}>
-                                    <Button variant="dark" className="assist-button" onClick={() => setShowAssistantModal(true)}>Quiero asistir</Button>
+
+
+                                    {
+                                        activity.assistants?.some(elm => elm._id === loggedUser?._id) ?
+                                            <Button
+                                                variant='dark'
+                                                className='assist-button'
+                                                onClick={handleLeaveActivity}
+                                            >
+                                                DEJAR DE ASISTIR
+                                            </Button> :
+                                            <Button
+                                                variant='dark'
+                                                className='assist-button'
+                                                onClick={handleJoinActivity}
+                                            >
+                                                QUIERO ASISTIR                                            </Button>
+                                    }
+
                                     <Button variant="dark" onClick={() => setShowReviewModal(true)}>Añadir reseña</Button>
                                     {
                                         activity.host && activity.host._id === loggedUser?._id && (
