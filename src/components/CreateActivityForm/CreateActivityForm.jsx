@@ -24,8 +24,8 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
         city: '',
         zipcode: 0,
         street: '',
-        longitude: 0,
-        latitude: 0
+        latitude: 0,
+        longitude: 0
     })
 
     const [addressValue, setAddressValue] = useState({})
@@ -71,8 +71,8 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                         zipcode: zipcode ? parseInt(zipcode, 10) : 0,
                         street,
                         label: addressValue.label,
-                        latitude: coordinates.lat,
-                        longitude: coordinates.lng
+                        longitude: coordinates.lat,
+                        latitude: coordinates.lng
                     })
                 })
         }
@@ -150,7 +150,7 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
         const categoriesWithoutRemovedOne = selectedCategories.filter(category => category !== categoryToRemove);
 
         setSelectedCategories(categoriesWithoutRemovedOne);
-    } 
+    }
 
     const [selectedAccesibilities, setSelectedAccesibilities] = useState([]);
 
@@ -163,7 +163,7 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
         const accesibilitiesWithoutRemovedOne = selectedAccesibilities.filter(accesibility => accesibility !== accesibilityToRemove);
 
         setSelectedAccesibilities(accesibilitiesWithoutRemovedOne);
-    } 
+    }
 
     const [selectedTargets, setSelectedTargets] = useState([]);
 
@@ -176,23 +176,19 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
         const targetsWithoutRemovedOne = selectedTargets.filter(target => target !== targetToRemove);
 
         setSelectedTargets(targetsWithoutRemovedOne);
-    } 
+    }
 
     const handleSubmit = e => {
 
         e.preventDefault()
 
-        const reqPayLoadAddress = {
-            ...addressData,
-            location: { ...locationData }
-        };
 
         const reqPayLoad = {
             ...activityData,
             target: selectedTargets,
             accesibility: selectedAccesibilities,
             categories: selectedCategories,
-            address: reqPayLoadAddress
+            address: addressData
         };
 
         activitiesServices
@@ -303,7 +299,12 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
 
                         <Form.Group as={Col} xs={4} controlId='formActivityPrice'>
                             <Form.Label>Precio</Form.Label>
-                            <Form.Control placeholder="Añada el nuevo precio" type='number' />
+                            <Form.Control
+                                placeholder="Añada el nuevo precio"
+                                type='number'
+                                value={activityData.price}
+                                onChange={handleActivityChange}
+                                name='price' />
                         </Form.Group>
 
                     </Row>
@@ -334,22 +335,22 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                             }
                         </Stack>
 
-                                <Form.Select
-                                            className="mb-2"
-                                                name="accesibility"
-                                                aria-label="Seleccione tipos de accesibilidad"
-                                                value={''}
-                                                onChange={handleSelectAccesibility}
-                                            >
-                                                <option>Selecciona un tipo de accesibilidad</option>
-                                                {accesibilitiesSelection.filter(acc => !selectedAccesibilities.includes(acc)).map((elm, idx) => {
-                                                    return (
-                                                        <option value={elm} key={idx}>{elm}</option>
-                                                    )
-                                                })}
-                                            </Form.Select>
+                        <Form.Select
+                            className="mb-2"
+                            name="accesibility"
+                            aria-label="Seleccione tipos de accesibilidad"
+                            value={''}
+                            onChange={handleSelectAccesibility}
+                        >
+                            <option>Selecciona un tipo de accesibilidad</option>
+                            {accesibilitiesSelection.filter(acc => !selectedAccesibilities.includes(acc)).map((elm, idx) => {
+                                return (
+                                    <option value={elm} key={idx}>{elm}</option>
+                                )
+                            })}
+                        </Form.Select>
 
-                                            {
+                        {
                             selectedAccesibilities.map((accesibility, idx) => (
                                 <Button variant="secondary" key={idx}>
                                     {accesibility} <Badge bg="dark" onClick={() => handleRemoveAccesibility(accesibility)}>X</Badge>
@@ -357,28 +358,28 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                             ))
                         }
 
-                                            <Form.Select
-                                                className="mb-2"
-                                                name="target"
-                                                onChange={handleSelectTarget}
-                                                value={''}
-                                                aria-label="Seleccione una opción">
-                                                <option>Selecciona un target</option>
-                                                {targetsSelection.filter(target => !selectedTargets.includes(target)).map((elm, idx) => {
-                                                    return (
-                                                        <option value={elm} key={idx}>{elm}</option>
-                                                    )
-                                                })}
-                                            </Form.Select>
+                        <Form.Select
+                            className="mb-2"
+                            name="target"
+                            onChange={handleSelectTarget}
+                            value={''}
+                            aria-label="Seleccione una opción">
+                            <option>Selecciona un target</option>
+                            {targetsSelection.filter(target => !selectedTargets.includes(target)).map((elm, idx) => {
+                                return (
+                                    <option value={elm} key={idx}>{elm}</option>
+                                )
+                            })}
+                        </Form.Select>
 
-                                            {
+                        {
                             selectedTargets.map((target, idx) => (
                                 <Button variant="secondary" key={idx}>
                                     {target} <Badge bg="dark" onClick={() => handleRemoveTarget(target)}>X</Badge>
                                 </Button>
                             ))
                         }
-                    
+
 
                     </Col>
 

@@ -1,6 +1,7 @@
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import { useState } from 'react'
 import ActivitiesMarker from '../ActivitiesMarker/ActivitiesMarker'
+import '../ReactGoogleMap/ReactGoogleMap.css'
 
 const ReactGoogleMap = () => {
 

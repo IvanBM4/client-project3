@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import ActivitiesList from "../../components/ActivitiesList/ActivitiesList"
 import activitiesServices from "../../services/activities.services"
 import { useEffect } from "react"
@@ -10,8 +10,11 @@ import CreateActivityForm from "../../components/CreateActivityForm/CreateActivi
 import categoriesServices from "../../services/categories.services"
 import targetsServices from "../../services/targets.services"
 import accesibilitiesServices from "../../services/accesibilities.services"
+import { AuthContext } from "../../contexts/auth.context"
 
 const ActivitiesPage = () => {
+
+    const { loggedUser } = useContext(AuthContext)
 
     const [activities, setActivities] = useState([])
 
@@ -99,17 +102,18 @@ const ActivitiesPage = () => {
                         alignItems: 'center'
                     }}>
                         <h1>Encuentra el plan que mejor se adapte a ti</h1>
-                        <Button
+                        {loggedUser && <Button
                             variant="dark"
                             onClick={handleShow}>
                             Añade tu propio plan!
-                        </Button>
+                        </Button>}
 
                     </div>
 
                     <h2>Lista de planes y hay ahora {activities.length} planes</h2>
-                    <ReactGoogleMap />
-
+                    <div className="maps">
+                        <ReactGoogleMap />
+                    </div>
                     <br />
                     <div className="filtersList">
                         <Row className="mb-3">
@@ -120,7 +124,7 @@ const ActivitiesPage = () => {
                                     value={categoryFilter}
                                     onChange={e => setCategoryFilter(e.target.value)}
                                 >
-                                    <option value="">Categorías</option>
+                                    <option value="">Todas las categorías</option>
                                     {existentCategories.map(elm => (
                                         <option key={elm} value={elm}>{elm}</option>
                                     ))}
@@ -134,7 +138,7 @@ const ActivitiesPage = () => {
                                     value={targetFilter}
                                     onChange={e => setTargetFilter(e.target.value)}
                                 >
-                                    <option value="">Orientado a</option>
+                                    <option value="">Todas las orientaciones</option>
                                     {existentTargets.map(elm => (
                                         <option key={elm} value={elm}>{elm}</option>
                                     ))}
@@ -145,10 +149,10 @@ const ActivitiesPage = () => {
                             <Col>
 
                                 <Form.Select
-                                    value={targetFilter}
+                                    value={accesibilityFilter}
                                     onChange={e => setAccessibilityFilter(e.target.value)}
                                 >
-                                    <option value="">Accesibilidades</option>
+                                    <option value="">Todas las accesibilidades</option>
                                     {existentAccesibilities.map(elm => (
                                         <option key={elm} value={elm}>{elm}</option>
                                     ))}

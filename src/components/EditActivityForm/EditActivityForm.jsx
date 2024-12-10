@@ -28,8 +28,8 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
         city: '',
         zipcode: 0,
         street: '',
-        longitude: 0,
-        latitude: 0
+        latitude: 0,
+        longitude: 0
     })
 
     const [addressValue, setAddressValue] = useState({})
@@ -76,8 +76,8 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                         zipcode: zipcode ? parseInt(zipcode, 10) : 0,
                         street,
                         label: addressValue.label,
-                        latitude: coordinates.lat,
-                        longitude: coordinates.lng
+                        longitude: coordinates.lat,
+                        latitude: coordinates.lng
                     })
                 })
         }
@@ -330,18 +330,29 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
 
                     <Form.Group as={Col} xs={4} controlId='formActivityDuration'>
                         <Form.Label>Duración</Form.Label>
-                        <Form.Control placeholder="Añada la duración" type='number' />
+                        <Form.Control
+                            placeholder="Añada la duración"
+                            type='number'
+                            name='duration'
+                            value={activityData.duration} />
                     </Form.Group>
 
                     <Form.Group as={Col} xs={4} controlId='formActivityDate'>
                         <Form.Label>Fecha</Form.Label>
                         <Form.Control
-                            type="date" />
+                            type="date"
+                            name="date"
+                            onChange={handleActivityChange} />
+
                     </Form.Group>
 
                     <Form.Group as={Col} xs={4} controlId='formActivityPrice'>
                         <Form.Label>Precio</Form.Label>
-                        <Form.Control placeholder="Añada el nuevo precio" type='number' />
+                        <Form.Control
+                            placeholder="Añada el nuevo precio"
+                            type='number'
+                            name='price'
+                            value={activityData.price} />
                     </Form.Group>
 
                 </Row>
