@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
-import GlobalActivitiesFilter from '../GlobalActivitiesFilter/GlobalActivitiesFilter.jsx'
+import GlobalActivitiesFilter from '../GlobalActivitiesFilter/GlobalActivitiesFilter'
 
 const Navigation = () => {
     const { loggedUser, logoutUser } = useContext(AuthContext)
