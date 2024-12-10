@@ -48,6 +48,10 @@ class ActivitiesServices {
     joinActivity(id) {
         return this.axiosApp.post(`/activities/${id}/join`)
     }
+
+    leaveActivity(id) {
+        return this.axiosApp.post(`/activities/${id}/leave`)
+    }
 }
 
 export default new ActivitiesServices()
