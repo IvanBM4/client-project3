@@ -4,7 +4,6 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
-import ProductGlobalFilter from '../GlobalActivitiesFilter/ProductGlobalFilter'
 
 const Navigation = () => {
     const { loggedUser, logoutUser } = useContext(AuthContext)

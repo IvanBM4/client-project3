@@ -1,4 +1,4 @@
-import { Col, Row, Button } from 'react-bootstrap';
+import { Col, Row, Button, Stack, Badge } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import '../../services/activities.services'
 import activitiesServices from '../../services/activities.services';
@@ -36,7 +36,6 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
     })
 
     const [addressValue, setAddressValue] = useState({})
-
     const [loadingImage, setLoadingImage] = useState(false)
 
     useEffect(() => {
@@ -97,9 +96,12 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
         fetchAllowedAccesibilities()
     }, [])
 
+    const [selectedCategories, setSelectedCategories] = useState([]);
     const [categoriesSelection, setCategoriesSelection] = useState([])
     const [targetsSelection, setTargetsSelection] = useState([])
+    const [selectedTargets, setSelectedTargets] = useState([]);
     const [accesibilitiesSelection, setAccesibilitiesSelection] = useState([])
+    const [selectedAccesibilities, setSelectedAccesibilities] = useState([]);
 
     const fetchAllowedCategories = () => {
 
@@ -108,6 +110,16 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
             .then(({ data }) => {
                 setCategoriesSelection(data)
             })
+    }
+
+    const handleSelectCategory = (e) => {
+        const { value } = e.target;
+        setSelectedCategories([...selectedCategories, value]);
+    }
+
+    const handleRemoveCategory = (categoryToRemove) => {
+        const categoriesWithoutRemovedOne = selectedCategories.filter(category => category !== categoryToRemove)
+        setSelectedCategories(categoriesWithoutRemovedOne);
     }
 
     const fetchAllowedTargets = () => {
@@ -119,6 +131,15 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
             })
     }
 
+    const handleSelectTarget = (e) => {
+        const { value } = e.target
+        setSelectedTargets([...selectedTargets, value]);
+    };
+
+    const handleRemoveTarget = (targetToRemove) => {
+        const targetsWithoutRemovedOne = selectedTargets.filter(target => target !== targetToRemove);
+        setSelectedTargets(targetsWithoutRemovedOne)
+    }
     const fetchAllowedAccesibilities = () => {
 
         accesibilitiesServices
@@ -127,7 +148,15 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                 setAccesibilitiesSelection(data)
             })
     }
+    const handleSelectAccesibility = (e) => {
+        const { value } = e.target
+        setSelectedAccesibilities([...selectedAccesibilities, value])
+    }
 
+    const handleRemoveAccesibility = (accesibilityToRemove) => {
+        const accesibilitiesWithoutRemovedOne = selectedAccesibilities.filter(accesibility => accesibility !== accesibilityToRemove)
+        setSelectedAccesibilities(accesibilitiesWithoutRemovedOne)
+    }
     const editActivity = (id, updatedData) => {
 
         activitiesServices
@@ -164,69 +193,13 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
         setActivityData({ ...activityData, [name]: result })
     }
 
-    const handleCategoriesChange = (e, idx) => {
-        const { value } = e.target
-        const categoriesCopy = [...activityData.categories]
-        categoriesCopy[idx] = value
-        setActivityData({ ...activityData, categories: categoriesCopy })
-    }
-
-    const addNewCategory = () => {
-        const categoriesCopy = [...activityData.categories]
-        categoriesCopy.push('')
-        setActivityData({ ...activityData, categories: categoriesCopy })
-    }
-
-    const deleteCategorySelect = (idx) => {
-        const newCategories = [...activityData.categories]
-        if (newCategories.length > 1) {
-            newCategories.splice(idx, 1)
-            setActivityData({ ...activityData, categories: newCategories })
+    useEffect(() => {
+        if (activityData) {
+            setSelectedCategories(activityData.categories || []);
+            setSelectedTargets(activityData.target || []);
+            setSelectedAccesibilities(activityData.accesibility || []);
         }
-    }
-
-    const handleTargetChange = (e, idx) => {
-        const { value } = e.target
-        const targetCopy = [...activityData.target]
-        targetCopy[idx] = value
-        setActivityData({ ...activityData, target: targetCopy })
-
-    }
-
-    const addNewTarget = () => {
-        const targetCopy = [...activityData.target]
-        targetCopy.push('')
-        setActivityData({ ...activityData, target: targetCopy })
-    }
-
-    const deleteTargetSelect = (idx) => {
-        const newTarget = [...activityData.target]
-        if (newTarget.length > 1) {
-            newTarget.splice(idx, 1)
-            setActivityData({ ...activityData, target: newTarget })
-        }
-    }
-
-    const handleAccesibilityChange = (e, idx) => {
-        const { value } = e.target
-        const accesibilityCopy = [...activityData.accesibility]
-        accesibilityCopy[idx] = value
-        setActivityData({ ...activityData, accesibility: accesibilityCopy })
-    }
-
-    const addNewAccesibility = () => {
-        const accesibilityCopy = [...activityData.accesibility]
-        accesibilityCopy.push('')
-        setActivityData({ ...activityData, accesibility: accesibilityCopy })
-    }
-
-    const deleteAccesibilitySelect = (idx) => {
-        const newAccesibility = [...activityData.accesibility]
-        if (newAccesibility.length > 1) {
-            newAccesibility.splice(idx, 1)
-            setActivityData({ ...activityData, accesibility: newAccesibility })
-        }
-    }
+    }, [activityData])
 
     const handleSubmit = e => {
 
@@ -234,6 +207,8 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
 
         const updatedData = {
             ...activityData,
+            categories: selectedCategories,
+            accesibility: selectedAccesibilities,
             address: {
                 city: addressData.city,
                 street: addressData.street,
@@ -379,150 +354,79 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                     </Form.Group>
 
                 </Row>
-
+                <hr />
                 <Row>
+                    <Col className='mb-3'>
+                        <Form.Select
+                            className="mb-2"
+                            name="categories"
+                            aria-label="Seleccione una categoría"
+                            value={''}
+                            onChange={handleSelectCategory}
+                        >
+                            <option>Selecciona una categoría</option>
+                            {categoriesSelection.filter(category => !selectedCategories.includes(category)).map((elm, idx) => {
+                                return (
+                                    <option value={elm} key={idx}>{elm}</option>
+                                );
+                            })}
+                        </Form.Select>
 
-                    <Form.Group
-                        as={Col}
-                        xs={4}
-                        controlId='formActivityCategories'>
+                        <Stack direction="horizontal" gap={2} style={{ flexWrap: 'wrap' }}>
+                            {selectedCategories.map((category, idx) => (
+                                <Button variant="secondary" key={idx}>
+                                    {category} <Badge bg="dark" onClick={() => handleRemoveCategory(category)}>X</Badge>
+                                </Button>
+                            ))}
+                        </Stack>
+                        <hr />
+                        <Form.Select
+                            className="mb-2"
+                            name="accesibility"
+                            aria-label="Seleccione tipos de accesibilidad"
+                            value={''}
+                            onChange={handleSelectAccesibility}
+                        >
+                            <option>Selecciona un tipo de accesibilidad</option>
+                            {accesibilitiesSelection.filter(acc => !selectedAccesibilities.includes(acc)).map((elm, idx) => {
+                                return (
+                                    <option value={elm} key={idx}>{elm}</option>
+                                );
+                            })}
+                        </Form.Select>
 
-                        <Form.Label>Categorías</Form.Label>
+                        <Stack direction="horizontal" gap={2} style={{ flexWrap: 'wrap' }}>
+                            {selectedAccesibilities.map((accesibility, idx) => (
+                                <Button variant="secondary" key={idx}>
+                                    {accesibility} <Badge bg="dark" onClick={() => handleRemoveAccesibility(accesibility)}>X</Badge>
+                                </Button>
+                            ))}
+                        </Stack>
+                        <hr />
+                        <Form.Select
+                            className="mb-2"
+                            name="target"
+                            aria-label="Seleccione un target"
+                            value={''}
+                            onChange={handleSelectTarget}
+                        >
+                            <option>Selecciona un target</option>
+                            {targetsSelection.filter(target => !selectedTargets.includes(target)).map((elm, idx) => {
+                                return (
+                                    <option value={elm} key={idx}>{elm}</option>
+                                );
+                            })}
+                        </Form.Select>
 
-                        {activityData.categories.map((elm, idx) => {
-                            return (
-                                <Row key={idx}>
-                                    <Col className='mb-2' >
-                                        <Form.Select
-                                            className="mb-2"
-                                            id={`categoriesForm-${idx}`}
-                                            name="categories"
-                                            aria-label="Seleccione una categoría"
-                                            value={elm}
-                                            onChange={e => handleCategoriesChange(e, idx)}
-                                        >
-                                            <option>Selecciona una categoría</option>
-                                            {categoriesSelection.map((elm, idx) => {
-                                                return (
-                                                    <option value={elm} key={idx}>{elm}</option>
-                                                )
-                                            })}
+                        <Stack direction="horizontal" gap={2} style={{ flexWrap: 'wrap' }}>
+                            {selectedTargets.map((target, idx) => (
+                                <Button variant="secondary" key={idx}>
+                                    {target} <Badge bg="dark" onClick={() => handleRemoveTarget(target)}>X</Badge>
+                                </Button>
+                            ))}
+                        </Stack>
 
-                                        </Form.Select>
-                                    </Col>
-                                    <Col className='mb-3'>
-                                        <Button
-                                            variant="dark"
-                                            size="sm"
-                                            onClick={() => deleteCategorySelect(idx)}
-                                            disabled={activityData.categories.length <= 1}>
-                                            Eliminar
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            )
-                        })}
-                        <Button
-                            variant='dark'
-                            onClick={addNewCategory}>
-                            Añadir nueva categoría
-                        </Button>
-
-                    </Form.Group>
-
-                    <Form.Group
-                        as={Col}
-                        xs={4}
-                        controlId='formActivityAccesibilities'>
-
-                        <Form.Label>Accesibilidad</Form.Label>
-                        {activityData.accesibility.map((elm, idx) => {
-                            return (
-                                <Row key={idx}>
-                                    <Col className='mb-2'>
-                                        <Form.Select
-                                            className="mb-2"
-                                            key={idx}
-                                            name="accesibility"
-                                            aria-label="Seleccione tipos de accesibilidad"
-                                            value={elm}
-                                            onChange={e => handleAccesibilityChange(e, idx)}
-                                        >
-                                            {accesibilitiesSelection.map((elm, idx) => {
-                                                return (
-                                                    <option value={elm} key={idx}>{elm}</option>
-                                                )
-                                            })}
-                                        </Form.Select>
-                                    </Col>
-
-                                    <Col className='mb-3'>
-                                        <Button
-                                            variant="dark"
-                                            size="sm"
-                                            onClick={() => deleteAccesibilitySelect(idx)}
-                                            disabled={activityData.accesibility.length <= 1}>
-                                            Eliminar
-                                        </Button>
-                                    </Col>
-                                </Row>)
-                        })}
-                        <Button
-                            variant='dark'
-                            onClick={addNewAccesibility}>
-                            Añadir nueva accesibilidad
-                        </Button>
-
-                    </Form.Group>
-
-                    <Form.Group
-                        className="mb-2"
-                        as={Col}
-                        xs={4}
-                        controlId='formActivityTarget'>
-
-                        <Form.Label>Orientado a</Form.Label>
-
-                        {activityData.target.map((elm, idx) => {
-                            return (
-                                <Row>
-                                    <Col className='mb-2'>
-                                        <Form.Select
-                                            className="mb-2"
-                                            key={idx}
-                                            name="target"
-                                            onChange={e => handleTargetChange(e, idx)}
-                                            value={elm}
-                                            aria-label="Seleccione una opción">
-                                            {targetsSelection.map((elm, idx) => {
-                                                return (
-                                                    <option value={elm} key={idx}>{elm}</option>
-                                                )
-                                            })}
-                                        </Form.Select>
-                                    </Col>
-                                    <Col className='mb-3'>
-                                        <Button
-                                            variant="dark"
-                                            size="sm"
-                                            onClick={() => deleteTargetSelect(idx)}
-                                            disabled={activityData.target.length <= 1}>
-                                            Eliminar
-                                        </Button>
-                                    </Col>
-                                </Row>
-
-                            )
-                        })}
-
-                        <Button
-                            variant='dark'
-                            onClick={addNewTarget}>
-                            Añadir nuevo target
-                        </Button>
-
-                    </Form.Group>
-
+                    </Col>
                 </Row>
 
                 <Button className="mb-2" variant="dark" type="submit" disabled={loadingImage}>
