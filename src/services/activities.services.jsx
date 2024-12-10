@@ -9,14 +9,14 @@ class ActivitiesServices {
         this.axiosApp.interceptors.request.use(config => {
             const storedToken = localStorage.getItem('authToken')
             if (storedToken) {
-                config.headers = { Authorization: `Bearer ${storedToken}` }
+                config.headers.Authorization = `Bearer ${storedToken}`
             }
             return config
         })
     }
 
     fetchActivities() {
-        return this.axiosApp.get(`/activities`)
+        return this.axiosApp.get('/activities')
     }
 
     fetchOneActivity(id) {
@@ -24,7 +24,7 @@ class ActivitiesServices {
     }
 
     saveActivity(activityData) {
-        return this.axiosApp.post(`/activities`, activityData)
+        return this.axiosApp.post('/activities', activityData)
     }
 
     editActivity(id, activityData) {
@@ -36,7 +36,13 @@ class ActivitiesServices {
     }
 
     filterActivities(query) {
-        return this.axiosApp.get(`/activities/search`, {
+        return this.axiosApp.get('/activities/search', {
+            params: query
+        })
+    }
+
+    filterActivitiesName(query) {
+        return this.axiosApp.get('/api/activities/search?name', {
             params: query
         })
     }
