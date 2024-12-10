@@ -27,10 +27,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
     const [addressData, setAddressData] = useState({
         city: '',
         zipcode: 0,
-        street: ''
-    })
-
-    const [locationData, setLocationData] = useState({
+        street: '',
         longitude: 0,
         latitude: 0
     })
@@ -74,17 +71,14 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
 
                 })
                 .then(({ coordinates, city, zipcode, street }) => {
-                    setLocationData({
-                        ...locationData,
-                        label: addressValue.label,
-                        latitude: coordinates.lat,
-                        longitude: coordinates.lng
-                    })
 
                     setAddressData({
                         city,
                         zipcode: zipcode ? parseInt(zipcode, 10) : 0,
-                        street
+                        street,
+                        label: addressValue.label,
+                        latitude: coordinates.lat,
+                        longitude: coordinates.lng
                     })
                 })
         }
@@ -238,11 +232,9 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                 city: addressData.city,
                 street: addressData.street,
                 zipcode: addressData.zipcode,
-            },
-            location: {
-                longitude: locationData.longitude,
-                latitude: locationData.latitude,
-            },
+                longitude: addressData.longitude,
+                latitude: addressData.latitude
+            }
         }
 
         editActivity(id, updatedData)
@@ -283,12 +275,11 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                 setAddressData({
                     city: address.city,
                     zipcode: address.zipcode,
-                    street: address.street
+                    street: address.street,
+                    longitude: address.longitude,
+                    latitude: address.latitude
                 })
-                setLocationData({
-                    longitude: address.location.longitude,
-                    latitude: address.location.latitude
-                })
+
             })
             .catch(err => {
                 console.error(err)

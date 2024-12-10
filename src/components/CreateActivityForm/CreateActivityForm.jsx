@@ -26,10 +26,7 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
     const [addressData, setAddressData] = useState({
         city: '',
         zipcode: 0,
-        street: ''
-    })
-
-    const [locationData, setLocationData] = useState({
+        street: '',
         longitude: 0,
         latitude: 0
     })
@@ -67,17 +64,14 @@ const CreateActivityForm = ({ handleClose, fetchActivities }) => {
                     }))
                 })
                 .then(({ coordinates, city, zipcode, street }) => {
-                    setLocationData({
-                        ...locationData,
-                        label: addressValue.label,
-                        latitude: coordinates.lat,
-                        longitude: coordinates.lng
-                    })
 
                     setAddressData({
                         city,
                         zipcode: zipcode ? parseInt(zipcode, 10) : 0,
-                        street
+                        street,
+                        label: addressValue.label,
+                        latitude: coordinates.lat,
+                        longitude: coordinates.lng
                     })
                 })
         }

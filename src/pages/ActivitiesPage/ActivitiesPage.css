@@ -1,3 +1,7 @@
 .ActivitiesPage {
     padding: 20px 0;
 }
+
+.filtersList .btn {
+    justify-content: center;
+}
