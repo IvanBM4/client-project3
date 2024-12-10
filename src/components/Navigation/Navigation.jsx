@@ -2,8 +2,12 @@ import { useContext } from 'react'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
+import GlobalActivitiesFilter from '../GlobalActivitiesFilter/GlobalActivitiesFilter.jsx'
 
 const Navigation = () => {
     const { loggedUser, logoutUser } = useContext(AuthContext)
@@ -13,23 +17,33 @@ const Navigation = () => {
                 <Container fluid>
                     <Navbar.Brand as={Link} to={'/'}>Logo o nombre</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Collapse id="navbarScroll"></Navbar.Collapse>
-                    <Nav
-                        className="ms-auto my-2 my-lg-0"
-                        style={{ maxHeight: '100px' }}
-                        navbarScroll
-                    >
-                        <Nav.Link as={Link} to='/planes' >Planes</Nav.Link>
-                        {loggedUser && <Nav.Link as={Link} to={`/perfil/${loggedUser._id}`}>Perfil</Nav.Link>}
-                        {loggedUser && <Nav.Link as={Link} onClick={logoutUser} to='/iniciar-sesion'>Cerrar sesión</Nav.Link>}
-                        {!loggedUser && <Nav.Link as={Link} to='/iniciar-sesion'>Iniciar Sesión</Nav.Link>}
-                        {!loggedUser && <Nav.Link as={Link} to='/registro'>Registrarse</Nav.Link>}
-                    </Nav>
+                    <Navbar.Collapse id="navbarScroll">
+                        <Nav
+                            className="ms-auto my-2 my-lg-0"
+                            style={{ maxHeight: '100px' }}
+                            navbarScroll
+                        >
+                            <Nav.Link as={Link} to='/planes' >Planes</Nav.Link>
+                            {loggedUser && <Nav.Link as={Link} to={`/perfil/${loggedUser._id}`}>Perfil</Nav.Link>}
+                            {loggedUser && <Nav.Link as={Link} onClick={logoutUser} to='/iniciar-sesion'>Cerrar sesión</Nav.Link>}
+                            {!loggedUser && <Nav.Link as={Link} to='/iniciar-sesion'>Iniciar Sesión</Nav.Link>}
+                            {!loggedUser && <Nav.Link as={Link} to='/registro'>Registrarse</Nav.Link>}
+                        </Nav>
+
+                        <Form inline>
+                            <Row>
+                                <Col xs="auto">
+                                    <GlobalActivitiesFilter />
+                                </Col>
+                            </Row>
+                        </Form>
+                    </Navbar.Collapse>
                 </Container>
             </Navbar>
         </div>
     )
 }
+
 export default Navigation
 
 

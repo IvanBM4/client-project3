@@ -36,7 +36,7 @@ class ActivitiesServices {
     }
 
     filterActivities(query) {
-        return this.axiosApp.get(`/activities`, {
+        return this.axiosApp.get(`/activities/search`, {
             params: query
         })
     }
