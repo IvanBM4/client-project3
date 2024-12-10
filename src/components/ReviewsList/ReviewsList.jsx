@@ -3,16 +3,15 @@ import ReviewsCard from '../ReviewsCard/ReviewsCard.jsx'
 import { useEffect, useState } from 'react'
 import reviewsServices from '../../services/reviews.services.jsx'
 import Loader from '../Loader/Loader.jsx'
-import { Row, Col, Button, Modal } from 'react-bootstrap'
+import { Row, Col, Modal } from 'react-bootstrap'
 import CreateReviewForm from "../../components/CreateReviewForm/CreateReviewForm";
 
-const ReviewsList = () => {
+const ReviewsList = ({ showReviewModal, closeReviewModal }) => {
 
     const { id: _id } = useParams()
 
     const [reviewsData, setReviewsData] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const [showReviewModal, setShowReviewModal] = useState(false)
 
 
     useEffect(() => {
@@ -30,10 +29,6 @@ const ReviewsList = () => {
             .catch(err => console.log(err))
     }
 
-    const handleShowReviewModal = () => {
-        setShowReviewModal(true)
-    }
-
     return (
         isLoading ? <Loader /> :
             <div className="ReviewsList">
@@ -47,14 +42,12 @@ const ReviewsList = () => {
                     })}
                 </Row>
 
-                <Button variant="dark" onClick={handleShowReviewModal}>Añadir review</Button>
-
-                <Modal show={showReviewModal} onHide={() => setShowReviewModal(false)} size="lg">
+                <Modal show={showReviewModal} onHide={closeReviewModal} size="lg">
                     <Modal.Header closeButton>
                         <Modal.Title>Crear review</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <CreateReviewForm id={_id} closeModal={() => { setShowReviewModal(false), fetchReviewsByActivity() }} />
+                        <CreateReviewForm id={_id} closeModal={() => { closeReviewModal, fetchReviewsByActivity() }} />
                     </Modal.Body>
                 </Modal>
             </div>

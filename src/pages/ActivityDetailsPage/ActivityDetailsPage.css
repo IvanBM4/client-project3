@@ -7,7 +7,6 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
-
 }
 
 .header h1 {
@@ -16,11 +15,7 @@
     font-size: 2rem;
 }
 
-.image-container {
-    flex-shrink: 0;
-    margin-left: 20px;
-    position: relative;
-}
+
 
 .buttons-container {
     padding: 10px;
@@ -40,7 +35,6 @@
 }
 
 .module {
-
     margin: 0 0 1em 0;
     overflow: hidden;
 }
@@ -142,10 +136,34 @@ p {
     height: 20px;
 }
 
+.fixed-height-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Si tienes un contenedor de imagen que necesitas ajustar también */
+.img-container {
+    width: 100%;
+}
+
+/* O si tienes otras reglas adicionales para una imagen dentro de un contenedor */
+.img-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    /* Esto asegurará que la imagen se ajuste sin deformarse */
+}
+
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
         align-items: center;
+    }
+
+    .fixed-height-image {
+        width: 100%;
+        height: auto;
     }
 
     .text-container {
@@ -153,9 +171,6 @@ p {
         text-align: center;
     }
 
-    .image-container {
-        order: 2;
-    }
 
 
     .buttons-container {

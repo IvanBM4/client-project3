@@ -1,16 +1,18 @@
+/* eslint-disable react/prop-types */
 import { useContext, useState } from 'react';
-import { ButtonGroup, Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
+import { Pencil, X } from 'react-bootstrap-icons'; // Bootstrap icons package
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import EditActivityForm from '../EditActivityForm/EditActivityForm';
 import './ActivityCard.css'
 import { AuthContext } from '../../contexts/auth.context'
-import { Link } from 'react-router-dom';
 import activitiesServices from "../../services/activities.services"
 
 const ActivityCard = ({ name, description, cover, host, _id, fetchActivities }) => {
-
     const { loggedUser } = useContext(AuthContext)
+    const navigate = useNavigate(); // React Router's hook for navigation
 
     const [showModal, setShowModal] = useState(false)
     const [showEditModal, setEditShowModal] = useState(false)
@@ -31,11 +33,13 @@ const ActivityCard = ({ name, description, cover, host, _id, fetchActivities }) 
         setShowModal(false)
     }
 
-    const handleShowModal = () => {
+    const handleShowModal = (event) => {
+        event.stopPropagation(event);
         setShowModal(true)
     }
 
-    const handleShowEditModal = () => {
+    const handleShowEditModal = (event) => {
+        event.stopPropagation();
         setEditShowModal(true)
     }
 
@@ -45,41 +49,27 @@ const ActivityCard = ({ name, description, cover, host, _id, fetchActivities }) 
 
     return (
         <div className='ActivityCard'>
-            <Card>
+            <Card onClick={() => navigate(`/planes/detalles/${_id}`)}>
+                    {
+                    host && host === loggedUser?._id && (
+                        <div className='card-actions'>
+                            <Pencil 
+                                onClick={handleShowEditModal} 
+                                style={{ cursor: 'pointer', color: 'white', background: 'rgba(0, 0, 0, 0.5)', borderRadius: '50%', padding: '5px' }}
+                                size={30}
+                            />
+                            <X 
+                                onClick={handleShowModal} 
+                                style={{ cursor: 'pointer', color: 'white', background: 'rgba(0, 0, 0, 0.5)', borderRadius: '50%', padding: '5px' }}
+                                size={30}
+                            />
+                        </div>
+                    )
+                }
                 <Card.Img variant="top" src={cover} />
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
                     <Card.Text className='line-clamp'>{description}</Card.Text>
-
-                    {host && host === loggedUser?._id ? <ButtonGroup>
-                        <Button
-                            variant='dark'
-                            size='sm'
-                            as={Link}
-                            to={`/planes/detalles/${_id}`}>
-                            Descubre más sobre este plan
-                        </Button>
-
-                        <Button
-                            variant='danger'
-                            size='sm'
-                            onClick={handleShowModal}>
-                            Eliminar este plan
-                        </Button>
-
-                        <Button
-                            variant='dark'
-                            size='sm'
-                            onClick={handleShowEditModal}>
-                            Editar este plan
-                        </Button>
-
-                    </ButtonGroup> :
-                        <ButtonGroup>
-                            <Button variant='dark' size='sm' as={Link} to={`/planes/detalles/${_id}`} >Descubre más sobre este plan</Button>
-
-                        </ButtonGroup>}
-
                 </Card.Body>
             </Card>
             <Modal show={showModal} onHide={() => setShowModal(false)}>
