@@ -27,12 +27,12 @@ const AboutUsPage = () => {
 
                 <h2>Valores</h2>
                 <ul className="values-list">
-                    <li>Integridad: Actuamos con honestidad y transparencia en todas nuestras acciones.</li>
-                    <li>Innovación: Buscamos constantemente nuevas formas de sorprender y deleitar a nuestros usuarios.</li>
-                    <li>Compromiso con el Cliente: Tu satisfacción es nuestra prioridad; escuchamos tus necesidades.</li>
-                    <li>Sostenibilidad: Promovemos prácticas que respeten el medio ambiente.</li>
-                    <li>Sinceridad: Fomentamos una comunicación abierta y honesta.</li>
-                    <li>Planes Innovadores: Creamos experiencias únicas que se adaptan a tus intereses.</li>
+                    <li><strong>Integridad:</strong> Actuamos con honestidad y transparencia en todas nuestras acciones. En todo lo que hacemos, nos comprometemos a ser sinceros y claros, manteniendo siempre la integridad en nuestras decisiones y comportamientos. Sabemos que la confianza es la base de cualquier relación, por lo que buscamos ser un reflejo de valores sólidos y principios éticos.</li>
+                    <li><strong>Innovación:</strong> Buscamos constantemente nuevas formas de sorprender y deleitar a nuestros usuarios. La innovación es el motor que impulsa nuestro crecimiento, y nos dedicamos a probar nuevas soluciones para ofrecer algo único. Ya sea a través de un diseño más atractivo, una funcionalidad avanzada o una propuesta inesperada, nos aseguramos de que cada interacción sea memorable.</li>
+                    <li><strong>Compromiso con el Cliente:</strong> Tu satisfacción es nuestra prioridad; escuchamos tus necesidades. Desde el primer contacto hasta el último, estamos enfocados en ofrecerte el mejor servicio posible. Nos importa profundamente lo que piensas y trabajamos arduamente para comprender tus deseos y expectativas. Cada sugerencia, cada comentario, y cada preocupación son tomados en cuenta para mejorar nuestro producto y nuestros servicios.</li>
+                    <li><strong>Sostenibilidad:</strong> Promovemos prácticas que respeten el medio ambiente. Nos comprometemos a reducir nuestro impacto ambiental a través de decisiones conscientes en cada etapa de nuestros procesos. Desde el uso eficiente de recursos hasta la implementación de prácticas más ecológicas, trabajamos para asegurar que nuestras acciones contribuyan a un entorno más saludable para las futuras generaciones.</li>
+                    <li><strong>Sinceridad:</strong> Fomentamos una comunicación abierta y honesta. Creemos que una comunicación clara y transparente genera confianza y construye relaciones duraderas. Nos comprometemos a ser directos y honestos, sin rodeos ni pretextos. Esta actitud se refleja tanto en nuestra atención al cliente como en nuestras interacciones cotidianas, porque sabemos que la verdad siempre es el camino más efectivo para resolver cualquier situación.</li>
+                    <li><strong>Planes Innovadores:</strong> Creamos experiencias únicas que se adaptan a tus intereses. Nuestro objetivo no es solo ofrecerte productos o servicios, sino crear experiencias que resuenen contigo. Nos esforzamos por diseñar planes que no solo se ajusten a tus expectativas, sino que también te sorprendan. Cada plan está cuidadosamente diseñado para adaptarse a tus gustos y necesidades, creando una experiencia a medida que te permita disfrutar de lo mejor.</li>
                 </ul>
 
                 <Row className="mt-5">

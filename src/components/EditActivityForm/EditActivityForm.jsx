@@ -9,7 +9,7 @@ import accesibilitiesServices from "../../services/accesibilities.services";
 import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import uploadServices from '../../services/upload.services';
 
-const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
+const EditActivityForm = ({ id, closeModal, updateActivityDetails }) => {
 
     const [activityData, setActivityData] = useState({
         name: '',
@@ -156,7 +156,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
         activitiesServices
             .editActivity(id, updatedData)
             .then(() => {
-                fetchActivities()
+                updateActivityDetails()
             })
             .catch((err) => {
                 console.error(err)
@@ -213,9 +213,7 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
         }
 
         editActivity(id, updatedData)
-        fetchActivities()
         closeModal()
-
     }
 
     const fetchOneActivity = () => {

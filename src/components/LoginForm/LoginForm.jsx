@@ -58,7 +58,7 @@ const LoginForm = () => {
                             name='password' />
                     </Form.Group>
 
-                    <Button variant="dark" type="submit">
+                    <Button variant="dark mb-4" type="submit" >
                         Acceder
                     </Button>
 
