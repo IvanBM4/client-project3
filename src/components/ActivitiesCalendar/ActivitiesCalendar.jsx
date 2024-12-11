@@ -1,8 +1,10 @@
-import { ResponsiveCalendar } from "@nivo/calendar"
+import { ResponsiveCalendar, ResponsiveCalendarCanvas } from "@nivo/calendar"
 import { useEffect, useState } from "react"
 import activitiesServices from "../../services/activities.services"
 import Loader from "../Loader/Loader"
-
+import '../ActivitiesCalendar/ActivitiesCalendar.css'
+import { getCalendarChartData } from '../../utils/formatDateForCalendar'
+import { Container } from "react-bootstrap"
 
 const ActivitiesCalendar = () => {
 
@@ -18,32 +20,25 @@ const ActivitiesCalendar = () => {
             .fetchActivities()
             .then(({ data }) => {
                 setActivitiesData(data)
+                setIsLoading(false)
             })
             .catch(err => console.log(err))
     }
 
     return (
         isLoading ? <Loader /> :
-            <div className="ActivitiesCalendar">
-                <h1>calendarioooooooo</h1>
+            <Container className="calendar">
                 <ResponsiveCalendar
-                    data={activitiesData[2].date}
-                    from="2024-01-01"
-                    to="2025-05-12"
-                    emptyColor="#06020b"
-                    align="top"
-                    colors={['#35febb', '#6794fe', '#3571fe', '#35febb']}
-                    margin={{ top: 0, right: 24, bottom: 0, left: 0 }}
+                    data={getCalendarChartData(activitiesData)}
+                    from="2024-11-01"
+                    to="2025-12-12"
+                    emptyColor="#eeeeee"
+                    colors={['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']}
+                    margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
                     yearSpacing={40}
-                    yearLegendPosition="after"
-                    monthSpacing={4}
-                    monthBorderWidth={0}
-                    monthBorderColor="#ffffff00"
-                    monthLegendPosition="after"
-                    monthLegendOffset={16}
-                    monthLegendColor="#ffffff"
-                    dayBorderWidth={2}
-                    dayBorderColor="#ffffff0f"
+                    monthBorderColor="#ffffff"
+                    dayBorderWidth={3}
+                    dayBorderColor="#ffffff"
                     legends={[
                         {
                             anchor: 'bottom-right',
@@ -53,29 +48,10 @@ const ActivitiesCalendar = () => {
                             itemWidth: 42,
                             itemHeight: 36,
                             itemsSpacing: 14,
-                            itemDirection: 'right-to-left',
-                            textColor: '#fff'
+                            itemDirection: 'right-to-left'
                         }
-                    ]}
-                    theme={{
-                        "text": {
-                            "fill": "#8591ad"
-                        },
-                        "axis": {
-                            "legend": {
-                                "text": {
-                                    "fill": "#8591ad"
-                                }
-                            },
-                            "ticks": {
-                                "text": {
-                                    "fill": "#8591ad"
-                                }
-                            }
-                        }
-                    }}
-                />
-            </div>
+                    ]} />
+            </Container>
     )
 }
 

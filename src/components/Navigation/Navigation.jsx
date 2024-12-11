@@ -28,6 +28,7 @@ const Navigation = () => {
                         <Nav className="ms-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
                             <Nav.Link as={Link} to='/planes'>Planes</Nav.Link>
                             <Nav.Link as={Link} to='/sobre-nosotros'>Sobre Nosotros</Nav.Link>
+                            {loggedUser?.role === 'ADMIN' && <Nav.Link as={Link} to={'/admin'}>Administración</Nav.Link>}
                             {loggedUser && <Nav.Link as={Link} to={`/perfil/${loggedUser._id}`}>Perfil</Nav.Link>}
                             {loggedUser && <Nav.Link as={Link} onClick={logoutUser} to='/iniciar-sesion'>Cerrar sesión</Nav.Link>}
                             {!loggedUser && <Nav.Link as={Link} to='/iniciar-sesion'>Iniciar Sesión</Nav.Link>}

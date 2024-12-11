@@ -1,14 +1,16 @@
 import { Card, Image } from 'react-bootstrap'
 import '../UserCard/UserCard.css'
+import { useNavigate } from 'react-router-dom'
 
 
-const UserCard = ({ username, avatar, email }) => {
+const UserCard = ({ username, avatar, email, _id }) => {
 
+    const navigate = useNavigate()
 
     return (
         <div className="UserCard">
 
-            <Card style={{ width: '18rem' }}>
+            <Card onClick={() => navigate(`/perfil/${_id}`)} style={{ width: '18rem' }}>
                 <Card.Body className="text-center">
                     <Image
                         src={avatar}

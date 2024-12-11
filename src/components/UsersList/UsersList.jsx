@@ -1,4 +1,4 @@
-import { Dropdown, DropdownMenu } from "react-bootstrap"
+import { Col, Container, Dropdown, DropdownMenu, Row } from "react-bootstrap"
 import UserCard from "../UserCard/UserCard"
 
 
@@ -7,18 +7,17 @@ const UsersList = ({ usersData }) => {
 
     return (
         <div className="UsersList">
-            <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Usuarios ({usersData.length})
-                </Dropdown.Toggle>
-                <DropdownMenu>
+            <Container>
+                <Row>
                     {usersData.map(elm => {
                         return (
-                            <UserCard key={elm} {...elm} />
+                            <Col className='mb-3' lg={6} key={elm}>
+                                <UserCard key={elm} {...elm} />
+                            </Col>
                         )
                     })}
-                </DropdownMenu>
-            </Dropdown >
+                </Row>
+            </Container>
         </div>
 
     )

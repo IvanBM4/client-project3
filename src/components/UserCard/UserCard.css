@@ -3,3 +3,11 @@
     width: 100px;
     border-radius: 50%;
 }
+
+.UserCard .card {
+    background-color: #343a40;
+}
+
+.UserCard .card-body {
+    color: white;
+}

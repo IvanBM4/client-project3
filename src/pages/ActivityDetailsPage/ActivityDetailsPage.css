@@ -161,11 +161,6 @@ p {
     font-size: 35px;
 }
 
-.ActivityDetailsPage img {
-    height: 400px;
-
-}
-
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
