@@ -2,7 +2,7 @@ import { useEffect, useState, useContext, act } from "react";
 import { Button, Col, Container, Modal, Row, Stack } from "react-bootstrap"
 import { useNavigate } from 'react-router-dom';
 import activitiesServices from "../../services/activities.services"
-import { Trash } from 'react-bootstrap-icons';
+import { Trash, Pencil } from 'react-bootstrap-icons';
 import { useParams } from "react-router-dom"
 import { AuthContext } from '../../contexts/auth.context'
 import './ActivityDetailsPage.css'
@@ -12,6 +12,7 @@ import CreateReviewForm from "../../components/CreateReviewForm/CreateReviewForm
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { TIMEIMG, CALENDARIMG, EUROIMG } from "../../consts/image-paths";
+import EditActivityForm from "../../components/EditActivityForm/EditActivityForm";
 
 const ActivityDetailsPage = () => {
     const { loggedUser } = useContext(AuthContext)
@@ -23,6 +24,8 @@ const ActivityDetailsPage = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showReviewModal, setShowReviewModal] = useState(false)
     const [showAssistantModal, setShowAssistantModal] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+    const [showEditModal, setEditShowModal] = useState(false)
 
     useEffect(() => {
         fetchOneActivity()
@@ -96,7 +99,14 @@ const ActivityDetailsPage = () => {
                 console.log('Error al dejar la actividad:', err);
             });
     }
+    const handleShowEditModal = (event) => {
+        event.stopPropagation()
+        setEditShowModal(true)
+    }
 
+    const handleCloseEditModal = () => {
+        setEditShowModal(false)
+    }
     return (
         isLoading ? <Loader /> :
             <div className="ActivityDetailsPage">
@@ -142,6 +152,19 @@ const ActivityDetailsPage = () => {
 
                                         )
                                     }
+                                    {
+                                        activity.host && activity.host._id === loggedUser?._id && (
+                                            <Button variant="dark" className="delete-icon" onClick={handleShowEditModal}> <Pencil size={18} />  </Button>
+                                        )
+                                    }
+                                    <Modal show={showEditModal} onHide={handleCloseEditModal} size="lg">
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Editar plan</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <EditActivityForm id={_id} closeModal={handleCloseEditModal} />
+                                        </Modal.Body>
+                                    </Modal>
                                 </Stack>
                             </div>
                         </Col>
