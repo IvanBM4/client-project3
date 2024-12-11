@@ -8,20 +8,17 @@ import Col from 'react-bootstrap/Col'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
 import GlobalActivitiesFilter from '../GlobalActivitiesFilter/GlobalActivitiesFilter'
-import BouncingLogo from '../BouncingLogo/BouncingLogo'
+
 
 const Navigation = () => {
     const { loggedUser, logoutUser } = useContext(AuthContext)
-
 
     return (
         <div className="Navigation">
             <Navbar expand="lg" className="bg-body-tertiary" style={{ width: '100%', padding: '20px' }}>
                 <Container fluid>
                     <Navbar.Brand as={Link} to={'/'}>
-                        <div className="logo">
-                            <BouncingLogo />
-                        </div>
+                        logo
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
@@ -44,7 +41,7 @@ const Navigation = () => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-        </div>
+        </div >
     )
 }
 

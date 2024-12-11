@@ -1,11 +1,12 @@
 
 import './ReviewsCard.css'
-import { Button, Card, ButtonGroup, Modal } from "react-bootstrap"
+import { Button, Card, Modal } from "react-bootstrap"
 import { useContext, useState } from 'react'
 import { AuthContext } from '../../contexts/auth.context'
 import StarRatingComponent from '../StarRatingComponent/StarRatingComponent'
 import EditReviewForm from '../EditReviewForm/EditReviewForm'
 import reviewsServices from '../../services/reviews.services'
+import { Pencil, X } from 'react-bootstrap-icons';
 
 const ReviewsCard = ({ _id, author, rating, description, fetchReviewsByActivity }) => {
 
@@ -44,29 +45,27 @@ const ReviewsCard = ({ _id, author, rating, description, fetchReviewsByActivity 
             <Card>
                 <Card.Body>
                     <Card.Img src={author?.avatar} />
-                    <Card.Title>{author?.username}</Card.Title>
+                    <div className="username-rating-row">
+                        <Card.Title>{author?.username}</Card.Title>
+                        <div className="rating">
+                            <StarRatingComponent rating={rating} />
+                        </div>
+                    </div>
                     <Card.Text>{description}</Card.Text>
-                    <StarRatingComponent rating={rating} />
                     <div className="d-grid">
                         {
                             author?._id === loggedUser?._id &&
                             <div className="review-buttons">
-                                <ButtonGroup aria-label="Basic example">
-                                    <Button
-                                        variant='dark'
-                                        size='sm'
-                                        onClick={handleShowEditModal}
-                                    >
-                                        Editar
-                                    </Button>
-                                    <Button
-                                        variant='dark'
-                                        size='sm'
-                                        onClick={handleShowDeleteModal}
-                                    >
-                                        Eliminar
-                                    </Button>
-                                </ButtonGroup>
+                                <Pencil
+                                    onClick={handleShowEditModal}
+                                    style={{ cursor: 'pointer', color: 'white', background: 'rgba(0, 0, 0, 0.5)', borderRadius: '50%', padding: '6px' }}
+                                    size={30}
+                                />
+                                <X
+                                    onClick={handleShowDeleteModal}
+                                    style={{ cursor: 'pointer', color: 'white', background: 'rgba(0, 0, 0, 0.5)', borderRadius: '50%', padding: '5px' }}
+                                    size={30}
+                                />
                             </div>
                         }
                     </div>

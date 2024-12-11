@@ -35,7 +35,7 @@ const ReviewsList = ({ showReviewModal, closeReviewModal }) => {
                 <Row>
                     {reviewsData.map(elm => {
                         return (
-                            <Col lg={reviewsData.length > 1 ? 6 : 12} key={elm._id}>
+                            <Col lg={4} key={elm._id}>
                                 <ReviewsCard {...elm} key={elm._id} fetchReviewsByActivity={fetchReviewsByActivity} />
                             </Col>
                         )
@@ -44,7 +44,7 @@ const ReviewsList = ({ showReviewModal, closeReviewModal }) => {
 
                 <Modal show={showReviewModal} onHide={closeReviewModal} size="lg">
                     <Modal.Header closeButton>
-                        <Modal.Title>Crear review</Modal.Title>
+                        <Modal.Title>Añade un comentario</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <CreateReviewForm id={_id} closeModal={() => { closeReviewModal, fetchReviewsByActivity() }} />

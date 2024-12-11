@@ -1,22 +1,20 @@
-* {
-    box-sizing: border-box;
-}
-
-body {
-    background-color: black;
-    color: white;
-    min-height: 100vh;
+body,
+html {
     margin: 0;
-    font-family: 'Josefin Sans', sans-serif;
+    padding: 0;
+    width: 100%;
 }
 
-h1 {
-    text-align: center;
-    font-size: 3rem;
-    line-height: 1;
-    text-transform: uppercase;
-    max-width: 30rem;
-    margin: 0 auto;
+.Navigation {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.Navbar {
+    width: 100% !important;
+    padding: 20px;
+    margin: 0;
 }
 
 @media (min-width: 40rem) {

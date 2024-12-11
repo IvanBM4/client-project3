@@ -3,6 +3,7 @@ import { Button, Container, Form } from "react-bootstrap"
 import authServices from "../../services/auth.services"
 import { useNavigate } from "react-router-dom"
 import uploadServices from "../../services/upload.services"
+import './SignUpForm.css'
 
 const SignUpForm = () => {
 
@@ -94,7 +95,7 @@ const SignUpForm = () => {
                         </Form.Control>
                     </Form.Group>
 
-                    <Button variant='dark' type="submit" disabled={loadingImage}>
+                    <Button variant='dark mb-3' type="submit" disabled={loadingImage}>
                         {loadingImage ? 'Cargando imagen...' : 'Registrarse'}
                     </Button>
                 </Form>

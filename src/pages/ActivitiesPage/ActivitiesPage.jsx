@@ -114,7 +114,7 @@ const ActivitiesPage = () => {
                     <div className="maps">
                         <ReactGoogleMap />
                     </div>
-                    <br />
+                    <hr />
                     <div className="filtersList">
                         <Row className="mb-3">
                             <Col>

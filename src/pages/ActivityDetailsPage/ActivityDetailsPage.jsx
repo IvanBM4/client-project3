@@ -3,12 +3,10 @@ import { Button, Col, Container, Modal, Row, Stack } from "react-bootstrap"
 import { useNavigate, useParams } from 'react-router-dom'
 import activitiesServices from "../../services/activities.services"
 import { Trash, Pencil } from 'react-bootstrap-icons';
-import { useParams } from "react-router-dom"
 import { AuthContext } from '../../contexts/auth.context'
 import './ActivityDetailsPage.css'
 import Loader from "../../components/Loader/Loader"
 import ReviewsList from "../../components/ReviewsList/ReviewsList";
-import CreateReviewForm from "../../components/CreateReviewForm/CreateReviewForm";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { TIMEIMG, CALENDARIMG, EUROIMG } from "../../consts/image-paths";
@@ -62,10 +60,6 @@ const ActivityDetailsPage = () => {
         }
     }
 
-    const handleCloseReviewModal = () => {
-        setShowReviewModal(false)
-    }
-
     const handleJoinActivity = () => {
         activitiesServices
             .joinActivity(_id)
@@ -95,7 +89,7 @@ const ActivityDetailsPage = () => {
             .catch(err => console.log('Error al dejar la actividad:', err))
     }
     const handleShowEditModal = (event) => {
-        event.stopPropagation()
+        event.preventDefault()
         setEditShowModal(true)
     }
 
@@ -107,73 +101,99 @@ const ActivityDetailsPage = () => {
             <div className="ActivityDetailsPage">
                 <Container>
                     <Row>
-                        <Col>
-                            <div className='details-actions'>
-                                <img className="fixed-height-image" src={activity.cover} alt={activity.title} />
-                            </div>
-                            <hr />
-                            <div className="text-container">
-                                <h3>{activity.name}</h3>
-                                <Stack direction="horizontal" gap={2}>
-                                    {activity.assistants?.some(elm => elm._id === loggedUser?._id) ? (
-                                        <Button variant='dark' className='assist-button' onClick={handleLeaveActivity}>
-                                            Dejar de asistir
-                                        </Button>
-                                    ) : (
-                                        <Button variant='dark' className='assist-button' onClick={handleJoinActivity}>
-                                            Quiero asistir
-                                        </Button>
-                                    )}
-                                    <Button variant="dark" onClick={() => setShowReviewModal(true)}>Añadir reseña</Button>
-                                    {
-                                        activity.host && activity.host._id === loggedUser?._id && (
-                                            <Button variant="dark" className="delete-icon"
-                                                onClick={() => setShowDeleteModal(true)}> <Trash
-                                                    size={18}
-                                                /></Button>
+                        <Col xs={12} md={6}>
+                            <img className="fixed-height-image" src={activity.cover} alt={activity.title} />
 
-                                        )
-                                    }
-                                    {
-                                        activity.host && activity.host._id === loggedUser?._id && (
-                                            <Button variant="dark" className="delete-icon" onClick={handleShowEditModal}> <Pencil size={18} />  </Button>
-                                        )
-                                    }
+                            <h3>{activity.name}</h3>
+                            <div className="text-container">
+                                <div className="avatar">
+                                    <img className='avatarimg' src={activity.host.avatar} alt="avatar" />
+                                    <span className="subtext">Creado por: {activity.host.username}</span>
+                                </div>
+                                <Container>
+                                    <Row>
+                                        <Col xs={12} md={6} className="mb-2">
+                                            {activity.assistants?.some(elm => elm._id === loggedUser?._id) ? (
+                                                <Button variant='dark' className='assist-button w-100' onClick={handleLeaveActivity}>
+                                                    Dejar de asistir
+                                                </Button>
+                                            ) : (
+                                                <Button variant='dark' className='assist-button w-100' onClick={handleJoinActivity}>
+                                                    Quiero asistir
+                                                </Button>
+                                            )}
+                                        </Col>
+
+                                        <Col xs={12} md={6} className="mb-2">
+                                            <Button variant="dark" className="w-100" onClick={() => setShowReviewModal(true)}>
+                                                Comentarios
+                                            </Button>
+                                        </Col>
+
+                                        {activity.host && activity.host._id === loggedUser?._id && (
+                                            <Col xs={12} md={6} className="mb-2">
+                                                <Button variant="dark" className="delete-icon w-100" onClick={() => setShowDeleteModal(true)}>
+                                                    <Trash size={18} /> Eliminar
+                                                </Button>
+                                            </Col>
+                                        )}
+
+                                        {activity.host && activity.host._id === loggedUser?._id && (
+                                            <Col xs={12} md={6}>
+                                                <Button variant="dark" className="delete-icon w-100" onClick={handleShowEditModal}>
+                                                    <Pencil size={18} /> Editar
+                                                </Button>
+                                            </Col>
+                                        )}
+                                    </Row>
+
                                     <Modal show={showEditModal} onHide={handleCloseEditModal} size="lg">
                                         <Modal.Header closeButton>
                                             <Modal.Title>Editar plan</Modal.Title>
                                         </Modal.Header>
                                         <Modal.Body>
-                                            <EditActivityForm id={_id} closeModal={handleCloseEditModal} />
+                                            <EditActivityForm id={_id} closeModal={handleCloseEditModal} updateActivityDetails={fetchOneActivity} />
                                         </Modal.Body>
                                     </Modal>
-                                </Stack>
+                                </Container>
+
                             </div>
                         </Col>
-                        <Col>
+                        <Col xs={12} md={6}>
                             <div className="container">
                                 <Tabs defaultActiveKey="Información" id="justify-tab-example" className="mb-3" justify>
                                     <Tab eventKey="Información" title="Información">
                                         <p>{activity.description}</p>
-                                        <span className="subtext">Creado por: {activity.host.username}</span>
+
                                         <p>Dirección: {activity.address?.street}, {activity.address?.zipcode}, {activity.address?.city}</p>
                                         <div className="icons">
-                                            <div className="calendar">
-                                                <img src={CALENDARIMG} alt="calendar icon" className="icon" />
-                                                <p>{formatDate(activity.date)}</p>
-                                            </div>
-                                            <div className="time">
-                                                <img src={TIMEIMG} alt="time icon" className="icon" />
-                                                <p>{formatDuration(activity.duration)}</p>
-                                            </div>
-                                            <br />
-                                            <div className="euro">
-                                                <p>{activity.price}</p>
-                                                <img src={EUROIMG} alt="euro icon" className="icon" />
-                                            </div>
-                                            <br />
+                                            <Row className="align-items-center">
+                                                <Col xs="auto" className="icon-col">
+                                                    <img src={CALENDARIMG} alt="calendar icon" className="icon" />
+                                                </Col>
+                                                <Col>
+                                                    <p>{formatDate(activity.date)}</p>
+                                                </Col>
+                                            </Row>
+                                            <Row className="align-items-center">
+                                                <Col xs="auto" className="icon-col">
+                                                    <img src={TIMEIMG} alt="time icon" className="icon" />
+                                                </Col>
+                                                <Col>
+                                                    <p>{formatDuration(activity.duration)}</p>
+                                                </Col>
+                                            </Row>
+                                            <Row className="align-items-center">
+                                                <Col xs="auto" className="icon-col">
+                                                    <img src={EUROIMG} alt="euro icon" className="icon" />
+                                                </Col>
+                                                <Col>
+                                                    <p>{activity.price} €</p>
+                                                </Col>
+                                            </Row>
                                         </div>
                                     </Tab>
+
                                     <Tab eventKey="Categorías" title="Categorías">
                                         {activity.categories.map((categories, index) => (
                                             <p key={index}>{categories}</p>
@@ -207,7 +227,6 @@ const ActivityDetailsPage = () => {
                             </div>
                         </Col>
 
-
                         <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
                             <Modal.Header closeButton>
                                 <Modal.Title>¡Cuidado!</Modal.Title>
@@ -218,7 +237,6 @@ const ActivityDetailsPage = () => {
                                 <Button variant="dark" onClick={() => setShowDeleteModal(false)}>No</Button>
                             </Modal.Footer>
                         </Modal>
-
 
                         <Modal show={showAssistantModal} onHide={handleCloseAssistantModal}>
                             <Modal.Header closeButton>
@@ -231,8 +249,6 @@ const ActivityDetailsPage = () => {
                         </Modal>
 
                     </Row>
-
-
                     <br />
                     <ReviewsList showReviewModal={showReviewModal} closeReviewModal={() => setShowReviewModal(false)} />
                 </Container >
