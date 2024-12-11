@@ -1,0 +1,126 @@
+body {
+    background-color: white;
+    margin: 0;
+    color: black;
+
+}
+
+.fullscreen-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    height: 25vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2vh 0;
+    box-sizing: border-box;
+}
+
+.header h1 {
+    font-size: 3rem;
+    margin-bottom: 2vh;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon-item img {
+    width: auto;
+    max-width: 80px;
+    height: auto;
+
+}
+
+.fullscreen-carousel {
+    height: 50vh;
+    width: 100%;
+
+}
+
+.fullscreen-carousel .carousel-inner,
+.fullscreen-carousel .carousel-item {
+    height: 100%;
+}
+
+.fullscreen-carousel .carousel-item {
+    display: flex;
+
+}
+
+.fullscreen-carousel .carousel-item img {
+    object-fit: cover;
+
+    height: 100%;
+    width: 100%;
+
+}
+
+.activity-cards {
+    height: 25vh;
+
+    width: 100%;
+
+    padding: 2vh 0;
+    box-sizing: border-box;
+}
+
+.activity-cards .container-fluid {
+    height: 100%;
+}
+
+.activity-cards .row {
+    height: 100%;
+}
+
+.activity-cards .col {
+    height: 100%;
+    padding: 0;
+
+}
+
+@media (max-width: 768px) {
+    .header {
+        height: 30vh;
+
+        padding-bottom: 1vh;
+
+    }
+
+    .icon-container {
+        flex-wrap: wrap;
+
+    }
+
+    .icon-item img {
+        width: 15vw;
+
+    }
+
+    .fullscreen-carousel {
+        height: 40vh;
+
+    }
+
+    .activity-cards {
+        height: 30vh;
+
+    }
+}

@@ -8,22 +8,26 @@ import Col from 'react-bootstrap/Col'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
 import GlobalActivitiesFilter from '../GlobalActivitiesFilter/GlobalActivitiesFilter'
+import BouncingLogo from '../BouncingLogo/BouncingLogo'
 
 const Navigation = () => {
     const { loggedUser, logoutUser } = useContext(AuthContext)
+
+
     return (
         <div className="Navigation">
-            <Navbar expand="lg" className="bg-body-tertiary">
+            <Navbar expand="lg" className="bg-body-tertiary" style={{ width: '100%', padding: '20px' }}>
                 <Container fluid>
-                    <Navbar.Brand as={Link} to={'/'}>Logo o nombre</Navbar.Brand>
+                    <Navbar.Brand as={Link} to={'/'}>
+                        <div className="logo">
+                            <BouncingLogo />
+                        </div>
+                    </Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
-                        <Nav
-                            className="ms-auto my-2 my-lg-0"
-                            style={{ maxHeight: '100px' }}
-                            navbarScroll
-                        >
-                            <Nav.Link as={Link} to='/planes' >Planes</Nav.Link>
+                        <Nav className="ms-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
+                            <Nav.Link as={Link} to='/planes'>Planes</Nav.Link>
+                            <Nav.Link as={Link} to='/sobre-nosotros'>Sobre Nosotros</Nav.Link>
                             {loggedUser && <Nav.Link as={Link} to={`/perfil/${loggedUser._id}`}>Perfil</Nav.Link>}
                             {loggedUser && <Nav.Link as={Link} onClick={logoutUser} to='/iniciar-sesion'>Cerrar sesión</Nav.Link>}
                             {!loggedUser && <Nav.Link as={Link} to='/iniciar-sesion'>Iniciar Sesión</Nav.Link>}
@@ -45,9 +49,3 @@ const Navigation = () => {
 }
 
 export default Navigation
-
-
-
-
-
-

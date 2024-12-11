@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
-import { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Modal } from 'react-bootstrap'
-import { Pencil, X } from 'react-bootstrap-icons' // Bootstrap icons package
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
+import { Pencil, X } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import EditActivityForm from '../EditActivityForm/EditActivityForm'
@@ -11,6 +10,7 @@ import { AuthContext } from '../../contexts/auth.context'
 import activitiesServices from "../../services/activities.services"
 
 const ActivityCard = ({ name, description, cover, host, _id, fetchActivities }) => {
+
     const { loggedUser } = useContext(AuthContext)
     const navigate = useNavigate()
 

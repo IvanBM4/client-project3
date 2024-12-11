@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { Carousel, Row, Col } from 'react-bootstrap';
-import activitiesServices from '../../services/activities.services';
+import React, { useEffect, useState } from 'react'
+import { Carousel, Row, Col, Container } from 'react-bootstrap'
+import activitiesServices from '../../services/activities.services'
 import * as IMAGE_PATH from '../../consts/image-paths'
-import ActivityCard from '../../components/ActivityCard/ActivityCard';
-import { Link, useParams } from 'react-router-dom';
+import ActivityCard from '../../components/ActivityCard/ActivityCard'
+import './HomePage.css'
 
 const HomePage = () => {
-
-    const { id: _id } = useParams()
-
-    const [activity, setActivities] = useState([])
+    const [activities, setActivities] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         fetchActivities()
+        const preventDefault = (e) => e.preventDefault()
+        document.body.addEventListener('touchmove', preventDefault, { passive: false })
+
+        return () => {
+            document.body.removeEventListener('touchmove', preventDefault)
+        }
     }, [])
 
     const fetchActivities = () => {
         activitiesServices
-
             .fetchActivities()
             .then(({ data }) => {
                 setActivities(data)
@@ -27,69 +29,57 @@ const HomePage = () => {
             .catch(err => console.log(err))
     }
 
-    const firstThreeActivities = activity.slice(0, 3)
+    const firstThreeActivities = activities.slice(0, 3)
 
     return (
-        <div className="HomePage">
+        <div className="fullscreen-container">
+            <header className="header">
+                <h1>PLANNING TO GO</h1>
+                <div className="icon-container">
+                    <div className="icon-item">
+                        <img src={IMAGE_PATH.ICON1} alt="Icono 1" />
+                        <p>Genera buenos recuerdos</p>
+                    </div>
+                    <div className="icon-item">
+                        <img src={IMAGE_PATH.ICON3} alt="Icono 3" />
+                        <p>Conecta con la naturaleza</p>
+                    </div>
+                    <div className="icon-item">
+                        <img src={IMAGE_PATH.ICON4} alt="Icono 4" />
+                        <p>Disfruta de una buena comida</p>
+                    </div>
+                </div>
+            </header>
 
-            <h1 className="text-center mb-4">PLANNING TO GO</h1>
-            <hr className="col-md-12" />
-            <Row className="text-center justify-content-center align-items-center mb-4">
-                <Col xs={12} sm={4} md={3} className="mb-3">
-                    <img
-                        src={IMAGE_PATH.ICON1}
-                        alt="Icono 1"
-                        className="img-fluid"
-                        style={{ maxWidth: '80px' }}
-                    />
-                    <p>Genera buenos recuerdos</p>
-                </Col>
-                <Col xs={12} sm={4} md={3} className="mb-3">
-                    <img
-                        src={IMAGE_PATH.ICON3}
-                        alt="Icono 3"
-                        className="img-fluid"
-                        style={{ maxWidth: '80px' }}
-                    />
-                    <p>Conecta con la naturaleza</p>
-                </Col>
-                <Col xs={12} sm={4} md={3} className="mb-3">
-                    <img
-                        src={IMAGE_PATH.ICON4}
-                        alt="Icono 4"
-                        className="img-fluid"
-                        style={{ maxWidth: '80px' }}
-                    />
-                    <p>Disfruta de una buena comida</p>
-                </Col>
-            </Row>
-
-            <Carousel>
-                {activity.map((activity) => {
-                    return (
-                        <Carousel.Item key={activity._id}>
-                            <img
-                                className="d-block w-100"
-                                src={activity.cover}
-                                alt={activity.name}
-                            />
-                        </Carousel.Item>
-                    );
-                })}
-            </Carousel>
-            <Row className="text-center align-items-center mt-4 mb-4">
-                {firstThreeActivities.map(elm => (
-                    <Col xs={12} md={4} key={elm._id}>
-                        <ActivityCard
-                            cover={elm.cover}
-                            name={elm.name}
-                            _id={elm._id}
+            <Carousel className="fullscreen-carousel">
+                {activities.map((activity) => (
+                    <Carousel.Item key={activity._id}>
+                        <img
+                            className="d-block w-100"
+                            src={activity.cover}
+                            alt={activity.name}
                         />
-                    </Col>
+                    </Carousel.Item>
                 ))}
-            </Row>
-        </div>
-    );
-};
+            </Carousel>
 
-export default HomePage;
+            <section className="activity-cards">
+                <Container fluid>
+                    <Row className="justify-content-center">
+                        {firstThreeActivities.map(elm => (
+                            <Col xs={12} md={4} key={elm._id} className="mb-4">
+                                <ActivityCard
+                                    cover={elm.cover}
+                                    name={elm.name}
+                                    _id={elm._id}
+                                />
+                            </Col>
+                        ))}
+                    </Row>
+                </Container>
+            </section>
+        </div>
+    )
+}
+
+export default HomePage
