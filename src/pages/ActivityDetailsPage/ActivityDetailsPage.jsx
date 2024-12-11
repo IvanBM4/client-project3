@@ -3,7 +3,6 @@ import { Button, Col, Container, Modal, Row, Stack } from "react-bootstrap"
 import { useNavigate, useParams } from 'react-router-dom'
 import activitiesServices from "../../services/activities.services"
 import { Trash, Pencil } from 'react-bootstrap-icons';
-import { useParams } from "react-router-dom"
 import { AuthContext } from '../../contexts/auth.context'
 import './ActivityDetailsPage.css'
 import Loader from "../../components/Loader/Loader"
