@@ -39,6 +39,11 @@ const ActivitiesPage = () => {
         fetchExistentAccesibilities()
     }, [])
 
+    useEffect(() => {
+        fetchActivities()
+
+    }, [categoryFilter, targetFilter, accesibilityFilter])
+
     const fetchActivities = () => {
 
         const filters = {
@@ -56,6 +61,13 @@ const ActivitiesPage = () => {
             })
             .catch(err => console.log(err))
 
+    }
+
+    const resetFilters = () => {
+        setCategoryFilter('')
+        setTargetFilter('')
+        setAccessibilityFilter('')
+        fetchActivities()
     }
 
     const fetchExistentCategories = () => {
@@ -160,12 +172,11 @@ const ActivitiesPage = () => {
                             </Col>
 
                         </Row>
-
                         <Button
                             className='mb-3'
                             variant='dark'
-                            onClick={fetchActivities}>
-                            Aplicar Filtros
+                            onClick={resetFilters}>
+                            Retirar Filtros
                         </Button>
 
 

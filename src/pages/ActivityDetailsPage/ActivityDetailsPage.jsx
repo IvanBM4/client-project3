@@ -2,6 +2,7 @@ import { useEffect, useState, useContext, act } from "react";
 import { Button, Col, Container, Modal, Row, Stack } from "react-bootstrap"
 import { useNavigate } from 'react-router-dom';
 import activitiesServices from "../../services/activities.services"
+import { Trash } from 'react-bootstrap-icons';
 import { useParams } from "react-router-dom"
 import { AuthContext } from '../../contexts/auth.context'
 import './ActivityDetailsPage.css'
@@ -68,7 +69,9 @@ const ActivityDetailsPage = () => {
     const handleJoinActivity = () => {
         activitiesServices
             .joinActivity(_id)
-            .then(fetchOneActivity())
+            .then(() => {
+                fetchOneActivity()
+            })
             .catch(err => console.log(err))
     }
 
@@ -100,14 +103,15 @@ const ActivityDetailsPage = () => {
                 <Container>
                     <Row>
                         <Col>
-                            <div>
-                                <img className="fixed-height-image" src={activity.cover} alt={activity.title} />
+                            <div className='details-actions'>
+                                <img className="fixed-height-image" src={activity.cover} alt={activity.title}
+                                />
                             </div>
+                            <hr />
                             <div className="text-container">
                                 <h3>{activity.name}</h3>
+
                                 <Stack direction="horizontal" gap={2}>
-
-
                                     {
                                         activity.assistants?.some(elm => elm._id === loggedUser?._id) ?
                                             <Button
@@ -115,26 +119,34 @@ const ActivityDetailsPage = () => {
                                                 className='assist-button'
                                                 onClick={handleLeaveActivity}
                                             >
-                                                DEJAR DE ASISTIR
+                                                Dejar de asistir
                                             </Button> :
                                             <Button
                                                 variant='dark'
                                                 className='assist-button'
                                                 onClick={handleJoinActivity}
+
                                             >
-                                                QUIERO ASISTIR                                            </Button>
+                                                Quiero asistir
+                                            </Button>
+
                                     }
 
                                     <Button variant="dark" onClick={() => setShowReviewModal(true)}>Añadir reseña</Button>
                                     {
                                         activity.host && activity.host._id === loggedUser?._id && (
-                                            <Button variant="danger" onClick={() => setShowDeleteModal(true)}>Eliminar actividad</Button>
+                                            <Button variant="dark" className="delete-icon"
+                                                onClick={() => setShowDeleteModal(true)}> <Trash
+                                                    size={18}
+                                                /></Button>
+
                                         )
                                     }
                                 </Stack>
                             </div>
                         </Col>
                         <Col>
+
                             <div className="container">
                                 <Tabs
                                     defaultActiveKey="Información"
