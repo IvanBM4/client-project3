@@ -19,6 +19,7 @@ const ReactGoogleMap = () => {
         <div className="text-pop-up-top">
 
             <GoogleMap
+                className="google-map"
                 mapContainerStyle={{ height: '50vh' }}
                 zoom={5.5}
                 onLoad={onLoad}

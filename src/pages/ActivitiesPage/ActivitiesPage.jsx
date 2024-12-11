@@ -173,13 +173,13 @@ const ActivitiesPage = () => {
                         show={showCreateToast}
                         delay={3000}
                         autohide
-                        style={{ position: 'absolute', top: '20px', right: '20px', zIndex: 1050 }}
+                        style={{ position: 'absolute', top: '80px', right: '20px', zIndex: 1050 }}
                     >
                         <Toast.Header>
                             <strong className="me-auto">Plan Creado</strong>
                             <small>Ahora</small>
                         </Toast.Header>
-                        <Toast.Body>has creado un plan !!</Toast.Body>
+                        <Toast.Body>has creado un plan </Toast.Body>
                     </Toast>
 
                     <Toast
