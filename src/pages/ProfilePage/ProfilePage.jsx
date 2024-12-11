@@ -29,11 +29,12 @@ const ProfilePage = () => {
 
     return (
         isLoading ? <Loader /> :
-            <div className="ProfilePage">
-                <Container className='mt-3' >
-                    <Row className="align-items-center">
+            <div className="ProfilePage m-3 m-md-5 ">
+                <Container className="full-heigth-min" >
+                    <Row className="'mw-80-vh">
 
-                        <Col xs={12} md={4} className="text-start">
+                        <Col xs={12} md={4} className='mw-80-vh'>
+
                             <div className="avatar-img">
                                 <img src={userData.avatar} alt="Avatar" />
                             </div>
@@ -41,18 +42,22 @@ const ProfilePage = () => {
                             <p>Email: {loggedUser.email}</p>
 
                         </Col>
-                        <Col xs={12} md={8} className="text-center ml-4" >
+
+                        <Col xs={12} md={8} className='mw-80-vh overflow-auto' >
+
                             <div className="container-logged">
                                 <h2>Actividades a las que asistiré</h2>
+                                <hr />
                                 <Row className="mt-3">
                                     {userData.likedActivities?.map(elm => {
-                                        return (<Col xs={12} md={6} key={elm._id} className="mb-4 ">
-                                            <ActivityCard
-                                                key={elm._id}
-                                                cover={elm.cover}
-                                                name={elm.name}
-                                                _id={elm._id} />
-                                        </Col>
+                                        return (
+                                            <Col xs={12} md={6} key={elm._id} className="mb-4">
+                                                <ActivityCard
+                                                    key={elm._id}
+                                                    cover={elm.cover}
+                                                    name={elm.name}
+                                                    _id={elm._id} />
+                                            </Col>
                                         )
                                     })}
                                 </Row>
@@ -62,7 +67,7 @@ const ProfilePage = () => {
 
                     </Row>
                 </Container>
-            </div>
+            </div >
     )
 }
 

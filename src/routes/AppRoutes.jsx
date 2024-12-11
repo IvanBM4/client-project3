@@ -31,10 +31,11 @@ const AppRoutes = () => {
                 <Route path="/perfil/:id" element={<ProfilePage />} />
                 <Route path="/añade-un-plan" element={<NewActivityPage />} />
                 <Route path="/editar-plan/:id" element={<EditActivityPage />} />
+                <Route element={<AdminRoute />}>
+                    <Route path="/admin" element={<AdminPage />} />
+                </Route>
             </Route>
-            <Route element={<AdminRoute />}>
-                <Route path="/admin" element={<AdminPage />} />
-            </Route>
+
         </Routes>
     )
 }

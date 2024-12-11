@@ -334,7 +334,8 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                             placeholder="Añada la duración"
                             type='number'
                             name='duration'
-                            value={activityData.duration} />
+                            value={activityData.duration}
+                            onChange={handleActivityChange} />
                     </Form.Group>
 
                     <Form.Group as={Col} xs={4} controlId='formActivityDate'>
@@ -352,7 +353,8 @@ const EditActivityForm = ({ id, closeModal, fetchActivities }) => {
                             placeholder="Añada el nuevo precio"
                             type='number'
                             name='price'
-                            value={activityData.price} />
+                            value={activityData.price}
+                            onChange={handleActivityChange} />
                     </Form.Group>
 
                 </Row>
