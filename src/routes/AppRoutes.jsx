@@ -12,8 +12,8 @@ import PrivateRoute from "./PrivateRoute"
 import NewActivityPage from "../pages/NewActivityPage/NewActivityPage"
 import ProfilePage from "../pages/ProfilePage/ProfilePage.jsx"
 import EditActivityPage from "../pages/EditActivityPage/EditActivityPage"
-
-
+import AdminRoute from "./AdminRoute.jsx"
+import AdminPage from "../pages/AdminPage/AdminPage.jsx"
 
 const AppRoutes = () => {
     return (
@@ -31,6 +31,9 @@ const AppRoutes = () => {
                 <Route path="/perfil/:id" element={<ProfilePage />} />
                 <Route path="/añade-un-plan" element={<NewActivityPage />} />
                 <Route path="/editar-plan/:id" element={<EditActivityPage />} />
+            </Route>
+            <Route element={<AdminRoute />}>
+                <Route path="/admin" element={<AdminPage />} />
             </Route>
         </Routes>
     )

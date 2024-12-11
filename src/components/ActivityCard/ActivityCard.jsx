@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Modal } from 'react-bootstrap';
-import { Pencil, X } from 'react-bootstrap-icons'; // Bootstrap icons package
+import { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Modal } from 'react-bootstrap'
+import { Pencil, X } from 'react-bootstrap-icons' // Bootstrap icons package
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
-import EditActivityForm from '../EditActivityForm/EditActivityForm';
+import EditActivityForm from '../EditActivityForm/EditActivityForm'
 import './ActivityCard.css'
 import { AuthContext } from '../../contexts/auth.context'
 import activitiesServices from "../../services/activities.services"
 
 const ActivityCard = ({ name, description, cover, host, _id, fetchActivities }) => {
     const { loggedUser } = useContext(AuthContext)
-    const navigate = useNavigate(); // React Router's hook for navigation
+    const navigate = useNavigate()
 
     const [showModal, setShowModal] = useState(false)
     const [showEditModal, setEditShowModal] = useState(false)
@@ -34,12 +34,12 @@ const ActivityCard = ({ name, description, cover, host, _id, fetchActivities }) 
     }
 
     const handleShowModal = (event) => {
-        event.stopPropagation(event);
+        event.stopPropagation(event)
         setShowModal(true)
     }
 
     const handleShowEditModal = (event) => {
-        event.stopPropagation();
+        event.stopPropagation()
         setEditShowModal(true)
     }
 
@@ -50,16 +50,16 @@ const ActivityCard = ({ name, description, cover, host, _id, fetchActivities }) 
     return (
         <div className='ActivityCard'>
             <Card onClick={() => navigate(`/planes/detalles/${_id}`)}>
-                    {
+                {
                     host && host === loggedUser?._id && (
                         <div className='card-actions'>
-                            <Pencil 
-                                onClick={handleShowEditModal} 
+                            <Pencil
+                                onClick={handleShowEditModal}
                                 style={{ cursor: 'pointer', color: 'white', background: 'rgba(0, 0, 0, 0.5)', borderRadius: '50%', padding: '5px' }}
                                 size={30}
                             />
-                            <X 
-                                onClick={handleShowModal} 
+                            <X
+                                onClick={handleShowModal}
                                 style={{ cursor: 'pointer', color: 'white', background: 'rgba(0, 0, 0, 0.5)', borderRadius: '50%', padding: '5px' }}
                                 size={30}
                             />
@@ -98,5 +98,5 @@ const ActivityCard = ({ name, description, cover, host, _id, fetchActivities }) 
     )
 }
 
-export default ActivityCard;
+export default ActivityCard
 

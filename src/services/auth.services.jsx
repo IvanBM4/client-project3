@@ -34,6 +34,11 @@ class AuthServicies {
     getOneUser(id) {
         return this.axiosApp.get(`/users/${id}`)
     }
+
+    fetchUsers() {
+        return this.axiosApp.get(`/users`)
+
+    }
 }
 
 export default new AuthServicies()
