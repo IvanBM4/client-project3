@@ -7,17 +7,14 @@
 
     25% {
         transform: translateY(0px);
-
     }
 
     50% {
         transform: translateY(80px);
-
     }
 
     75% {
         transform: translateY(0px);
-
     }
 }
 
@@ -43,7 +40,6 @@
     font-weight: bold;
     width: calc(100% - 40px);
     margin: auto;
-
 }
 
 .bouncing-letter {
@@ -51,12 +47,10 @@
     position: relative;
     animation: individualBounce 2s infinite;
     margin: 0 5px;
-
 }
 
 .bouncing-letter:hover {
     filter: brightness(1.2);
-
 }
 
 .letter-shadow {
@@ -64,10 +58,43 @@
     bottom: -5px;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(100% + 10px);
+    width: calc(1000% + 10px);
     height: 5px;
     background: rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
     opacity: 0;
     animation: shadowPulse 2s infinite;
+}
+
+@media (max-width: 1200px) {
+    .bouncing-logo {
+        font-size: 6rem;
+        width: calc(80% - 40px);
+    }
+}
+
+@media (max-width: 800px) {
+    .bouncing-logo {
+        font-size: 4rem;
+        width: calc(90% - 20px);
+        justify-content: center;
+    }
+
+    .bouncing-letter {
+        margin: 0 2px;
+    }
+
+    .letter-shadow {
+        height: 4px;
+    }
+}
+
+@media (max-width: 500px) {
+    .bouncing-logo {
+        font-size: 3rem;
+        width: calc(95% - 10px);
+    }
+
+    .letter-shadow {
+        height: 3px;
+    }
 }

@@ -27,3 +27,5 @@ export const carouselImages = [
         alt: "Descripción de la imagen 3"
     }
 ];
+
+export const NAVLOGO = "https://res.cloudinary.com/du50mrzcj/image/upload/v1734003226/fotodellogo2_n4c4jo.jpg"
