@@ -3,3 +3,16 @@ hr {
     border-top: 1px solid #9c1818;
     margin: 20px 0;
 }
+
+p,
+h1,
+h2,
+footer {
+    font-family: "Quicksand", sans-serif;
+}
+
+body {
+    background-color: white;
+    margin: 0;
+    color: black;
+}

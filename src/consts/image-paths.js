@@ -23,7 +23,12 @@ export const carouselImages = [
     },
     {
         id: 3,
-        src: "https://www.qarnal.es/wp-content/uploads/2023/09/comida-espanola.jpghttps://images.ecestaticos.com/h53ifQ5cwmB5AbJT5MR7yTZ0_DA=/125x0:2144x1513/996x747/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F3b8%2F281%2Fef2%2F3b8281ef2d44ef19e6a613d298ccf635.jpg",
+        src: "https://static.mujerhoy.com/www/multimedia/202310/13/media/cortadas/Restaurantes-castizos-madrid-bribon-sala-kKm-U210419041510d0-1248x1248@MujerHoy.jpg",
+        alt: "Descripción de la imagen 3"
+    },
+    {
+        id: 4,
+        src: "https://www.excursionespuntacana.com/wp-content/uploads/2018/07/TARZAN-1.jpg",
         alt: "Descripción de la imagen 3"
     }
 ];
