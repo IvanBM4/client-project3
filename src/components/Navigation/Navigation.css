@@ -24,6 +24,10 @@ html {
     }
 }
 
+.bg-body-tertiary {
+    background-color: #4c4b4a;
+}
+
 .logo {
     display: flex;
     align-items: center;
