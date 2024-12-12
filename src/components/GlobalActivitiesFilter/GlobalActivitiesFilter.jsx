@@ -60,12 +60,14 @@ const GlobalActivitiesFilter = () => {
                             value={filterValue}
                             onChange={handleFilterChange}
                         />
-                        <ListGroup>
-                            {filterResults.map(elm => (
-                                <FilterListResults {...elm} key={elm._id} setShowMenu={setShowMenu} />
-                            ))}
-                        </ListGroup>
-                    </Col >
+                        <div className={`filter-dropdown ${filterResults.length > 0 ? 'show' : 'hide'}`}>
+                            <ListGroup>
+                                {filterResults.map(elm => (
+                                    <FilterListResults {...elm} key={elm._id} setShowMenu={setShowMenu} />
+                                ))}
+                            </ListGroup>
+                        </div>
+                    </Col>
                 </Row>
             </Form.Group>
 
