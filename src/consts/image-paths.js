@@ -12,22 +12,22 @@ export const EUROIMG = "https://res.cloudinary.com/du50mrzcj/image/upload/v17337
 
 export const carouselImages = [
     {
-        id: 1,
+        id: 0,
         src: "https://www.revistaquercus.es/fotos/135/347OPI01_Apertura.jpg",
         alt: "personas corriendo por la montaña"
     },
     {
-        id: 2,
+        id: 1,
         src: "https://media.traveler.es/photos/6137665ebf63e581e0100a55/16:9/w_2580,c_limit/169908.jpg",
         alt: "Playa"
     },
     {
-        id: 3,
+        id: 2,
         src: "https://static.mujerhoy.com/www/multimedia/202310/13/media/cortadas/Restaurantes-castizos-madrid-bribon-sala-kKm-U210419041510d0-1248x1248@MujerHoy.jpg",
         alt: "Descripción de la imagen 3"
     },
     {
-        id: 4,
+        id: 3,
         src: "https://www.excursionespuntacana.com/wp-content/uploads/2018/07/TARZAN-1.jpg",
         alt: "Descripción de la imagen 3"
     }

@@ -6,77 +6,7 @@
     padding: 0;
 }
 
-.header {
-    height: 25vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2vh 0;
-    box-sizing: border-box;
-}
-
-.header h1 {
-    font-size: 3rem;
-    margin-bottom: 2vh;
-}
-
-.fullscreen-carousel {
-    height: 50vh;
-    width: 100%;
-}
-
-.fullscreen-carousel .carousel-inner,
-.fullscreen-carousel .carousel-item {
-    height: 100%;
-}
-
-.fullscreen-carousel .carousel-item {
-    display: flex;
-}
-
-.fullscreen-carousel .carousel-item img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-}
-
-.activity-cards {
-    height: auto;
-    width: 100%;
-    padding: 2vh 0;
-    box-sizing: border-box;
-}
-
-.activity-cards .container-fluid {
-    height: auto;
-}
-
-.activity-cards .row {
-    height: auto;
-}
-
-.activity-cards .col {
-    padding: 0;
-}
-
-.activity-card {
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.activity-card img {
-    width: 100%;
-    height: auto;
-}
-
 @media (max-width: 768px) {
-    .header {
-        height: 30vh;
-        padding-bottom: 1vh;
-    }
-
     .icon-container {
         flex-wrap: wrap;
     }
@@ -88,10 +18,27 @@
     .fullscreen-carousel {
         height: 40vh;
     }
+}
 
-    .activity-cards {
-        height: auto;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
+.carousel {
+    width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.carousel .carousel-item img {
+    height: 100%; /* Ensures the image covers the carousel's height */
+    object-fit: contain; /* Ensures the image maintains aspect ratio while filling the container */
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
 }
