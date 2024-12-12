@@ -68,7 +68,7 @@ const CreateReviewForm = ({ id, closeModal }) => {
                         </Form.Select>
                     </Form.Group>
 
-                    <Button className='reviewbutton' variant="dark" type="submit">
+                    <Button className='reviewbutton' variant="dark" type="submit" >
                         Enviar Reseña
                     </Button>
                 </Form>
