@@ -70,7 +70,6 @@ const GlobalActivitiesFilter = () => {
                     </Col>
                 </Row>
             </Form.Group>
-
             <Offcanvas show={showMenu} onHide={() => setShowMenu(false)} placement='end' className="py-3 px-2">
                 <Offcanvas.Header closeButton />
                 <Offcanvas.Body>
@@ -85,9 +84,10 @@ const GlobalActivitiesFilter = () => {
                             <FilterListResults {...elm} key={elm._id} setShowMenu={setShowMenu} />
                         ))}
                     </ListGroup>
+
                 </Offcanvas.Body>
             </Offcanvas>
-        </div>
+        </div >
     )
 }
 

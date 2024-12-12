@@ -12,7 +12,7 @@ const Navigation = () => {
 
     return (
         <div className="Navigation">
-            <Navbar expand="lg" className="bg-body-tertiary" style={{ width: '100%', padding: '20px' }}>
+            <Navbar expand="lg" bg="dark" data-bs-theme="dark" className="bg-body-tertiary" style={{ width: '100%', padding: '20px' }}>
                 <Container fluid>
 
                     <Navbar.Brand as={Link} to={'/'}>
