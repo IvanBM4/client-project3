@@ -1,6 +1,6 @@
-import { Container, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookF, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { Container, Button } from "react-bootstrap"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faFacebookF, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons"
 import './Footer.css'
 
 
@@ -40,10 +40,10 @@ const Footer = () => {
 
                         <div class="col-xs-6 col-md-6 col-sm-6" >
                             <ul style={{ padding: '0', listStyleType: 'none' }}>
-                                <li><a rel="#" href="#" style={{ color: 'white', textDecoration: 'none' }}>Mapa de España </a></li>
-                                <li><a rel="#" href="#" style={{ color: 'white', textDecoration: 'none' }}>Explora por Fotos</a></li>
-                                <li><a rel="#" href="#" style={{ color: 'white', textDecoration: 'none' }}>Encuentra el plan que mas se adate a ti</a></li>
-                                <li><a rel="#" href="#" style={{ color: 'white', textDecoration: 'none' }}>Quienes somos </a></li>
+                                <li><a rel="#" href="/" style={{ color: 'white', textDecoration: 'none' }}>Mapa de España </a></li>
+                                <li><a rel="#" href="/planes" style={{ color: 'white', textDecoration: 'none' }}>Explora por Fotos</a></li>
+                                <li><a rel="#" href="/planes" style={{ color: 'white', textDecoration: 'none' }}>Encuentra el plan que mas se adate a ti</a></li>
+                                <li><a rel="/sobre-nosotros" href="/sobre-nosotros" style={{ color: 'white', textDecoration: 'none' }}>Quienes somos </a></li>
 
                             </ul>
                         </div>

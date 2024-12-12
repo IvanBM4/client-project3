@@ -1,7 +1,7 @@
 body {
-    background-color: white;
+    background-color: #252129;
     margin: 0;
-    color: black;
+    color: white;
 }
 
 .about-us-header {
@@ -26,10 +26,11 @@ body {
 .values-list {
     list-style-type: none;
     padding-left: 0;
+    color: white;
 }
 
 .values-list li {
-    background-color: #e9ecef;
+    background-color: #676668;
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;

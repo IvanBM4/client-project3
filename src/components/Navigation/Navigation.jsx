@@ -18,7 +18,7 @@ const Navigation = () => {
             <Navbar expand="lg" className="bg-body-tertiary" style={{ width: '100%', padding: '20px' }}>
                 <Container >
                     <Navbar.Brand as={Link} to={'/'}>
-                        logo
+                        PTG
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">

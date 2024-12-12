@@ -47,8 +47,7 @@ const ReviewsList = ({ showReviewModal, closeReviewModal }) => {
                         <Modal.Title>Añade un comentario</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <CreateReviewForm id={_id} closeModal={() => { closeReviewModal, fetchReviewsByActivity() }} />
-                    </Modal.Body>
+                        <CreateReviewForm id={_id} closeModal={() => { closeReviewModal(); fetchReviewsByActivity(); }} />                    </Modal.Body>
                 </Modal>
             </div>
     )
