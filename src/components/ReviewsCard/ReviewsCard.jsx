@@ -6,7 +6,7 @@ import { AuthContext } from '../../contexts/auth.context'
 import StarRatingComponent from '../StarRatingComponent/StarRatingComponent'
 import EditReviewForm from '../EditReviewForm/EditReviewForm'
 import reviewsServices from '../../services/reviews.services'
-import { Pencil, X } from 'react-bootstrap-icons';
+import { Pencil, X } from 'react-bootstrap-icons'
 
 const ReviewsCard = ({ _id, author, rating, description, fetchReviewsByActivity }) => {
 
