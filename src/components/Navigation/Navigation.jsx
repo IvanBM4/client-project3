@@ -3,12 +3,9 @@ import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Form from 'react-bootstrap/Form'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
 import GlobalActivitiesFilter from '../GlobalActivitiesFilter/GlobalActivitiesFilter'
-
 
 const Navigation = () => {
     const { loggedUser, logoutUser } = useContext(AuthContext)
@@ -19,10 +16,7 @@ const Navigation = () => {
                 <Container fluid>
 
                     <Navbar.Brand as={Link} to={'/'}>
-                        <img
-                            src="https://res.cloudinary.com/du50mrzcj/image/upload/v1734003226/fotodellogo2_n4c4jo.jpg"
-                            alt="Logo"
-                            style={{ height: '200px', marginRight: '60px' }} />
+                        Planning to go
                     </Navbar.Brand>
 
                     <Navbar.Toggle aria-controls="navbarScroll" />
