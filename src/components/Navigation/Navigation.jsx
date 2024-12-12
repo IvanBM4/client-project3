@@ -16,7 +16,7 @@ const Navigation = () => {
     return (
         <div className="Navigation">
             <Navbar expand="lg" className="bg-body-tertiary" style={{ width: '100%', padding: '20px' }}>
-                <Container fluid>
+                <Container >
                     <Navbar.Brand as={Link} to={'/'}>
                         logo
                     </Navbar.Brand>
@@ -28,16 +28,13 @@ const Navigation = () => {
                             {loggedUser?.role === 'ADMIN' && <Nav.Link as={Link} to={'/admin'}>Administración</Nav.Link>}
                             {loggedUser && <Nav.Link as={Link} to={`/perfil/${loggedUser._id}`}>Perfil</Nav.Link>}
                             {loggedUser && <Nav.Link as={Link} onClick={logoutUser} to='/iniciar-sesion'>Cerrar sesión</Nav.Link>}
+                            {loggedUser && <Nav.Link >Contactar</Nav.Link>}
                             {!loggedUser && <Nav.Link as={Link} to='/iniciar-sesion'>Iniciar Sesión</Nav.Link>}
                             {!loggedUser && <Nav.Link as={Link} to='/registro'>Registrarse</Nav.Link>}
                         </Nav>
 
-                        <Form inline>
-                            <Row>
-                                <Col xs="auto">
-                                    <GlobalActivitiesFilter />
-                                </Col>
-                            </Row>
+                        <Form md="2" className='d-flex flex-row align-items-center'>
+                            <GlobalActivitiesFilter />
                         </Form>
                     </Navbar.Collapse>
                 </Container>

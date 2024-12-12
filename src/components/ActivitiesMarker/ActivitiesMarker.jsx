@@ -36,7 +36,13 @@ const ActivitiesMarker = () => {
                 {
                     activities.map(elm => {
                         return (
-                            <Marker onClick={() => handlePathDetails(elm._id)} key={elm._id} position={{ lng: elm.address.location.coords[1], lat: elm.address.location.coords[0] }} />
+                            <Marker
+                                onClick={() => handlePathDetails(elm._id)}
+                                key={elm._id}
+                                position={{
+                                    lng: elm.address.location.coords[1],
+                                    lat: elm.address.location.coords[0]
+                                }} />
                         )
                     })
                 }

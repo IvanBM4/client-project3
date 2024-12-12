@@ -1,0 +1,17 @@
+.MessageCard img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+
+.MessageCard .card-body {
+    background-color: #d7dee5;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.MessageCard .card {
+    border: none;
+    background-color: transparent;
+}

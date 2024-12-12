@@ -6,6 +6,7 @@ import Loader from "../../components/Loader/Loader"
 import { Row, Col, Container } from "react-bootstrap"
 import './ProfilePage.css'
 import ActivityCard from "../../components/ActivityCard/ActivityCard"
+import MessagesList from "../../components/MessagesList/MessagesList"
 
 const ProfilePage = () => {
     const [userData, setUserData] = useState({})
@@ -27,6 +28,8 @@ const ProfilePage = () => {
             .catch(err => console.log(err))
     }
 
+
+
     return (
         isLoading ? <Loader /> :
             <div className="ProfilePage m-3 m-md-5 ">
@@ -40,7 +43,8 @@ const ProfilePage = () => {
                             </div>
                             <h1>¡Hola {userData.username}!</h1>
                             <p>Email: {loggedUser.email}</p>
-
+                            <hr />
+                            <MessagesList _id={_id} />
                         </Col>
 
                         <Col xs={12} md={8} className='mw-80-vh overflow-auto' >

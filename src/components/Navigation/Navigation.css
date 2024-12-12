@@ -15,6 +15,7 @@ html {
     width: 100% !important;
     padding: 20px;
     margin: 0;
+    position: absolute;
 }
 
 @media (min-width: 40rem) {
@@ -41,6 +42,10 @@ html {
 
 .Navigation {
     width: 100%;
+}
+
+.Navigation .navbar {
+    position: fixed;
 }
 
 .Navbar {

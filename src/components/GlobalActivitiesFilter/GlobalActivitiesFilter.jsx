@@ -1,60 +1,90 @@
 import { useEffect, useState } from "react"
-import { ListGroup, Form } from "react-bootstrap"
-import axios from "axios"
+import { ListGroup, Form, Row, Col, Button, Offcanvas } from "react-bootstrap"
 import './GlobalActivitiesFilter.css'
+import { useLocation } from "react-router-dom"
+import activitiesServices from "../../services/activities.services"
+import FilterListResults from "../FilterListResults/FilterListResults"
+import { Search } from "react-bootstrap-icons"
 
 const GlobalActivitiesFilter = () => {
-    const API_URL = import.meta.env.VITE_APP_API_URL
 
     const [filterValue, setFilterValue] = useState("")
     const [filterResults, setFilterResults] = useState([])
+    const location = useLocation()
+
+    const [showMenu, setShowMenu] = useState(false)
 
     const handleFilterChange = e => {
         const { value } = e.target
         setFilterValue(value)
+        filterActivities(value)
     }
 
     useEffect(() => {
-        if (filterValue.length > 1) {
-            fetchActivitiesData()
-        } else {
+        setFilterValue('')
+        setFilterResults([])
+    }, [location.pathname])
+
+    const filterActivities = (query) => {
+        if (query.length > 0) {
+            activitiesServices
+                .filterActivities({ name: query })
+                .then(({ data }) => {
+                    setFilterResults(data)
+                })
+                .catch(err => console.log(err))
+        }
+        else {
             setFilterResults([])
         }
-    }, [filterValue])
-
-    const fetchActivitiesData = () => {
-        axios
-            .get(`${API_URL}/api/activities/search?name=${filterValue}`)
-            .then(response => {
-                const resultsArray = Array.isArray(response.data) ? response.data : Object.values(response.data);
-                setFilterResults(resultsArray)
-            })
-            .catch(err => console.log(err))
-    };
+    }
 
     return (
         <div className="GlobalActivitiesFilter">
-            <div className="searcher">
-                <Form.Control
-                    type="text"
-                    placeholder="Título de la actividad"
-                    value={filterValue}
-                    onChange={handleFilterChange}
-                />
-                <div className="search-icon">
-                    <i className="fa-solid fa-search"></i>
-                </div>
-            </div>
+            <Form.Group controlId="formFilter">
+                <Row direction="horizontal" gap={3} className="align-items-center">
 
-            <div className="list-filtered">
-                <ListGroup>
-                    {filterResults.map((elm, idx) => (
-                        <ListGroup.Item key={idx}>
-                            <h7>{elm.title}</h7>
-                        </ListGroup.Item>
-                    ))}
-                </ListGroup>
-            </div>
+                    <Col sm="1" align="right" className="d-none d-md-block">
+                        <Form.Label><Search /> </Form.Label>
+                    </Col>
+
+                    <Col sm="1" align="right" className="d-md-none">
+                        <Button variant="custom-transparent" onClick={() => setShowMenu(true)}>
+                            <Search />
+                        </Button>
+                    </Col >
+                    <Col className="d-none d-md-block">
+                        <Form.Control
+                            type="text"
+                            placeholder="Título de la actividad"
+                            value={filterValue}
+                            onChange={handleFilterChange}
+                        />
+                        <ListGroup>
+                            {filterResults.map(elm => (
+                                <FilterListResults {...elm} key={elm._id} setShowMenu={setShowMenu} />
+                            ))}
+                        </ListGroup>
+                    </Col >
+                </Row>
+            </Form.Group>
+
+            <Offcanvas show={showMenu} onHide={() => setShowMenu(false)} placement='end' className="py-3 px-2">
+                <Offcanvas.Header closeButton />
+                <Offcanvas.Body>
+                    <Form.Control
+                        type="text"
+                        placeholder="Título de la actividad"
+                        value={filterValue}
+                        onChange={handleFilterChange}
+                    />
+                    <ListGroup>
+                        {filterResults.map(elm => (
+                            <FilterListResults {...elm} key={elm._id} setShowMenu={setShowMenu} />
+                        ))}
+                    </ListGroup>
+                </Offcanvas.Body>
+            </Offcanvas>
         </div>
     )
 }
