@@ -122,7 +122,7 @@ const ActivityDetailsPage = () => {
                                         </div>
                                     </Col>
                                     <Col>
-                                        <Button variant="dark" >Contactar</Button>
+                                        <Button variant="dark" onClick={() => setShowMessageModal(true)}>Contactar</Button>
                                     </Col>
                                 </Row>
                                 <Container>

@@ -19,8 +19,8 @@ class MessagesServices {
         return this.axiosApp.get(`/messages/users/${id}`)
     }
 
-    sendMessage() {
-        return this.axiosApp.get(`/messages`)
+    sendMessage(messageData) {
+        return this.axiosApp.post(`/messages`, messageData)
     }
 
 }

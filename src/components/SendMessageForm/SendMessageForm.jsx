@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
 import { AuthContext } from "../../contexts/auth.context"
 import messageServices from "../../services/message.services"
+import { Button, Form } from "react-bootstrap"
 
 
 const SendMessageForm = ({ closeModal, _id }) => {
@@ -8,7 +9,6 @@ const SendMessageForm = ({ closeModal, _id }) => {
     const { loggedUser } = useContext(AuthContext)
 
     const [messageData, setMessageData] = useState({
-        receiver: '',
         content: ''
     })
 
@@ -17,23 +17,41 @@ const SendMessageForm = ({ closeModal, _id }) => {
         setMessageData({ ...messageData, [name]: value })
     }
 
-    const reqPayLoad = {
-        ...messageData,
-        sender: loggedUser
-    }
+    console.log(_id)
 
     const handleSubmitForm = e => {
+
         e.preventDefault()
+
+        const reqPayLoad = {
+
+            sender: loggedUser,
+            receiver: _id,
+            ...messageData
+        }
 
         messageServices
             .sendMessage(reqPayLoad)
-            .then(alert('enviado'))
+            .then(closeModal())
             .catch(err => console.log(err))
     }
 
     return (
         <div className="SendMessageForm">
-            <h1>Form enviar mensaje</h1>
+            <Form onSubmit={handleSubmitForm} className="mb-5">
+                <Form.Group className="mb-3" controlId="formReviewText">
+                    <Form.Label>Mensaje</Form.Label>
+                    <Form.Control
+                        type='text'
+                        name='content'
+                        value={messageData.content}
+                        rows={3}
+                        placeholder="Escribe tu mensaje"
+                        onChange={handleInputChange} />
+                </Form.Group>
+
+                <Button type="submit" >Enviar mensaje</Button>
+            </Form>
         </div>
     )
 }
