@@ -1,0 +1,15 @@
+.FilterListResults a {
+    text-decoration: none;
+    color: #000000;
+    transition: color 0.2s ease-in-out;
+}
+
+.FilterListResults a:hover {
+    color: grey
+}
+
+.FilterListResults p {
+    margin: 0;
+    font-size: 1rem;
+    color: inherit;
+}

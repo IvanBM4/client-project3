@@ -4,6 +4,8 @@ import activitiesServices from '../../services/activities.services'
 import ActivityCard from '../../components/ActivityCard/ActivityCard'
 import './HomePage.css'
 import BouncingLogo from '../../components/BouncingLogo/BouncingLogo'
+import { carouselImages } from '../../consts/image-paths'
+
 
 const HomePage = () => {
     const [activities, setActivities] = useState([])
@@ -38,12 +40,12 @@ const HomePage = () => {
             </header>
 
             <Carousel className="fullscreen-carousel">
-                {activities.map((activity) => (
-                    <Carousel.Item key={activity._id}>
+                {carouselImages.map((image) => (
+                    <Carousel.Item key={image.id}>
                         <img
                             className="d-block w-100"
-                            src={activity.cover}
-                            alt={activity.name}
+                            src={image.src}
+                            alt={image.alt}
                         />
                     </Carousel.Item>
                 ))}

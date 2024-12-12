@@ -1,11 +1,26 @@
-.GlobalActivitiesFilter .list-group {
+.GlobalActivitiesFilter {
+    position: relative;
+}
+
+.GlobalActivitiesFilter .filter-dropdown {
     position: absolute;
     top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    left: 30;
+    width: 220;
+    z-index: 1050;
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+.GlobalActivitiesFilter .filter-dropdown .ListGroup {
     max-height: 300px;
     overflow-y: auto;
+}
+
+.filter-dropdown.hide {
+    display: none;
+}
+
+.filter-dropdown.show {
+    display: block;
 }
