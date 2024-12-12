@@ -26,12 +26,12 @@ const MessagesList = ({ _id }) => {
         isLoading ? <Loader /> :
             <div className="MessagesList">
                 <h2>Mensajes recibidos ({messagesData.length})</h2>
+                <hr />
                 {messagesData.map(elm => {
                     return (
                         <MessageCard {...elm} />
                     )
                 })}
-
             </div>
     )
 }

@@ -2,6 +2,7 @@ import { Button, Card, Col, Modal, Row } from "react-bootstrap"
 import '../MessageCard/MessageCard.css'
 import { useState } from "react"
 import SendMessageForm from "../SendMessageForm/SendMessageForm"
+import { Send } from "react-bootstrap-icons"
 
 const MessageCard = ({ sender, content }) => {
 
@@ -14,15 +15,17 @@ const MessageCard = ({ sender, content }) => {
                 <Card.Body>
                     <Row>
                         <Col>
-                            <Card.Img src={sender?.avatar} />
+                            <Card.Img className="mb-2" src={sender?.avatar} />
+
                             <Card.Title>{sender?.username}</Card.Title>
                         </Col>
-                        <Col>
+                        <Col style={{ disply: 'flex', justifyContent: 'left' }}>
                             <Button variant="dark" onClick={() => setShowMessageModal(true)}>
-                                Enviar mensaje
+                                <Send />
                             </Button>
                         </Col>
                     </Row>
+                    <hr />
                     <Card.Text>{content}</Card.Text>
 
                 </Card.Body>

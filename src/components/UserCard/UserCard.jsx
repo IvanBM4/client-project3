@@ -10,7 +10,9 @@ const UserCard = ({ username, avatar, email, _id }) => {
     return (
         <div className="UserCard">
 
-            <Card onClick={() => navigate(`/perfil/${_id}`)} style={{ width: '18rem' }}>
+            <Card
+                onClick={() => navigate(`/perfil/${_id}`)}
+                style={{ width: '18rem' }}>
                 <Card.Body className="text-center">
                     <Image
                         src={avatar}
@@ -23,6 +25,7 @@ const UserCard = ({ username, avatar, email, _id }) => {
                     <Card.Text>{email}</Card.Text>
                 </Card.Body>
             </Card>
+
         </div>
     )
 }
