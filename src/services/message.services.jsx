@@ -19,6 +19,10 @@ class MessagesServices {
         return this.axiosApp.get(`/messages/users/${id}`)
     }
 
+    sendMessage() {
+        return this.axiosApp.get(`/messages`)
+    }
+
 }
 
 export default new MessagesServices()

@@ -11,19 +11,22 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { TIMEIMG, CALENDARIMG, EUROIMG } from "../../consts/image-paths";
 import EditActivityForm from "../../components/EditActivityForm/EditActivityForm";
+import SendMessageForm from "../../components/SendMessageForm/SendMessageForm";
 
 const ActivityDetailsPage = () => {
 
     const { loggedUser } = useContext(AuthContext)
     const { id: _id } = useParams()
     const navigate = useNavigate()
+
     const [activity, setActivity] = useState({})
     const [isLoading, setIsLoading] = useState(true)
+
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showReviewModal, setShowReviewModal] = useState(false)
     const [showAssistantModal, setShowAssistantModal] = useState(false)
-    const [showModal, setShowModal] = useState(false)
     const [showEditModal, setEditShowModal] = useState(false)
+    const [showMessageModal, setShowMessageModal] = useState(false)
 
     useEffect(() => {
         fetchOneActivity()
@@ -74,6 +77,10 @@ const ActivityDetailsPage = () => {
         setShowAssistantModal(false)
     }
 
+    const handleCloseMessageModal = () => {
+        setShowMessageModal(false)
+    }
+
     const deleteActivity = () => {
         activitiesServices
             .deleteActivity(_id)
@@ -107,10 +114,17 @@ const ActivityDetailsPage = () => {
 
                             <h3>{activity.name}</h3>
                             <div className="text-container">
-                                <div className="avatar">
-                                    <img className='avatarimg' src={activity.host.avatar} alt="avatar" />
-                                    <span className="subtext">Creado por: {activity.host.username}</span>
-                                </div>
+                                <Row>
+                                    <Col>
+                                        <div className="avatar">
+                                            <img className='avatarimg' src={activity.host.avatar} alt="avatar" />
+                                            <span className="subtext">Creado por: {activity.host.username}</span>
+                                        </div>
+                                    </Col>
+                                    <Col>
+                                        <Button variant="dark" >Contactar</Button>
+                                    </Col>
+                                </Row>
                                 <Container>
                                     <Row>
                                         <Col xs={12} md={6} className="mb-2">
@@ -154,6 +168,15 @@ const ActivityDetailsPage = () => {
                                         </Modal.Header>
                                         <Modal.Body>
                                             <EditActivityForm id={_id} closeModal={handleCloseEditModal} updateActivityDetails={fetchOneActivity} />
+                                        </Modal.Body>
+                                    </Modal>
+
+                                    <Modal show={showMessageModal} onHide={handleCloseMessageModal} size="lg">
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Enviar mensaje plan</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <SendMessageForm _id={activity.host._id} closeModal={handleCloseMessageModal} />
                                         </Modal.Body>
                                     </Modal>
                                 </Container>

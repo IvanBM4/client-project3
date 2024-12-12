@@ -33,7 +33,7 @@ const Navigation = () => {
                             {!loggedUser && <Nav.Link as={Link} to='/registro'>Registrarse</Nav.Link>}
                         </Nav>
 
-                        <Form md="2" className='d-flex flex-row align-items-center'>
+                        <Form md="2" className='d-flex flex-row align-i tems-center'>
                             <GlobalActivitiesFilter />
                         </Form>
                     </Navbar.Collapse>
