@@ -2,7 +2,6 @@ body {
     background-color: white;
     margin: 0;
     color: black;
-
 }
 
 .fullscreen-container {
@@ -30,29 +29,9 @@ body {
     margin-bottom: 2vh;
 }
 
-.icon-container {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-}
-
-.icon-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.icon-item img {
-    width: auto;
-    max-width: 80px;
-    height: auto;
-
-}
-
 .fullscreen-carousel {
     height: 50vh;
     width: 100%;
-
 }
 
 .fullscreen-carousel .carousel-inner,
@@ -62,65 +41,64 @@ body {
 
 .fullscreen-carousel .carousel-item {
     display: flex;
-
 }
 
 .fullscreen-carousel .carousel-item img {
     object-fit: cover;
-
     height: 100%;
     width: 100%;
-
 }
 
 .activity-cards {
-    height: 25vh;
-
+    height: auto;
     width: 100%;
-
     padding: 2vh 0;
     box-sizing: border-box;
 }
 
 .activity-cards .container-fluid {
-    height: 100%;
+    height: auto;
 }
 
 .activity-cards .row {
-    height: 100%;
+    height: auto;
 }
 
 .activity-cards .col {
-    height: 100%;
     padding: 0;
+}
 
+.activity-card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.activity-card img {
+    width: 100%;
+    height: auto;
 }
 
 @media (max-width: 768px) {
     .header {
         height: 30vh;
-
         padding-bottom: 1vh;
-
     }
 
     .icon-container {
         flex-wrap: wrap;
-
     }
 
     .icon-item img {
         width: 15vw;
-
     }
 
     .fullscreen-carousel {
         height: 40vh;
-
     }
 
     .activity-cards {
-        height: 30vh;
-
+        height: auto;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 }

@@ -1,6 +1,6 @@
-import { Container, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookF, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { Container, Button } from "react-bootstrap"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faFacebookF, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons"
 import './Footer.css'
 
 

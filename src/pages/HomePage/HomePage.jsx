@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Carousel, Row, Col, Container } from 'react-bootstrap'
 import activitiesServices from '../../services/activities.services'
-import * as IMAGE_PATH from '../../consts/image-paths'
 import ActivityCard from '../../components/ActivityCard/ActivityCard'
 import './HomePage.css'
+import BouncingLogo from '../../components/BouncingLogo/BouncingLogo'
 
 const HomePage = () => {
     const [activities, setActivities] = useState([])
@@ -34,21 +34,7 @@ const HomePage = () => {
     return (
         <div className="fullscreen-container">
             <header className="header">
-                <h1>PLANNING TO GO</h1>
-                <div className="icon-container">
-                    <div className="icon-item">
-                        <img src={IMAGE_PATH.ICON1} alt="Icono 1" />
-                        <p>Genera buenos recuerdos</p>
-                    </div>
-                    <div className="icon-item">
-                        <img src={IMAGE_PATH.ICON3} alt="Icono 3" />
-                        <p>Conecta con la naturaleza</p>
-                    </div>
-                    <div className="icon-item">
-                        <img src={IMAGE_PATH.ICON4} alt="Icono 4" />
-                        <p>Disfruta de una buena comida</p>
-                    </div>
-                </div>
+                <BouncingLogo />
             </header>
 
             <Carousel className="fullscreen-carousel">
@@ -63,15 +49,16 @@ const HomePage = () => {
                 ))}
             </Carousel>
 
-            <section className="activity-cards">
+            <section className="activity-cards" style={{ marginBottom: '20px' }}>
                 <Container fluid>
                     <Row className="justify-content-center">
                         {firstThreeActivities.map(elm => (
-                            <Col xs={12} md={4} key={elm._id} className="mb-4">
+                            <Col xs={12} md={6} lg={4} key={elm._id} className="mb-4">
                                 <ActivityCard
                                     cover={elm.cover}
                                     name={elm.name}
                                     _id={elm._id}
+                                    className="activity-card"
                                 />
                             </Col>
                         ))}

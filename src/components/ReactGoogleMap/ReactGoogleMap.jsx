@@ -1,35 +1,54 @@
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import { useState } from 'react'
 import ActivitiesMarker from '../ActivitiesMarker/ActivitiesMarker'
-import '../ReactGoogleMap/ReactGoogleMap.css'
+import './ReactGoogleMap.css'
 
 const ReactGoogleMap = () => {
-
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: "AIzaSyBZ2QgeOdlau8hshB4nIF47iw2lXyjViJs"
     })
 
     const [map, setMap] = useState(null)
 
-    const onLoad = (map)
+    const onLoad = (map) => setMap(map)
     const onUnmount = () => setMap(null)
 
+    const mapContainerStyle = {
+        width: '100%',
+        height: '70vh'
+    }
+
     return (
-        isLoaded &&
-        <div className="text-pop-up-top">
-
-            <GoogleMap
-                className="google-map"
-                mapContainerStyle={{ height: '50vh' }}
-                zoom={5.5}
-                onLoad={onLoad}
-                center={{ lat: 40.41769976820468, lng: -3.684093875138128 }}
-                onUnmount={onUnmount} >
-                <ActivitiesMarker />
-            </GoogleMap>
-
-        </div >
+        isLoaded && (
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                width: '167%',
+                margin: 0,
+                padding: 0,
+                overflowX: 'hidden'
+            }}>
+                <div style={{
+                    width: '100%',
+                    overflow: 'hidden'
+                }}>
+                    <GoogleMap
+                        mapContainerStyle={mapContainerStyle}
+                        zoom={5.5}
+                        center={{ lat: 40.41769976820468, lng: -3.684093875138128 }}
+                        onLoad={onLoad}
+                        onUnmount={onUnmount}
+                    >
+                        <ActivitiesMarker />
+                    </GoogleMap>
+                </div>
+            </div>
+        )
     )
 }
 
 export default ReactGoogleMap
+
+
+
