@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { Carousel, Row, Col, Container } from 'react-bootstrap'
+import { useEffect, useState } from 'react';
+import { Carousel } from 'react-bootstrap'
 import activitiesServices from '../../services/activities.services'
-import ActivityCard from '../../components/ActivityCard/ActivityCard'
 import './HomePage.css'
-import BouncingLogo from '../../components/BouncingLogo/BouncingLogo'
-import { carouselImages } from '../../consts/image-paths'
-
+import { motion } from 'framer-motion';
+import { Link } from 'react-bootstrap-icons';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
     const [activities, setActivities] = useState([])
@@ -21,6 +20,8 @@ const HomePage = () => {
         }
     }, [])
 
+const navigate = useNavigate()
+
     const fetchActivities = () => {
         activitiesServices
             .fetchActivities()
@@ -31,39 +32,66 @@ const HomePage = () => {
             .catch(err => console.log(err))
     }
 
-    const firstThreeActivities = activities.slice(0, 3)
+    const carouselEffect = {
+        hidden: { opacity: 0.8, scale: 0.95 },
+        visible: { opacity: 1, scale: 1 },
+        transition: { duration: 1 },
+    };
 
     return (
         <div className="fullscreen-container">
 
-            <Carousel className="fullscreen-carousel">
-                {carouselImages.map((image) => (
-                    <Carousel.Item key={image.id}>
-                        <img
+            <motion.div
+                variants={carouselEffect}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.3 }}
+            >
+                <Carousel>
+                    <Carousel.Item>
+                        <motion.img
                             className="d-block w-100"
-                            src={image.src}
-                            alt={image.alt}
+                            src={"https://res.cloudinary.com/du50mrzcj/image/upload/v1734023456/l9cafubmvcvmcvs7vdgk.jpg"}
+                            alt="FirstImg"
+                            whileHover={{ scale: 1.02 }}
                         />
+                        <Carousel.Caption className="d-flex justify-content-center align-items-center h-100">
+                            <div className="carousel-overlay">
+                                <motion.h3 onClick={()=> navigate('/planes')}whileHover={{ scale: 1.1 }}>Tomate un respiro</motion.h3>
+                               <p>Pulsa para ver nuestros planes</p>
+                            </div>
+                        </Carousel.Caption>
                     </Carousel.Item>
-                ))}
-            </Carousel>
-
-            <section className="activity-cards" style={{ marginBottom: '20px' }}>
-                <Container fluid>
-                    <Row className="justify-content-center">
-                        {firstThreeActivities.map(elm => (
-                            <Col xs={12} md={6} lg={4} key={elm._id} className="mb-4">
-                                <ActivityCard
-                                    cover={elm.cover}
-                                    name={elm.name}
-                                    _id={elm._id}
-                                    className="activity-card"
-                                />
-                            </Col>
-                        ))}
-                    </Row>
-                </Container>
-            </section>
+                    <Carousel.Item>
+                        <motion.img
+                            className="d-block w-100"
+                            src={"https://res.cloudinary.com/du50mrzcj/image/upload/v1734023068/bcyodngavhegtcphptpl.jpg"}
+                            alt="SecondImg"
+                            whileHover={{ scale: 1.02 }}
+                        />
+                        <Carousel.Caption className="d-flex justify-content-center align-items-center h-100">
+                            <div className="carousel-overlay">
+                                <motion.h3 whileHover={{ scale: 1.1 }}>Descubre más</motion.h3>
+                                  <p>Pulsa para ver nuestros planes</p>
+                            </div>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <motion.img
+                            className="d-block w-100"
+                            src={"https://res.cloudinary.com/du50mrzcj/image/upload/v1734024196/xenc8dq1vykjr22gpfmy.jpg"}
+                            alt="ThirdIMG"
+                            whileHover={{ scale: 1.02 }}
+                        />
+                        <Carousel.Caption className="d-flex justify-content-center align-items-center h-100">
+                            <div className="carousel-overlay">
+                                <motion.h3 onClick={()=> navigate('/planes')}whileHover={{ scale: 1.1 }}>Disfruta de los mejores momentos</motion.h3>
+                                  <p>Pulsa para ver nuestros planes</p>
+                            </div>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                </Carousel>
+            </motion.div>
         </div>
     )
 }
