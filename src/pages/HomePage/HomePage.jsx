@@ -35,9 +35,6 @@ const HomePage = () => {
 
     return (
         <div className="fullscreen-container">
-            <header className="header">
-                <BouncingLogo />
-            </header>
 
             <Carousel className="fullscreen-carousel">
                 {carouselImages.map((image) => (

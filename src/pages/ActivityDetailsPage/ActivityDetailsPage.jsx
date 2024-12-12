@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react"
 import { Button, Col, Container, Modal, Row, Stack } from "react-bootstrap"
 import { useNavigate, useParams } from 'react-router-dom'
 import activitiesServices from "../../services/activities.services"
-import { Trash, Pencil } from 'react-bootstrap-icons';
+import { Trash, Pencil, Chat } from 'react-bootstrap-icons';
 import { AuthContext } from '../../contexts/auth.context'
 import './ActivityDetailsPage.css'
 import Loader from "../../components/Loader/Loader"
@@ -113,16 +113,18 @@ const ActivityDetailsPage = () => {
                             <img className="fixed-height-image" src={activity.cover} alt={activity.title} />
 
                             <h3>{activity.name}</h3>
+
                             <div className="text-container">
                                 <Row>
                                     <Col>
                                         <div className="avatar">
                                             <img className='avatarimg' src={activity.host.avatar} alt="avatar" />
                                             <span className="subtext">Creado por: {activity.host.username}</span>
+                                            <Col xs={6} md={3} className="contact-button w-100 d-flex justify-content-center">
+                                            </Col>
                                         </div>
                                     </Col>
                                     <Col>
-                                        <Button variant="dark" onClick={() => setShowMessageModal(true)}>Contactar</Button>
                                     </Col>
                                 </Row>
                                 <Container>
@@ -144,6 +146,9 @@ const ActivityDetailsPage = () => {
                                                 Comentarios
                                             </Button>
                                         </Col>
+                                        <Button variant="dark" > Contacta con {activity.host.username} para obtener mas información!
+                                            <Chat size={18} className="ms-2" />
+                                        </Button>
 
                                         {activity.host && activity.host._id === loggedUser?._id && (
                                             <Col xs={12} md={6} className="mb-2">
