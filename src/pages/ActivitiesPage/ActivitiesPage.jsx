@@ -29,7 +29,6 @@ const ActivitiesPage = () => {
         setShow(false)
         setShowCreateToast(false)
     }
-
     const handleShow = () => setShow(true)
 
     useEffect(() => {
@@ -44,12 +43,7 @@ const ActivitiesPage = () => {
     }, [categoryFilter, targetFilter, accesibilityFilter])
 
     const fetchActivities = () => {
-        const filters = {
-            categories: categoryFilter,
-            target: targetFilter,
-            accesibility: accesibilityFilter
-        }
-
+        const filters = { categories: categoryFilter, target: targetFilter, accesibility: accesibilityFilter }
         activitiesServices
             .filterActivities(filters)
             .then(({ data }) => {
@@ -99,17 +93,12 @@ const ActivitiesPage = () => {
         isLoading ? <Loader /> :
             <Container>
                 <div className="ActivitiesPage">
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                    }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <h1>Encuentra el plan que mejor se adapte a ti</h1>
                         {loggedUser && <Button variant="dark" onClick={handleShow}>
                             Añade tu propio plan!
                         </Button>}
                     </div>
-
                     <h2>Lista de planes y hay ahora {activities.length} planes</h2>
                     <div className="maps">
                         <ReactGoogleMap />
@@ -125,7 +114,6 @@ const ActivitiesPage = () => {
                                     ))}
                                 </Form.Select>
                             </Col>
-
                             <Col>
                                 <Form.Select value={targetFilter} onChange={e => setTargetFilter(e.target.value)}>
                                     <option value="">Todas las orientaciones</option>
@@ -134,7 +122,6 @@ const ActivitiesPage = () => {
                                     ))}
                                 </Form.Select>
                             </Col>
-
                             <Col>
                                 <Form.Select value={accesibilityFilter} onChange={e => setAccessibilityFilter(e.target.value)}>
                                     <option value="">Todas las accesibilidades</option>
@@ -144,36 +131,30 @@ const ActivitiesPage = () => {
                                 </Form.Select>
                             </Col>
                         </Row>
-
                         <Button className='mb-3' variant='dark' onClick={resetFilters}>
                             Retirar Filtros
                         </Button>
                     </div>
-
                     <ActivitiesList activities={activities} fetchActivities={fetchActivities} />
-
                     <Modal show={show} onHide={handleClose}>
                         <Modal.Header closeButton>
                             <Modal.Title>Crea un Nuevo Plan</Modal.Title>
                         </Modal.Header>
-
                         <Modal.Body>
-                            <CreateActivityForm
-                                handleClose={() => {
-                                    handleClose()
-                                    setShowCreateToast(true)
-                                }}
-                                fetchActivities={fetchActivities}
-                            />
+                            <CreateActivityForm handleClose={() => {
+                                handleClose()
+                                setShowCreateToast(true)
+                            }} fetchActivities={fetchActivities} />
                         </Modal.Body>
                     </Modal>
-
-                    <Toast
-                        onClose={() => setShowCreateToast(false)}
-                        show={showCreateToast}
-                        delay={3000}
-                        autohide
-                        style={{ position: 'absolute', top: '80px', right: '20px', zIndex: 1050 }}
+                    <Toast onClose={() => setShowCreateToast(false)} show={showCreateToast} delay={3000} autohide
+                        style={{
+                            position: 'fixed',
+                            top: '20px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 1050
+                        }}
                     >
                         <Toast.Header>
                             <strong className="me-auto">Plan Creado</strong>
@@ -181,13 +162,14 @@ const ActivitiesPage = () => {
                         </Toast.Header>
                         <Toast.Body>has creado un plan </Toast.Body>
                     </Toast>
-
-                    <Toast
-                        onClose={() => setShowResetToast(false)}
-                        show={showResetToast}
-                        delay={3000}
-                        autohide
-                        style={{ position: 'absolute', top: '80px', right: '20px', zIndex: 1050 }}
+                    <Toast onClose={() => setShowResetToast(false)} show={showResetToast} delay={3000} autohide
+                        style={{
+                            position: 'fixed',
+                            top: '20px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 1050
+                        }}
                     >
                         <Toast.Header>
                             <strong className="me-auto">Filtros Retirados</strong>
@@ -195,9 +177,8 @@ const ActivitiesPage = () => {
                         </Toast.Header>
                         <Toast.Body>¡Los filtros han sido retirados,genial!</Toast.Body>
                     </Toast>
-
                 </div>
-            </Container >
+            </Container>
     )
 }
 
