@@ -1,0 +1,13 @@
+.AdminPage .nav-pills .nav-link:hover {
+    background-color: #495057;
+}
+
+.AdminPage .nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #343a40;
+}
+
+.AdminPage {
+    padding-top: 20px;
+}

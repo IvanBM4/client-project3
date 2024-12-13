@@ -34,3 +34,7 @@ export const carouselImages = [
 ];
 
 export const NAVLOGO = "https://res.cloudinary.com/du50mrzcj/image/upload/v1734003226/fotodellogo2_n4c4jo.jpg"
+
+export const IVAN = "https://res.cloudinary.com/du50mrzcj/image/upload/v1734083127/a93urv8q2ivxm79yibwc.jpg"
+export const MERCEDES = "https://res.cloudinary.com/du50mrzcj/image/upload/v1734083191/dyysx9i2suvucfqybklc.jpg"
+export const MARTA = "https://res.cloudinary.com/du50mrzcj/image/upload/v1734083232/ibz9mnkqyydbk8tpqqdi.jpg"

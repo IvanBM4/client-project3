@@ -5,7 +5,7 @@ import Loader from "../../components/Loader/Loader"
 import ActivitiesCalendar from "../../components/ActivitiesCalendar/ActivitiesCalendar"
 import { Col, Container, Nav, NavItem, NavLink, Row, Tab, TabContainer, TabContent, TabPane } from "react-bootstrap"
 import activitiesServices from "../../services/activities.services"
-
+import '../AdminPage/AdminPage.css'
 
 const AdminPage = () => {
 
@@ -42,6 +42,7 @@ const AdminPage = () => {
             <div className="AdminPage">
                 <Container>
                     <h1>Panel de control para administradores</h1>
+                    <hr />
                     <TabContainer
                         defaultActiveKey='users'>
                         <Row>
@@ -60,7 +61,7 @@ const AdminPage = () => {
                                 </Nav>
                             </Col>
                             <Col md='8'>
-                                <TabContent>
+                                <TabContent className="userslist">
                                     <TabPane eventKey='users'>
 
                                         <UsersList usersData={usersData} />

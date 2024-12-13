@@ -19,13 +19,14 @@
     align-items: center;
 }
 
-.rating {
+.ReviewsCard .rating {
     margin-bottom: 10px;
     margin-left: 10px;
 }
 
 .ReviewsCard .card-body {
-    background-color: #343a40;
+    background-color: rgba(43, 48, 53, 0.8);
+
     cursor: pointer;
     border-radius: 20px;
 }

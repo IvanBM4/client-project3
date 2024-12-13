@@ -146,7 +146,7 @@ const ActivityDetailsPage = () => {
                                                 Comentarios
                                             </Button>
                                         </Col>
-                                        <Button variant="dark" > Contacta con {activity.host.username} para obtener mas información!
+                                        <Button className="mb-2" variant="dark" > Contacta con {activity.host.username} para obtener mas información!
                                             <Chat size={18} className="ms-2" />
                                         </Button>
 

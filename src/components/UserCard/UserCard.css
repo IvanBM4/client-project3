@@ -5,7 +5,8 @@
 }
 
 .UserCard .card {
-    background-color: #343a40;
+    background-color: rgba(43, 48, 53, 0.8);
+
 }
 
 .UserCard .card-body {
