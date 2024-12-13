@@ -146,9 +146,6 @@ const ActivityDetailsPage = () => {
                                                 Comentarios
                                             </Button>
                                         </Col>
-                                        <Button variant="dark" > Contacta con {activity.host.username} para obtener mas información!
-                                            <Chat size={18} className="ms-2" />
-                                        </Button>
 
                                         {activity.host && activity.host._id === loggedUser?._id && (
                                             <Col xs={12} md={6} className="mb-2">
@@ -165,6 +162,9 @@ const ActivityDetailsPage = () => {
                                                 </Button>
                                             </Col>
                                         )}
+                                        <Button variant="dark" > Contacta con {activity.host.username} para obtener mas información!
+                                            <Chat size={18} className="ms-2" />
+                                        </Button>
                                     </Row>
 
                                     <Modal show={showEditModal} onHide={handleCloseEditModal} size="lg">

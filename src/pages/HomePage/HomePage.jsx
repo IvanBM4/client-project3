@@ -62,16 +62,31 @@ const navigate = useNavigate()
                             </div>
                         </Carousel.Caption>
                     </Carousel.Item>
-                    <Carousel.Item>
+                     <Carousel.Item>
                         <motion.img
                             className="d-block w-100"
-                            src={"https://res.cloudinary.com/du50mrzcj/image/upload/v1734023068/bcyodngavhegtcphptpl.jpg"}
+                            src={"https://res.cloudinary.com/du50mrzcj/image/upload/v1734082588/ltvjcodneczjynulyiyf.jpg"}
                             alt="SecondImg"
                             whileHover={{ scale: 1.02 }}
                         />
                         <Carousel.Caption className="d-flex justify-content-center align-items-center h-100">
                             <div className="carousel-overlay">
-                                <motion.h3 whileHover={{ scale: 1.1 }}>Descubre más</motion.h3>
+                                <motion.h3 whileHover={{ scale: 1.1 }}>Disfruta de una buena comida</motion.h3>
+                                  <p>Pulsa para ver nuestros planes</p>
+                            </div>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                  
+                    <Carousel.Item>
+                        <motion.img
+                            className="d-block w-100"
+                            src={"https://res.cloudinary.com/du50mrzcj/image/upload/v1734023068/bcyodngavhegtcphptpl.jpg"}
+                            alt="ThirdImg"
+                            whileHover={{ scale: 1.02 }}
+                        />
+                        <Carousel.Caption className="d-flex justify-content-center align-items-center h-100">
+                            <div className="carousel-overlay">
+                                <motion.h3 whileHover={{ scale: 1.1 }}>Conecta con la naturaleza</motion.h3>
                                   <p>Pulsa para ver nuestros planes</p>
                             </div>
                         </Carousel.Caption>
@@ -80,7 +95,7 @@ const navigate = useNavigate()
                         <motion.img
                             className="d-block w-100"
                             src={"https://res.cloudinary.com/du50mrzcj/image/upload/v1734024196/xenc8dq1vykjr22gpfmy.jpg"}
-                            alt="ThirdIMG"
+                            alt="FourthIMG"
                             whileHover={{ scale: 1.02 }}
                         />
                         <Carousel.Caption className="d-flex justify-content-center align-items-center h-100">

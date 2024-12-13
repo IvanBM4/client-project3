@@ -1,147 +1,23 @@
-body,
-html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
-.Navigation {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.Navbar {
-    width: 100% !important;
-    padding: 20px;
-    margin: 0;
-    position: absolute;
-}
-
-@media (min-width: 40rem) {
-    h1 {
-        font-size: 5rem;
-    }
-}
-
-.bg-body-tertiary {
-    background-color: #4c4b4a;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo-text {
-    font-size: 24px;
-    font-weight: bold;
-    color: #343a40;
-    margin-left: 10px;
-}
-
-.logo-text:hover {
-    color: #007bff;
-}
-
-.Navigation {
-    width: 100%;
-}
-
-.Navigation .navbar {
-    position: fixed;
-}
-
-.Navbar {
-    justify-content: flex-start;
-}
-
-.search-form {
-    margin-left: auto;
-}
-
-.Navbar .navbar-nav {
-    margin-right: 10px;
+.Navigation .nav-link {
+    color: white !important; /* Asegura que el color blanco se aplique */
+    text-decoration: none;
+ padding-right: 30px !important; 
 
 }
 
-.Navbar .navbar-brand {
-    margin-right: 0px;
+.Navigation .nav-link:hover {
+    color: #ccc; /* Opcional: un color más claro para el hover */
 }
-
-.nav-links-group {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    justify-content: flex-end;
-    font-size: 16px;
-}
-
 .nav-links-group a {
-    color: black;
+    color: white !important;
     text-decoration: none;
     font-size: 25px;
+    margin: 0 50px; /* Ajusta la distancia horizontal */
 }
 
 .nav-links-group a:hover {
-    color: rgb(114, 106, 106);
+    color: #ccc !important;
 }
-
-@media (max-width: 480px) {
-    .nav-links-group {
-        gap: 5px;
-    }
-
-    .nav-links-group a {
-        font-size: 14px;
-    }
-}
-
-*/ .NavbarActivitiesSearch {
-    position: relative;
-
-}
-
-.search-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    max-height: 200px;
-    overflow-y: auto;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-
-}
-
-.search-dropdown.show {
-    opacity: 1;
-    transform: translateY(0);
-
-}
-
-.search-dropdown ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.search-dropdown li {
-    padding: 10px;
-    cursor: pointer;
-}
-
-.search-dropdown li:hover {
-    background-color: #f0f0f0;
-
-}
-
-.error {
-    color: red;
+.navbar .nav-link{
+      padding-right: 30px;
 }
