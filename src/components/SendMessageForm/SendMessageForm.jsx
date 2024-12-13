@@ -50,7 +50,7 @@ const SendMessageForm = ({ closeModal, _id }) => {
                         onChange={handleInputChange} />
                 </Form.Group>
 
-                <Button type="submit" >Enviar mensaje</Button>
+                <Button variant="dark" type="submit" >Enviar mensaje</Button>
             </Form>
         </div>
     )

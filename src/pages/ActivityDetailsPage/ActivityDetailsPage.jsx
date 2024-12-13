@@ -227,7 +227,7 @@ const ActivityDetailsPage = () => {
                                             </Button>
                                         </Col>
                                     )}
-                                    <Button variant="dark" > Contacta con {activity.host.username} para obtener mas información!
+                                    <Button onClick={() => setShowMessageModal(true)} variant="dark" > Contacta con {activity.host.username} para obtener mas información!
                                         <Chat size={18} className="ms-2" />
                                     </Button>
                                 </Row>
