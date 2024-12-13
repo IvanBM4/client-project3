@@ -12,7 +12,9 @@ import accesibilitiesServices from "../../services/accesibilities.services"
 import { AuthContext } from "../../contexts/auth.context"
 
 const ActivitiesPage = () => {
+
     const { loggedUser } = useContext(AuthContext)
+
     const [activities, setActivities] = useState([])
     const [categoryFilter, setCategoryFilter] = useState('')
     const [targetFilter, setTargetFilter] = useState('')
@@ -20,7 +22,9 @@ const ActivitiesPage = () => {
     const [existentCategories, setExistentCategories] = useState([])
     const [existentTargets, setExistentTargets] = useState([])
     const [existentAccesibilities, setExistentAccesibilities] = useState([])
+
     const [isLoading, setIsLoading] = useState(true)
+
     const [show, setShow] = useState(false)
     const [showCreateToast, setShowCreateToast] = useState(false)
     const [showResetToast, setShowResetToast] = useState(false)
@@ -43,7 +47,11 @@ const ActivitiesPage = () => {
     }, [categoryFilter, targetFilter, accesibilityFilter])
 
     const fetchActivities = () => {
-        const filters = { categories: categoryFilter, target: targetFilter, accesibility: accesibilityFilter }
+        const filters = {
+            categories: categoryFilter,
+            target: targetFilter,
+            accesibility: accesibilityFilter
+        }
         activitiesServices
             .filterActivities(filters)
             .then(({ data }) => {
@@ -99,7 +107,7 @@ const ActivitiesPage = () => {
                             Añade tu propio plan!
                         </Button>}
                     </div>
-                    <h2>Lista de planes y hay ahora {activities.length} planes</h2>
+                    <h2>Actualmente contamos con {activities.length} planes en las próximas semanas</h2>
                     <div className="maps">
                         <ReactGoogleMap />
                     </div>
