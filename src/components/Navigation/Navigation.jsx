@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
 import GlobalActivitiesFilter from '../GlobalActivitiesFilter/GlobalActivitiesFilter'
+import './Navigation.css'
 
 const Navigation = () => {
     const { loggedUser, logoutUser } = useContext(AuthContext)
