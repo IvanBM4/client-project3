@@ -1,8 +1,20 @@
-# React + Vite
+# Planning to go
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Planning to go is a place where you can create plans or activities and connect with people to share unique moments and meet people with common hobbies.
 
-Currently, two official plugins are available:
+## Main features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Browse through different plans and activities, classified by theme, target and accessibility.
+- Create your user account and start creating plans, joining existing plans and contact with other users
+- Check the map to find the plans closest to you
+- Try it on your phone with our responsive design!
+
+## Technologies used
+
+- **Front-end**: React, React Bootstrap, Javascript.
+- **Back-end**: Express, MongoDB, Javascript.
+- **Services**: Geocoding by Google Places API and React Google Maps, Cloudinary for uploading images
+
+## Credits
+
+This project was developed during the Ironhack Web Development by Marta Quiroga, Mercedes Sebastian & Iván Blanco
